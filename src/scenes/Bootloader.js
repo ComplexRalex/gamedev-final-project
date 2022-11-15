@@ -9,57 +9,99 @@ class Bootloader extends Phaser.Scene {
         this.load.path = './assets/';
 
         this.load.image([
-            { key: 'textures', url: 'textures/textures.png' },
-            { key: 'krt', url: 'logo_krt.png' },
+            // * Main menu
+
+            // Background
+            { key: 'fondo_p', url: 'menu/fondo_p.png' },
+
+            // Logo
+            { key: 'titulo_v2', url: 'menu/titulo_v2.png' },
+            { key: 'logo_krt', url: 'menu/logo_krt.png' },
+
+            // GUI (Menu)
+            { key: 'play', url: 'menu/play.png' },
+
+            // Objects (Menu)
+            { key: 'hoja1', url: 'menu/hoja1.png' },
+            { key: 'hoja2', url: 'menu/hoja2.png' },
+
+            // * Credits
+
+            // Logo
+            { key: 'logokrt', url: 'credits/logokrt.png' },
+
+            // * Game
+
+            // Extra
+            { key: 'textures', url: 'game/textures/textures.png' },
+            { key: 'krt', url: 'menu/logo_krt.png' },
+
+            // GUI
+            { key: 'nor-face', url: 'game/gui/nor-face.png' },
+            { key: 'gui-bg', url: 'game/gui/gui-bg.png' },
+            { key: 'weapon-bg', url: 'game/gui/weapon-bg.png' },
+            { key: 'buttons/z', url: 'game/gui/buttons/z.png' },
+            { key: 'buttons/x', url: 'game/gui/buttons/x.png' },
+            { key: 'buttons/a', url: 'game/gui/buttons/a.png' },
+            { key: 'buttons/s', url: 'game/gui/buttons/s.png' },
+            { key: 'buttons/space', url: 'game/gui/buttons/space.png' },
+            { key: 'buttons/shift', url: 'game/gui/buttons/shift.png' },
+
+            // Characters (only those who don't have atlas)
+            
+            // Weapons (same note as above)
+            { key: 'sword', url: 'game/objects/sword.png' },
+            { key: 'bow', url: 'game/objects/bow.png' },
+            { key: 'arrow', url: 'game/objects/arrow.png' },
+            
+            // Items (same note as above)
+            { key: 'key', url: 'game/objects/key.png' },
+            
+            // Triggery stuff
+            { key: 'button', url: 'game/objects/button.png' },
+            { key: 'rock', url: 'game/objects/rock.png' },
+            { key: 'gate', url: 'game/objects/gate.png' },
+            { key: 'sign', url: 'game/objects/sign.png' },
+
+            // Structures
+            { key: 'house', url: 'game/objects/house.png' },
+            { key: 'temple', url: 'game/objects/temple.png' },
+            { key: 'sanctuary', url: 'game/objects/sanctuary.png' },
+            { key: 'pedestal', url: 'game/objects/pedestal.png' },
         ]);
 
         this.load.atlas([
-            // Characters
-            { key: 'nor', textureURL: 'characters/nor/nor.png', atlasURL: 'characters/nor/nor_atlas.json' },
+            // * Game
 
-            // Objects
-            { key: 'heart', textureURL: 'heart/heart.png', atlasURL: 'heart/heart_atlas.json' },
-            { key: 'textures_atlas', textureURL: 'textures/textures.png', atlasURL: 'textures/textures_atlas.json' },
+            // Characters
+            { key: 'nor', textureURL: 'game/characters/nor/nor.png', atlasURL: 'game/characters/nor/nor_atlas.json' },
+
+            // Weapons
+            // ! Bombs are missing!
+
+            // Items
+            { key: 'heart', textureURL: 'game/objects/heart/heart.png', atlasURL: 'game/objects/heart/heart_atlas.json' },
+            { key: 'banana', textureURL: 'game/objects/banana/banana.png', atlasURL: 'game/objects/banana/banana_atlas.json' },
+
+            // Textures (scene)
+            { key: 'textures_atlas', textureURL: 'game/textures/textures.png', atlasURL: 'game/textures/textures_atlas.json' },
         ]);
 
         this.load.animation([
-            { key: 'nor_anim', url: 'characters/nor/nor_anim.json' },
+            // * Game
+
+            // Characters
+            { key: 'nor_anim', url: 'game/characters/nor/nor_anim.json' },
+            
+            // Weapons
+            // ! Bombs are missing
+
+            // Items
+            { key: 'banana_anim', url: 'game/objects/banana/banana_anim.json' },
         ]);
 
         // ! Esta es la forma de cargar un mapa de "tiles"
-        this.load.tilemapTiledJSON("tile-map", "textures/map.json", null);
-
-        this.load.image([
-            // Main menu
-
-            // Background
-            'fondo_p',
-
-            // Logo
-            'titulo',
-            'titulo_v2',
-            'logo_krt',
-            'logokrt',
-
-            // GUI (Menu)
-            'play',
-
-            // Objects (Menu)
-            'hoja1',
-            'hoja2',
-
-            // Scene
-            'scene',
-
-            // GUI
-            'nor-face',
-            'weapon-bg',
-            'gui-bg',
-            'buttons/z',
-            'buttons/x',
-            'buttons/a',
-            'buttons/s',
-        ]);
+        this.load.tilemapTiledJSON("tile-map", "game/textures/map.json", null);
 
         this.load.audio([
             { key: 'menu', url: 'music/main_loop.mp3' },
@@ -69,7 +111,7 @@ class Bootloader extends Phaser.Scene {
         this.load.on('complete', () => {
             console.warn("Loading complete!");
 
-            this.launch
+            this.scene.stop('Loading');
             // this.scene.start('Start');
             // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
             this.scene.start('GUI');

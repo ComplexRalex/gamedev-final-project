@@ -2,6 +2,7 @@ class Player extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y }) {
         super(scene, x, y, 'nor');
 
+        // !
         // ! Physics things
         this.scene = scene;
         this.scene.add.existing(this);
@@ -16,6 +17,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.acceleration = 700;
         this.speedUp = 1.3;
 
+        // !
         // ! Movement and animation things
         // ? x: -1 (izquierda) | 0 (en medio) | 1 (derecha)
         // ? y: -1 (arriba)    | 0 (en medio) | 1 (abajo)
@@ -47,6 +49,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.cursor.a = this.scene.input.keyboard.addKey('a');
         this.cursor.s = this.scene.input.keyboard.addKey('s');
 
+        // !
         // ! Health and stat things
         this.health = 15;
         this.healthDelta = 5;
@@ -85,6 +88,8 @@ class Player extends Phaser.GameObjects.Sprite {
             bobms: 0,
         };
 
+        // !
+        // ! Secondary weapon stuff
         // * Relación al arma secundaria
         this.hasObtained = {
             bow: true,
@@ -101,6 +106,20 @@ class Player extends Phaser.GameObjects.Sprite {
         // * Idealmente:
         // this.secondaryWeapons = ['bow', 'bomb'];
         this.secondaryWeapons = ['bow', 'bomb'];
+
+        // !
+        // ! Weapong damage container?
+        // ? La idea de este arreglo es que sea utilizado por el juego para
+        // ? comparar si alguno de los objetos que se encuentran dentro están
+        // ? "overlapeando" o colisionando con algún enemigo, con el fin de que
+        // ? estos puedan recibir daño.
+        // * Este arreglo debe contener game objects con cuerpos de colisión.
+        // * Sustancialmente, contendrá los objetos como:
+        // * > > Ataque de espada
+        // * > > Flecha(s)
+        // * > > Bomba(s)
+        // * Es necesario notar que estos objetos son de clases específicas.
+        this.attackObjects = [];
 
         this.setListeners();
     }

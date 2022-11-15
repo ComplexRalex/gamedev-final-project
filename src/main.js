@@ -1,3 +1,4 @@
+import Loading from './scenes/Loading.js';
 import Bootloader from './scenes/Bootloader.js';
 import Start from './scenes/Start.js';
 import GUI from './scenes/GUI.js';
@@ -16,7 +17,7 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    backgroundColor: "#444444",
+    backgroundColor: "#222222",
     pixelArt: true,
     physics: {
         default: "arcade",
@@ -25,6 +26,7 @@ const config = {
         }
     },
     scene: [
+        Loading,
         Bootloader,
         Start,
         Game,

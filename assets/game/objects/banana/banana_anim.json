@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "banana_glow",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "banana",
+                    "frame": "banana_0"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_1"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_2"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_3"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_4"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_0"
+                },
+                {
+                    "key": "banana",
+                    "frame": "banana_0"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+{
+    "frames": [
+        {
+            "filename": "banana_0",
+            "frame": {
+                "w": 18,
+                "h": 19,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "banana_1",
+            "frame": {
+                "w": 18,
+                "h": 19,
+                "x": 18,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "banana_2",
+            "frame": {
+                "w": 18,
+                "h": 19,
+                "x": 36,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "banana_3",
+            "frame": {
+                "w": 18,
+                "h": 19,
+                "x": 54,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "banana_4",
+            "frame": {
+                "w": 18,
+                "h": 19,
+                "x": 72,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ]
+}

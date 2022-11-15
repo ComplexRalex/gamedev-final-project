@@ -1,0 +1,56 @@
+{
+    "anims": [
+        {
+            "key": "loading",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "loading",
+                    "frame": "loading1"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading2"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading3"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading4"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading5"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading6"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading7"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading8"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading9"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading10"
+                },
+                {
+                    "key": "loading",
+                    "frame": "loading11"
+                }
+            ]
+        }
+    ]
+}
