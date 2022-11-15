@@ -459,6 +459,29 @@ class Game extends Phaser.Scene {
             console.log(this.getNorSceneCoords());
             this.updateSceneCoords(this.getNorSceneCoords());
         }
+
+        // ! NOTA
+        // ! Este overlap tiene que estar en el update, porque se tienen que
+        // ! actualizar las referencias de los objetos de ataque.
+        // ! Si algún arma de Nor toca a algún enemigo, entonces estos
+        // ! tienen que recibir daño.
+        this.physics.overlap(
+            [
+                ...this.nor.attackObjects.sword,
+                ...this.nor.attackObjects.arrows,
+                ...this.nor.attackObjects.bombs,
+            ],
+            [
+                ...this.enemyGameObjects,
+                this.boss
+            ],
+            (_, enemy) => {
+                this.enemyGameObjects = this.enemyGameObjects.filter(enemyObj => enemyObj !== enemy);
+                if (this.boss === enemy) this.boss = null;
+                enemy.destroy();
+                console.log("ORALE SI JALÓ");
+            }
+        );
     }
 }
 export default Game;

@@ -1,0 +1,99 @@
+{
+    "frames": [
+        {
+            "filename": "sword_attack1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack7",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 51,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 101,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 151,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 1,
+                "y": 51
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 51,
+                "y": 51
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "sword_attack6",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 101,
+                "y": 51
+            },
+            "anchor": {
+                "x": 0,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

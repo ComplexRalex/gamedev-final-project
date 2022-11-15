@@ -1,3 +1,5 @@
+import Sword from "./Sword.js";
+
 class Player extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y }) {
         super(scene, x, y, 'nor');
@@ -6,7 +8,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // ! Physics things
         this.scene = scene;
         this.scene.add.existing(this);
-        this.scene.physics.world.enable(this);
+        this.scene.physics.world.enable(this, Phaser.Physics.Arcade.DYNAMIC_BODY);
 
         this.body.setSize(20, 48);
         this.body.setOffset(14, 16);
@@ -109,17 +111,21 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Weapong damage container?
-        // ? La idea de este arreglo es que sea utilizado por el juego para
+        // ? La idea de estos arreglos es que sean utilizados por el juego para
         // ? comparar si alguno de los objetos que se encuentran dentro están
         // ? "overlapeando" o colisionando con algún enemigo, con el fin de que
         // ? estos puedan recibir daño.
-        // * Este arreglo debe contener game objects con cuerpos de colisión.
-        // * Sustancialmente, contendrá los objetos como:
+        // * Estos arreglos deben contener game objects con cuerpos de colisión.
+        // * Sustancialmente, contendrán los objetos como:
         // * > > Ataque de espada
         // * > > Flecha(s)
         // * > > Bomba(s)
         // * Es necesario notar que estos objetos son de clases específicas.
-        this.attackObjects = [];
+        this.attackObjects = {
+            sword: [],
+            arrows: [],
+            bombs: [],
+        };
 
         this.setListeners();
     }
@@ -202,21 +208,7 @@ class Player extends Phaser.GameObjects.Sprite {
             if (type === 'interaction') {
                 this.interact();
             } else if (type === 'attack') {
-                // ! Según sea el tipo de ataque, va a hacer algo xD
-                switch (weapon) {
-                    case 'sword':
-                        // * Aquí hace cosas cuando tiene arco
-                        this.attack({ weapon: 'sword' });
-                        break;
-                    case 'bow':
-                        // * Aquí hace cosas cuando tiene arco
-                        this.attack({ weapon: 'bow' });
-                        break;
-                    case 'bomb':
-                        // * Aquí hace cosas cuando tiene bombas
-                        this.attack({ weapon: 'bomb' });
-                        break;
-                }
+                this.attack({ weapon });
             }
 
             // ! Luego de que pase cierto tiempo, ya podrá hacer más cosas
@@ -240,6 +232,27 @@ class Player extends Phaser.GameObjects.Sprite {
     // ! sido utilizado
     attack({ weapon }) {
         console.warn("Aquí se hace el manejo del ataque según sea el caso");
+        switch (weapon) {
+            case 'sword':
+                const sword = new Sword({
+                    scene: this.scene,
+                    x: this.x,
+                    y: this.y,
+                    direction: this.logicDirection,
+                });
+                this.attackObjects.sword.push(sword);
+                setTimeout(() => {
+                    this.attackObjects.sword.shift();
+                    sword.destroy();
+                }, this.doingSomethingTime - 100);
+                break;
+            case 'bow':
+                break;
+            case 'bomb':
+                break;
+            default:
+                break;
+        }
     }
 
     // ! Este es utilizado cuando se ha recibido daño.
@@ -274,11 +287,11 @@ class Player extends Phaser.GameObjects.Sprite {
 
             } else {
                 this.isDead = true;
-                
+
                 this.scene.input.keyboard.removeAllKeys();
                 this.body.setAcceleration(0);
                 this.body.setVelocity(0);
-                
+
                 this.action = 'hurt';
                 this.updateAnimation();
                 this.scene.add.tween({

@@ -1,0 +1,104 @@
+{
+    "anims": [
+        {
+            "key": "bomb_explode",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 16,
+            "frames": [
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode1"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode2"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode3"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode4"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode5"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode6"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode7"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode8"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_explode9"
+                }
+            ]
+        },
+        {
+            "key": "bomb_preparing",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing1"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing2"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing3"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing4"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing5"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing6"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing7"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_preparing8"
+                }
+            ]
+        },
+        {
+            "key": "bomb_active",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bomb",
+                    "frame": "bomb_active1"
+                },
+                {
+                    "key": "bomb",
+                    "frame": "bomb_active2"
+                }
+            ]
+        }
+    ]
+}

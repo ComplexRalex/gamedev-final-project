@@ -77,7 +77,8 @@ class Bootloader extends Phaser.Scene {
             { key: 'nor', textureURL: 'game/characters/nor/nor.png', atlasURL: 'game/characters/nor/nor_atlas.json' },
 
             // Weapons
-            // ! Bombs are missing!
+            { key: 'bomb', textureURL: 'game/objects/bomb/bomb.png', atlasURL: 'game/objects/bomb/bomb_atlas.json' },
+            { key: 'sword_attack', textureURL: 'game/objects/sword_attack/sword_attack.png', atlasURL: 'game/objects/sword_attack/sword_attack_atlas.json' },
 
             // Items
             { key: 'heart', textureURL: 'game/objects/heart/heart.png', atlasURL: 'game/objects/heart/heart_atlas.json' },
@@ -94,7 +95,8 @@ class Bootloader extends Phaser.Scene {
             { key: 'nor_anim', url: 'game/characters/nor/nor_anim.json' },
             
             // Weapons
-            // ! Bombs are missing
+            { key: 'sword_attack_anim', url: 'game/objects/sword_attack/sword_attack_anim.json' },
+            { key: 'bomb_anim', url: 'game/objects/bomb/bomb_anim.json' },
 
             // Items
             { key: 'banana_anim', url: 'game/objects/banana/banana_anim.json' },
