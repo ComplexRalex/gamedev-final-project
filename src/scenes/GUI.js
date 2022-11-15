@@ -1,0 +1,273 @@
+class GUI extends Phaser.Scene {
+    constructor() {
+        super('GUI');
+    }
+
+    init() {
+        console.log("Escena 'GUI' iniciada");
+
+        this.centerX = this.scale.width / 2;
+        this.centerY = this.scale.height / 2;
+
+        this.guiFontType = {
+            fontFamily: 'monospace',
+            fontSize: 20,
+            align: 'left',
+        };
+
+        // ! Esto es importante, porque cada vez que se inicia la
+        // ! escena, se está haciendo un "on" sobre los eventos.
+        // ! Si no se hace esto, se estarán inicializando varias
+        // ! veces los mismos handlers, acumulando varios iguales
+        // ! y ejecutandolos al mismo tiempo.
+        this.registry.events.removeAllListeners('changeHP');
+        this.registry.events.removeAllListeners('changeStats');
+        this.input.keyboard.removeAllListeners();
+        this.input.keyboard.removeAllKeys();
+    }
+
+    buildGUI() {
+        // Interfaz de usuario
+        this.guiContainer = this.add.container(0, 480)
+            .setDepth(100);
+
+        // Fondo del GUI
+        this.guiContainer.add(
+            this.add.image(0, 0, 'gui-bg')
+                .setOrigin(0, 0)
+                .setScale(4)
+        );
+
+        // Contenedor para corazones y demás
+        this.guiTopStats = this.add.container(15, 45);
+        this.guiContainer.add(this.guiTopStats);
+
+        // Rostro de Nor
+        this.guiNor = this.add.image(0, 0, 'nor-face')
+            .setScale(4)
+            .setOrigin(0, 0.5);
+        this.guiTopStats.add(this.guiNor);
+
+        // Gurpo de corazones
+        this.guiHearts = this.add.group({
+            key: 'heart',
+            quantity: 3,
+            setXY: {
+                x: 137,
+                y: 0,
+                stepX: 64,
+            },
+            setScale: {
+                x: 4,
+            },
+            setOrigin: {
+                x: 0.5,
+                y: 0.5,
+            }
+        });
+        this.guiTopStats.add(this.guiHearts.getChildren());
+
+        // Contenedor para contador de objetos
+        this.guiBottomStats = this.add.container(35, 95);
+        this.guiContainer.add(this.guiBottomStats);
+
+        // Contenedor para llaves
+        this.guiKeyContainer = this.add.container(30, 0);
+        this.guiBottomStats.add(this.guiKeyContainer);
+
+        this.guiKey = this.add.image(0, 0, 'textures_atlas', 'key')
+            .setScale(2);
+        this.guiKeyContainer.add(this.guiKey);
+
+        this.guiKeyNumber = this.add.text(40, 0, '0', this.guiFontType)
+            .setOrigin(0, 0.5);
+        this.guiKeyContainer.add(this.guiKeyNumber);
+
+        // Contenedor para flechas
+        this.guiArrowContainer = this.add.container(130, 0);
+        this.guiBottomStats.add(this.guiArrowContainer);
+
+        this.guiArrow = this.add.image(0, 0, 'textures_atlas', 'arrows')
+            .setScale(2)
+            .setAngle(45);
+        this.guiArrowContainer.add(this.guiArrow);
+
+        this.guiArrowNumber = this.add.text(40, 0, '0', this.guiFontType)
+            .setOrigin(0, 0.5);
+        this.guiArrowContainer.add(this.guiArrowNumber);
+
+        // Contenedor para bombas
+        this.guiBombContainer = this.add.container(220, 0);
+        this.guiBottomStats.add(this.guiBombContainer);
+
+        this.guiBomb = this.add.image(0, 0, 'textures_atlas', 'bombs')
+            .setScale(2);
+        this.guiBombContainer.add(this.guiBomb);
+
+        this.guiBombNumber = this.add.text(30, 0, '0', this.guiFontType)
+            .setOrigin(0, 0.5);
+        this.guiBombContainer.add(this.guiBombNumber);
+
+        // Contenedor para armas
+        this.guiWeapons = this.add.container(460, 60);
+        this.guiContainer.add(this.guiWeapons);
+
+        // Contenedor de arma primaria
+        this.guiPrimaryWeapon = this.add.container(-74, 0);
+        this.guiWeapons.add(this.guiPrimaryWeapon);
+
+        // Recuadro de arma primaria
+        this.guiPrimaryWeapon.add(
+            this.add.image(0, 0, 'weapon-bg').setScale(4)
+        );
+
+        // Espada
+        this.guiPrimaryWeapon.add(
+            this.add.image(0, 0, 'textures_atlas', 'sword').setScale(4)
+        );
+
+        // Botón primario
+        this.guiZ = this.add.image(40, 36, 'buttons/z')
+            .setScale(4)
+            .setAlpha(0.5);
+        this.guiPrimaryWeapon.add(this.guiZ);
+
+        // Contenedor de arma secundaria
+        this.guiSecondaryWeapon = this.add.container(74, 0);
+        this.guiWeapons.add(this.guiSecondaryWeapon);
+
+        // Recuadro de arma secundaria
+        this.guiSecondaryWeapon.add(
+            this.add.image(0, 0, 'weapon-bg').setScale(4)
+        );
+
+        // Arco
+        this.guiSecondaryWeapon.add(
+            this.add.image(5, -5, 'textures_atlas', 'bow').setScale(4)
+        );
+
+        // Botón secundario
+        this.guiX = this.add.image(40, 36, 'buttons/x')
+            .setScale(4)
+            .setAlpha(0.5);
+        this.guiSecondaryWeapon.add(this.guiX);
+
+        // Botón izquierdo de cambio
+        this.guiA = this.add.image(-70, -20, 'buttons/a')
+            .setScale(4)
+            .setAlpha(0.5);
+        this.guiSecondaryWeapon.add(this.guiA);
+
+        // Botón derecho de cambio
+        this.guiS = this.add.image(70, -20, 'buttons/s')
+            .setScale(4)
+            .setAlpha(0.5);
+        this.guiSecondaryWeapon.add(this.guiS);
+
+        // Tween al GUI
+        // this.add.tween({
+        //     targets: [this.guiContainer],
+        //     ease: 'Bounce.easeOut',
+        //     delay: 2000,
+        //     duration: 1000,
+        //     props: {
+        //         y: {
+        //             from: 600,
+        //             to: 480,
+        //         },
+        //     },
+        // });
+    }
+
+    isZAXSKey(event) {
+        return [
+            this.playerKeys.a.keyCode,
+            this.playerKeys.s.keyCode,
+            this.playerKeys.z.keyCode,
+            this.playerKeys.x.keyCode
+        ].includes(event.keyCode);
+    }
+
+    updateHearts(health, healthDelta) {
+        this.guiHearts.children.iterate((heart, index) => {
+            if (health >= 2 * (index + 1) * healthDelta)
+                heart.setFrame('heart_full_0');
+            else if (health >= 2 * (index + 1) * healthDelta - healthDelta)
+                heart.setFrame('heart_half_0');
+            else
+                heart.setFrame('heart_empty_0');
+        });
+    }
+
+    setListeners() {
+
+        // Constantes
+        this.keyCodes = Phaser.Input.Keyboard.KeyCodes;
+        this.keyEvents = Phaser.Input.Keyboard.Events;
+
+        // ! Actualización de la vida inicial
+        this.updateHearts();
+
+        this.playerKeys = {};
+
+        // Teclas especiales
+        this.playerKeys.a = this.input.keyboard.addKey('a');
+        this.playerKeys.s = this.input.keyboard.addKey('s');
+        this.playerKeys.z = this.input.keyboard.addKey('z');
+        this.playerKeys.x = this.input.keyboard.addKey('x');
+
+        this.input.keyboard.on('keydown', (event) => {
+            if (this.isZAXSKey(event)) {
+                switch (event.key) {
+                    case 'a': case 'A': this.guiA.setAlpha(1); break;
+                    case 's': case 'S': this.guiS.setAlpha(1); break;
+                    case 'z': case 'Z': this.guiZ.setAlpha(1); break;
+                    case 'x': case 'X': this.guiX.setAlpha(1); break;
+                };
+            }
+        });
+
+        this.input.keyboard.on('keyup', (event) => {
+            if (this.isZAXSKey(event)) {
+                switch (event.key) {
+                    case 'a': case 'A': this.guiA.setAlpha(0.5); break;
+                    case 's': case 'S': this.guiS.setAlpha(0.5); break;
+                    case 'z': case 'Z': this.guiZ.setAlpha(0.5); break;
+                    case 'x': case 'X': this.guiX.setAlpha(0.5); break;
+                }
+            }
+        });
+
+        // ! Inicialización de listeners para el juego y el GUI
+
+        // * Cambia la vida del jugador en el GUI
+        this.registry.events.on('changeHP', ({ health, healthDelta }) => {
+            console.warn("Actualización de vida: "+health);
+            this.updateHearts(health, healthDelta);
+        });
+        
+        // * Cambia estadistica indicada en el GUI
+        this.registry.events.on('changeStats', ({ keyNumber, arrowNumber, bombNumber }) => {
+            if (!isNaN(keyNumber)) {
+                console.warn("Actualización de estadística [keys]: "+keyNumber);
+                this.guiKeyNumber.setText(keyNumber.toString());
+            }
+            if (!isNaN(arrowNumber)) {
+                console.warn("Actualización de estadística [arrows]: "+arrowNumber);
+                this.guiArrowNumber.setText(arrowNumber.toString());
+            }
+            if (!isNaN(bombNumber)) {
+                console.warn("Actualización de estadística [bombs]: "+bombNumber);
+                this.guiBombNumber.setText(bombNumber.toString());
+            }
+        });
+    }
+
+    create() {
+        this.buildGUI();
+        this.setListeners();
+    }
+
+}
+
+export default GUI;

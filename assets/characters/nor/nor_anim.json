@@ -1,0 +1,340 @@
+{
+    "anims": [
+        {
+            "key": "nor_hurt_up",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_hurt_up"
+                }
+            ]
+        },
+        {
+            "key": "nor_hurt_side",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_hurt_side"
+                }
+            ]
+        },
+        {
+            "key": "nor_hurt_down",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_hurt_down"
+                }
+            ]
+        },
+        {
+            "key": "nor_do_up",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 16,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_up6"
+                }
+            ]
+        },
+        {
+            "key": "nor_do_side",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 16,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_side6"
+                }
+            ]
+        },
+        {
+            "key": "nor_do_down",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 16,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_do_down6"
+                }
+            ]
+        },
+        {
+            "key": "nor_walk_up",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_up1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_up2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_up3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_up4"
+                }
+            ]
+        },
+        {
+            "key": "nor_walk_side",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_side1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_side2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_side3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_side4"
+                }
+            ]
+        },
+        {
+            "key": "nor_walk_down",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_down1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_down2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_down3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_walk_down4"
+                }
+            ]
+        },
+        {
+            "key": "nor_idle_up",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up6"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up7"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up8"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_up9"
+                }
+            ]
+        },
+        {
+            "key": "nor_idle_side",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side6"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side7"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side8"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_side9"
+                }
+            ]
+        },
+        {
+            "key": "nor_idle_down",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down6"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down7"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down8"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_idle_down9"
+                }
+            ]
+        }
+    ]
+}

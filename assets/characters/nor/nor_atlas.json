@@ -1,0 +1,788 @@
+{
+    "frames": [
+        {
+            "filename": "nor_idle_down1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 151,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 201,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 251,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down7",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 301,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down8",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 351,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_down9",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 401,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 451,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 501,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 551,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side7",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 151,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side8",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 201,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_side9",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 251,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 301,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 351,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 401,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 451,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 501,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 551,
+                "y": 67
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up7",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up8",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_idle_up9",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_down1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 151,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_down4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 201,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_down2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 251,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_down3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 301,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_side1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 351,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_side2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 401,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_side3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 451,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_side4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 501,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_up3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 551,
+                "y": 133
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_up2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_up4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_walk_up1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 151,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 201,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 251,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 301,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 351,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_down6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 401,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 451,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 501,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 551,
+                "y": 199
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_side5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 151,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up6",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 201,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 251,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 301,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up4",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 351,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_do_up5",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 401,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_hurt_down",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 451,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_hurt_side",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 501,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        },
+        {
+            "filename": "nor_hurt_up",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 551,
+                "y": 265
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.625
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

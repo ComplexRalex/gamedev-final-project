@@ -1,0 +1,82 @@
+{
+    "frames": [
+        {
+            "filename": "heart_full_0",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "heart_full_1",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 15,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "heart_half_0",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 0,
+                "y": 13
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "heart_half_1",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 15,
+                "y": 13
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "heart_empty_0",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 0,
+                "y": 26
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "heart_empty_1",
+            "frame": {
+                "w": 15,
+                "h": 13,
+                "x": 15,
+                "y": 26
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ]
+}

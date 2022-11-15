@@ -1,0 +1,88 @@
+{
+    "anims": [
+        {
+            "key": "heart_empty_blink",
+            "type": "frames",
+            "repeat": 4,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_empty_0"
+                },
+                {
+                    "key": "heart",
+                    "frame": "heart_empty_1"
+                }
+            ]
+        },
+        {
+            "key": "heart_half_blink",
+            "type": "frames",
+            "repeat": 4,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_half_0"
+                },
+                {
+                    "key": "heart",
+                    "frame": "heart_half_1"
+                }
+            ]
+        },
+        {
+            "key": "heart_full_blink",
+            "type": "frames",
+            "repeat": 4,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_full_0"
+                },
+                {
+                    "key": "heart",
+                    "frame": "heart_full_1"
+                }
+            ]
+        },
+        {
+            "key": "heart_empty",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_empty_0"
+                }
+            ]
+        },
+        {
+            "key": "heart_half",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_half_0"
+                }
+            ]
+        },
+        {
+            "key": "heart_full",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_full_0"
+                }
+            ]
+        }
+    ]
+}
