@@ -219,6 +219,9 @@ class Game extends Phaser.Scene {
             .find(obj => obj.type === 'button');
         this.lockTrigger = this.mappedObjects
             .find(obj => obj.type === 'lock');
+        this.rocks = this.mappedObjects
+            .filter(obj => obj.type === 'rock')
+            .map(obj => obj.gameObject);
 
         // ! Se obtienen las referencias de los objetos "agarrables"
         this.itemsGameObjects = this.mappedObjects
@@ -339,6 +342,19 @@ class Game extends Phaser.Scene {
         this.nor.changeHP({});
     }
 
+    damagePlayer(damagePoints = 1) {
+        if (!this.nor.isDamaged) {
+            this.nor.getHurt({ damagePoints: damagePoints });
+            this.cameras.main.flash(100, 150, 0, 0);
+            if (this.nor.health > 0) {
+                this.cameras.main.shake(150, 0.0015);
+            } else {
+                this.cameras.main.shake(400, 0.005);
+                this.onDead();
+            }
+        }
+    }
+
     update() {
         // ! Se actualizan las físicas de Nor!
         this.nor.update();
@@ -381,11 +397,19 @@ class Game extends Phaser.Scene {
         //     }
         // );
 
+        // ! Si la flecha se sale de la escena, se tiene que borrar
         this.nor.attackObjects.arrows.forEach((arrow) => {
             if (this.checkIfOutOfBounds(this.getObjectSceneCoords(arrow))) {
                 arrow.stomp();
             }
-        })
+        });
+
+        // ! Si la bomba se sale de la escena, se tiene que borrar
+        this.nor.attackObjects.bombs.forEach((bomb) => {
+            if (this.checkIfOutOfBounds(this.getObjectSceneCoords(bomb))) {
+                bomb.vanish();
+            }
+        });
 
         // ! Se agrega el manejador de colisiones con los carteles xD
         this.physics.collide(
@@ -433,11 +457,14 @@ class Game extends Phaser.Scene {
                     this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
                     break;
                 case "arrows":
-                    this.nor.items.arrows += 20;
+                    this.nor.items.arrows += 10;
                     this.registry.events.emit('changeStats', { arrowNumber: this.nor.items.arrows });
                     break;
                 case "bombs":
-                    this.nor.items.bombs += 1;
+                    this.nor.items.bombs += 10;
+                    if (!this.nor.secondaryWeapons.includes('bombs')) {
+                        this.nor.secondaryWeapons.push('bombs');
+                    }
                     this.registry.events.emit('changeStats', { bombNumber: this.nor.items.bombs });
                     break;
             }
@@ -446,17 +473,13 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
         this.physics.collide(this.nor, [...this.enemyGameObjects, this.boss], () => {
-            if (!this.nor.isDamaged) {
-                this.nor.getHurt({ damagePoints: 1 });
-                this.cameras.main.flash(100, 150, 0, 0);
-                if (this.nor.health > 0) {
-                    this.cameras.main.shake(150, 0.0015);
-                } else {
-                    this.cameras.main.shake(400, 0.005);
-                    this.onDead();
-                }
-            }
+            this.damagePlayer();
         });
+
+        // ! Si Nor toca la explosión, entonces también recibe daño.
+        this.physics.overlap(this.nor, this.nor.attackObjects.bombs, () => {
+            this.damagePlayer(2);
+        })
 
         // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
         // ! bloques "toggle"
@@ -498,6 +521,13 @@ class Game extends Phaser.Scene {
                 }
             }
         );
+
+        // ! Si la explosión toca las rocas, entonces se tienen que romper
+        this.physics.overlap(this.nor.attackObjects.bombs, this.rocks, (_, rock) => {
+            // ! OJO, no se está borrando la referencia. Es probable que en otros
+            // ! lados se tenga que hacer también.
+            rock.destroy();
+        })
 
         // ! Si algún arma de Nor toca a algún enemigo, entonces estos
         // ! tienen que recibir daño.

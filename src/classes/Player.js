@@ -1,3 +1,4 @@
+import Bomb from "./Bomb.js";
 import Bow from "./Bow.js";
 import Sword from "./Sword.js";
 
@@ -94,6 +95,13 @@ class Player extends Phaser.GameObjects.Sprite {
         // !
         // ! Secondary weapon stuff
         // * Relación al arma secundaria
+        // !
+        // !
+        // !
+        // ! CAMBIAR CUANDO YA SE TENGA PROGRESO EN EL JUEGO
+        // !
+        // !
+        // !
         this.hasObtained = {
             bow: true,
             bomb: true,
@@ -107,8 +115,8 @@ class Player extends Phaser.GameObjects.Sprite {
         // ? Es decir, cuando consiga el arco, se agregará la palabra 'bow'
         // ? en este arreglo. Cuando tenga bombas, tendrá 'bomb' también.
         // * Idealmente:
-        // this.secondaryWeapons = ['bow', 'bomb'];
-        this.secondaryWeapons = ['bow', 'bomb'];
+        // this.secondaryWeapons = ['bow', 'bombs'];
+        this.secondaryWeapons = ['bow'];
 
         // !
         // ! Weapong damage container?
@@ -268,7 +276,33 @@ class Player extends Phaser.GameObjects.Sprite {
                     },
                 });
                 break;
-            case 'bomb':
+            case 'bombs':
+                if (this.items.bombs > 0) {
+                    this.items.bombs--;
+                    this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
+
+                    // Se cambia al arco
+                    if (this.items.bombs === 0) {
+                        this.secondaryIndex = 0;
+                        this.secondaryWeapons.pop();
+                        // console.log(this.secondaryWeapons);
+                        this.scene.registry.events.emit('changeWeapon', {
+                            weapon: this.secondaryWeapons[this.secondaryIndex],
+                        });
+                    }
+
+                    const bomb = new Bomb({
+                        scene: this.scene,
+                        x: this.x,
+                        y: this.y,
+                        onFinish: () => {
+                            // console.log("A VER PUES QUE PEDO");
+                            this.attackObjects.bombs = this.attackObjects.bombs.filter(weapon => weapon !== bomb);
+                            bomb.destroy();
+                        },
+                    });
+                    this.attackObjects.bombs.push(bomb);
+                }
                 break;
             default:
                 break;

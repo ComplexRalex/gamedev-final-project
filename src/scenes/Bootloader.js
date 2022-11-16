@@ -114,10 +114,10 @@ class Bootloader extends Phaser.Scene {
             console.warn("Loading complete!");
 
             this.scene.stop('Loading');
-            // this.scene.start('Start');
-            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            this.scene.start('GUI');
-            this.scene.launch('Game');
+            this.scene.start('Start');
+            this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+            // this.scene.start('GUI');
+            // this.scene.launch('Game');
         });
     }
 }

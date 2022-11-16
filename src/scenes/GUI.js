@@ -142,9 +142,9 @@ class GUI extends Phaser.Scene {
         );
 
         // Arco
-        this.guiSecondaryWeapon.add(
-            this.add.image(5, -5, 'textures_atlas', 'bow').setScale(4)
-        );
+        this.actualSecondaryWeapon = this.add.image(5, -5, 'textures_atlas', 'bow')
+            .setScale(4);
+        this.guiSecondaryWeapon.add(this.actualSecondaryWeapon);
 
         // Botón secundario
         this.guiX = this.add.image(40, 36, 'buttons/x')
@@ -242,25 +242,29 @@ class GUI extends Phaser.Scene {
 
         // * Cambia la vida del jugador en el GUI
         this.registry.events.on('changeHP', ({ health, healthDelta }) => {
-            console.warn("Actualización de vida: "+health);
+            console.warn("Actualización de vida: " + health);
             this.updateHearts(health, healthDelta);
         });
-        
+
         // * Cambia estadistica indicada en el GUI
         this.registry.events.on('changeStats', ({ keyNumber, arrowNumber, bombNumber }) => {
             if (!isNaN(keyNumber)) {
-                console.warn("Actualización de estadística [keys]: "+keyNumber);
+                console.warn("Actualización de estadística [keys]: " + keyNumber);
                 this.guiKeyNumber.setText(keyNumber.toString());
             }
             if (!isNaN(arrowNumber)) {
-                console.warn("Actualización de estadística [arrows]: "+arrowNumber);
+                console.warn("Actualización de estadística [arrows]: " + arrowNumber);
                 this.guiArrowNumber.setText(arrowNumber.toString());
             }
             if (!isNaN(bombNumber)) {
-                console.warn("Actualización de estadística [bombs]: "+bombNumber);
+                console.warn("Actualización de estadística [bombs]: " + bombNumber);
                 this.guiBombNumber.setText(bombNumber.toString());
             }
         });
+
+        this.registry.events.on('changeWeapon', ({ weapon }) => {
+            this.actualSecondaryWeapon.setTexture('textures_atlas', weapon);
+        })
     }
 
     create() {
