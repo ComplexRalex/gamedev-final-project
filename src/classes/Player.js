@@ -1,3 +1,4 @@
+import Bow from "./Bow.js";
 import Sword from "./Sword.js";
 
 class Player extends Phaser.GameObjects.Sprite {
@@ -87,7 +88,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.items = {
             keys: 0,
             arrows: 0,
-            bobms: 0,
+            bombs: 0,
         };
 
         // !
@@ -239,14 +240,33 @@ class Player extends Phaser.GameObjects.Sprite {
                     x: this.x,
                     y: this.y,
                     direction: this.logicDirection,
+                    onFinish: () => {
+                        this.attackObjects.sword = this.attackObjects.sword.filter(weapon => weapon !== sword);
+                        sword.destroy();
+                    },
                 });
                 this.attackObjects.sword.push(sword);
-                setTimeout(() => {
-                    this.attackObjects.sword.shift();
-                    sword.destroy();
-                }, this.doingSomethingTime - 100);
                 break;
             case 'bow':
+                const hasArrows = this.items.arrows > 0;
+                if (hasArrows) {
+                    this.items.arrows--;
+                    this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
+                }
+                const bow = new Bow({
+                    scene: this.scene,
+                    x: this.x,
+                    y: this.y,
+                    direction: this.logicDirection,
+                    hasArrows: hasArrows,
+                    onShoot: (arrow) => {
+                        this.attackObjects.arrows.push(arrow);
+                    },
+                    onFinish: (arrow) => {
+                        this.attackObjects.arrows = this.attackObjects.arrows.filter(object => object !== arrow);
+                        arrow.destroy();
+                    },
+                });
                 break;
             case 'bomb':
                 break;

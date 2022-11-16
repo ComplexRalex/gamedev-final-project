@@ -1,3 +1,4 @@
+import Arrow from '../classes/Arrow.js';
 import Player from '../classes/Player.js';
 
 class Game extends Phaser.Scene {
@@ -61,6 +62,13 @@ class Game extends Phaser.Scene {
         this.input.keyboard.removeAllKeys();
     }
 
+    getObjectSceneCoords(gameObject) {
+        return {
+            x: Math.floor(gameObject.x / this.sceneWidth),
+            y: Math.floor(gameObject.y / this.sceneHeight)
+        };
+    }
+
     getNorSceneCoords() {
         return {
             x: Math.floor(this.nor.x / this.sceneWidth),
@@ -86,8 +94,8 @@ class Game extends Phaser.Scene {
         this.cameras.main.pan(centerX, centerY, 350, 'Expo.easeOut');
     }
 
-    checkIfOutOfBounds() {
-        const { x, y } = this.sceneCoords;
+    checkIfOutOfBounds(coords) {
+        const { x, y } = coords ?? this.sceneCoords;
         if (
             x * this.sceneWidth > this.nor.x ||
             (x + 1) * this.sceneWidth <= this.nor.x ||
@@ -327,8 +335,32 @@ class Game extends Phaser.Scene {
             }
         });
 
+        // ! Emisión de eventos iniciales
+        this.nor.changeHP({});
+    }
+
+    update() {
+        // ! Se actualizan las físicas de Nor!
+        this.nor.update();
+
+        // ! Si Nor se sale de la escena actual, se mueve la cámara
+        if (this.checkIfOutOfBounds()) {
+            console.log(this.getNorSceneCoords());
+            this.updateSceneCoords(this.getNorSceneCoords());
+        }
+
+        // !
+        // !
+        // ! NOTA
+        // !
+        // ! Muchos overlap y colliders tendrán que ser movidos al update, debido
+        // ! a que se requiere verificar el arreglo constantemente por nuevos
+        // ! objetos en él, con el fin de que se detecten de forma dinámica.
+        // !
+        // !
+
         // ! Se agrega el manejador de colisiones con las tiles y todos los objetos
-        this.physics.add.collider(
+        this.physics.collide(
             [
                 ...this.mappedObjects.map(obj => obj.gameObject),
                 this.nor,
@@ -337,8 +369,26 @@ class Game extends Phaser.Scene {
             this.layer
         );
 
+        // ? Por algún motivo no jala esta madre XD
+        // // ! Se agrega overlap en caso de que la flecha toque muro
+        // this.physics.collide(
+        //     [... this.nor.attackObjects.arrows],
+        //     this.layer,
+        //     (entity, _) => {
+        //         if (entity instanceof Arrow) {
+        //             // entity.stomp();
+        //         }
+        //     }
+        // );
+
+        this.nor.attackObjects.arrows.forEach((arrow) => {
+            if (this.checkIfOutOfBounds(this.getObjectSceneCoords(arrow))) {
+                arrow.stomp();
+            }
+        })
+
         // ! Se agrega el manejador de colisiones con los carteles xD
-        this.physics.add.collider(
+        this.physics.collide(
             this.nor,
             [
                 ...this.mappedObjects
@@ -363,48 +413,10 @@ class Game extends Phaser.Scene {
             rockBlocks.map(obj => obj.gameObject),
         );
 
-        // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
-        // ! bloques "toggle"
-        this.physics.add.overlap(
-            this.nor,
-            [this.buttonTrigger.gameObject, this.lockTrigger.gameObject],
-            (_, trigger) => {
-                if (this.nor.isInteracting) {
-                    const object = trigger.getData('parent');
-                    const valid =
-                        object.type === "lock" && this.data.list.keys > 0 ||
-                        object.type === "button" && this.data.list.arrows > 0;
-
-                    // *
-                    // * Emisión de eventos para actualizar estadísticas según el objeto
-                    // * utilizado
-                    // *
-                    if (valid) {
-                        switch (object.type) {
-                            case "lock":
-                                this.data.list.keys -= 1;
-                                this.registry.events.emit('changeStats', { keyNumber: this.data.list.keys });
-                                break;
-                            case "button":
-                                this.data.list.arrows -= 1;
-                                this.registry.events.emit('changeStats', { arrowNumber: this.data.list.arrows });
-                                break;
-                        }
-                        const toggles = object.props.toggles;
-                        toggles.forEach(name => {
-                            const obj = this.mappedObjects
-                                .find(obj => obj.name === name);
-                            obj.gameObject.destroy();
-                        });
-                        trigger.destroy();
-                    }
-                }
-            },
-        );
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró
-        this.physics.add.collider(this.nor, this.itemsGameObjects, (_, item) => {
+        this.physics.collide(this.nor, this.itemsGameObjects, (_, item) => {
             const object = item.getData('parent');
             let times = 1;
             switch (object.type) {
@@ -417,23 +429,23 @@ class Game extends Phaser.Scene {
                     this.nor.changeHP({ addedHealthPoints: times });
                     break;
                 case "key":
-                    this.data.list.keys += 1;
-                    this.registry.events.emit('changeStats', { keyNumber: this.data.list.keys });
+                    this.nor.items.keys += 1;
+                    this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
                     break;
                 case "arrows":
-                    this.data.list.arrows += 1;
-                    this.registry.events.emit('changeStats', { arrowNumber: this.data.list.arrows });
+                    this.nor.items.arrows += 20;
+                    this.registry.events.emit('changeStats', { arrowNumber: this.nor.items.arrows });
                     break;
                 case "bombs":
-                    this.data.list.bombs += 1;
-                    this.registry.events.emit('changeStats', { bombNumber: this.data.list.bombs });
+                    this.nor.items.bombs += 1;
+                    this.registry.events.emit('changeStats', { bombNumber: this.nor.items.bombs });
                     break;
             }
             item.destroy();
         })
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
-        this.physics.add.collider(this.nor, [...this.enemyGameObjects, this.boss], () => {
+        this.physics.collide(this.nor, [...this.enemyGameObjects, this.boss], () => {
             if (!this.nor.isDamaged) {
                 this.nor.getHurt({ damagePoints: 1 });
                 this.cameras.main.flash(100, 150, 0, 0);
@@ -446,23 +458,47 @@ class Game extends Phaser.Scene {
             }
         });
 
-        // ! Emisión de eventos iniciales
-        this.nor.changeHP({});
-    }
+        // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
+        // ! bloques "toggle"
+        this.physics.overlap(
+            [
+                this.nor,
+                ...this.nor.attackObjects.arrows,
+            ],
+            [this.buttonTrigger.gameObject, this.lockTrigger.gameObject],
+            (who, trigger) => {
+                const object = trigger.getData('parent');
+                const valid =
+                    object.type === "lock" && this.nor.items.keys > 0 && this.nor.isInteracting ||
+                    object.type === "button" && this.nor.items.arrows > 0 && (who instanceof Arrow);
 
-    update() {
-        // ! Se actualizan las físicas de Nor!
-        this.nor.update();
+                // *
+                // * Emisión de eventos para actualizar estadísticas según el objeto
+                // * utilizado
+                // *
+                if (valid) {
+                    switch (object.type) {
+                        case "lock":
+                            this.nor.items.keys -= 1;
+                            this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
+                            break;
+                        case "button":
+                            this.nor.items.arrows -= 1;
+                            this.registry.events.emit('changeStats', { arrowNumber: this.nor.items.arrows });
+                            who.stomp();
+                            break;
+                    }
+                    const toggles = object.props.toggles;
+                    toggles.forEach(name => {
+                        const obj = this.mappedObjects
+                            .find(obj => obj.name === name);
+                        obj.gameObject.destroy();
+                    });
+                    trigger.destroy();
+                }
+            }
+        );
 
-        // ! Si Nor se sale de la escena actual, se mueve la cámara
-        if (this.checkIfOutOfBounds()) {
-            console.log(this.getNorSceneCoords());
-            this.updateSceneCoords(this.getNorSceneCoords());
-        }
-
-        // ! NOTA
-        // ! Este overlap tiene que estar en el update, porque se tienen que
-        // ! actualizar las referencias de los objetos de ataque.
         // ! Si algún arma de Nor toca a algún enemigo, entonces estos
         // ! tienen que recibir daño.
         this.physics.overlap(
@@ -475,11 +511,12 @@ class Game extends Phaser.Scene {
                 ...this.enemyGameObjects,
                 this.boss
             ],
-            (_, enemy) => {
+            (object, enemy) => {
+                if (object instanceof Arrow) object.stomp();
                 this.enemyGameObjects = this.enemyGameObjects.filter(enemyObj => enemyObj !== enemy);
                 if (this.boss === enemy) this.boss = null;
                 enemy.destroy();
-                console.log("ORALE SI JALÓ");
+                console.log("BOOM B*TCH!");
             }
         );
     }

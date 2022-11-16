@@ -1,7 +1,7 @@
 import { getAngle } from "../helpers/getAngle.js";
 
 class Sword extends Phaser.GameObjects.Sprite {
-    constructor({ scene, x, y, direction }) {
+    constructor({ scene, x, y, direction, onFinish }) {
         super(scene, x, y, 'sword_attack');
 
         // !
@@ -11,7 +11,7 @@ class Sword extends Phaser.GameObjects.Sprite {
         this.scene.physics.world.enable(this);
 
         // !
-        // ! Movement and animation things
+        // ! Position and movement things
         // ? x: -1 (izquierda) | 0 (en medio) | 1 (derecha)
         // ? y: -1 (arriba)    | 0 (en medio) | 1 (abajo)
         // this.logicDirection = {
@@ -27,15 +27,11 @@ class Sword extends Phaser.GameObjects.Sprite {
                 : angle
         );
 
-        this.anims.play(`sword_attack`);
-        this.anims.hideOnComplete = true;
-
         // !
         // ! Physics things
         // * Este está difícil, ya que las físicas Arcade no permiten
         // * rotar el cuerpo de colisión :c
         // * No se me ocurre otra solución más simple que hardcodear xD
-
         this.body.setCircle(24);
 
         // ? Normalización del cuerpo de colisión
@@ -56,6 +52,14 @@ class Sword extends Phaser.GameObjects.Sprite {
             : 0;
 
         this.body.setOffset(xCenter + xBody, yCenter + yBody);
+
+        // !
+        // ! Timer and animation
+        this.anims.play(`sword_attack`);
+        this.anims.hideOnComplete = true;
+        this.on('animationcomplete', () => {
+            onFinish();
+        });
     }
 }
 
