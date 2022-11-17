@@ -1,4 +1,5 @@
 import Arrow from '../classes/Arrow.js';
+import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
 
 class Game extends Phaser.Scene {
@@ -134,6 +135,8 @@ class Game extends Phaser.Scene {
         this.mappedHouses = [];
         this.mapObjects = this.map.objects[1].objects;
         this.mappedObjects = [];
+        this.mapItems = this.map.objects[2].objects;
+        this.mappedItems = [];
 
         // ! Posición inicial de Nor
         const initPos = this.mapObjects.find(obj => obj.name === 'norInitialPosition');
@@ -214,6 +217,25 @@ class Game extends Phaser.Scene {
                 this.mappedObjects.push(mapped);
             });
 
+        // ! Se hace uso de una capa exclusiva para poder obtener los items
+        // ! y mapearlos!
+        this.mappedItems = this.mapItems.map(item => {
+            console.log(item);
+            const amount = item.name === "bombs"
+                ? 3
+                : item.name === "arrows"
+                    ? 5
+                    : 1;
+            return new Item({
+                scene: this,
+                x: item.x,
+                y: item.y,
+                type: item.name,
+                sprite: item.name,
+                amount,
+            });
+        });
+
         // ! Se obtiene la referencia de algunos triggers para mayor facilidad
         this.buttonTrigger = this.mappedObjects
             .find(obj => obj.type === 'button');
@@ -222,17 +244,6 @@ class Game extends Phaser.Scene {
         this.rocks = this.mappedObjects
             .filter(obj => obj.type === 'rock')
             .map(obj => obj.gameObject);
-
-        // ! Se obtienen las referencias de los objetos "agarrables"
-        this.itemsGameObjects = this.mappedObjects
-            .filter(obj =>
-                obj.type === 'fragmentedEmerald' ||
-                obj.type === 'arrows' ||
-                obj.type === 'bombs' ||
-                obj.type === 'banana' ||
-                obj.type === 'heart' ||
-                obj.type === 'key'
-            ).map(obj => obj.gameObject);
 
         // ! Se obtienen las referencias de los enemigos
         this.enemyGameObjects = this.mappedObjects
@@ -257,18 +268,6 @@ class Game extends Phaser.Scene {
             .setScale(0.5);
 
         this.createListeners();
-    }
-
-    // *
-    // * Emisión de evento cuando sube o baja la vida
-    // *
-    updateHearts() {
-        if (this.nor.health <= this.nor.healthMax) {
-            this.registry.events.emit('changeHP', {
-                health: this.nor.health,
-                healthDelta: this.nor.healthDelta,
-            });
-        }
     }
 
     onDead() {
@@ -340,19 +339,6 @@ class Game extends Phaser.Scene {
 
         // ! Emisión de eventos iniciales
         this.nor.changeHP({});
-    }
-
-    damagePlayer(damagePoints = 1) {
-        if (!this.nor.isDamaged) {
-            this.nor.getHurt({ damagePoints: damagePoints });
-            this.cameras.main.flash(100, 150, 0, 0);
-            if (this.nor.health > 0) {
-                this.cameras.main.shake(150, 0.0015);
-            } else {
-                this.cameras.main.shake(400, 0.005);
-                this.onDead();
-            }
-        }
     }
 
     update() {
@@ -440,45 +426,36 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró
-        this.physics.collide(this.nor, this.itemsGameObjects, (_, item) => {
-            const object = item.getData('parent');
-            let times = 1;
-            switch (object.type) {
-                // ! Para el corazon, se tiene que agregar un contenedor... pero por el
-                // ! momento solo aumentará un corazón completo
-                case "heart":
-                    times++;
+        this.physics.overlap(this.nor, this.mappedItems, (_, item) => {
+            switch (item.type) {
                 case "banana":
-                    this.cameras.main.flash(120, 180, 180, 180);
-                    this.nor.changeHP({ addedHealthPoints: times });
+                    this.nor.getHealed({ healPoints: 1 });
                     break;
-                case "key":
-                    this.nor.items.keys += 1;
-                    this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
+                case "key": case "arrows": case "bombs":
+                    this.nor.changeStats({ stat: item.type, addedPoints: item.props.amount });
                     break;
-                case "arrows":
-                    this.nor.items.arrows += 10;
-                    this.registry.events.emit('changeStats', { arrowNumber: this.nor.items.arrows });
+                case "sword": case "bow":
+                    // ! Se tiene que activar el tipo de arma que se ha conseguido
+                    // ! hasta el momento, según el tipo.
                     break;
-                case "bombs":
-                    this.nor.items.bombs += 10;
-                    if (!this.nor.secondaryWeapons.includes('bombs')) {
-                        this.nor.secondaryWeapons.push('bombs');
-                    }
-                    this.registry.events.emit('changeStats', { bombNumber: this.nor.items.bombs });
+                case "emeraldFragment":
+                    // ! Este solo es simbólico, pero también podría hacerse algo
                     break;
             }
+            this.mappedItems = this.mappedItems.filter(i => i !== item);
             item.destroy();
         })
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
         this.physics.collide(this.nor, [...this.enemyGameObjects, this.boss], () => {
-            this.damagePlayer();
+            const isDead = this.nor.getHurt({ damagePoints: 1 });
+            if (isDead) this.onDead();
         });
 
         // ! Si Nor toca la explosión, entonces también recibe daño.
         this.physics.overlap(this.nor, this.nor.attackObjects.bombs, () => {
-            this.damagePlayer(2);
+            const isDead = this.nor.getHurt({ damagePoints: 2 });
+            if (isDead) this.onDead();
         })
 
         // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
@@ -506,8 +483,6 @@ class Game extends Phaser.Scene {
                             this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
                             break;
                         case "button":
-                            this.nor.items.arrows -= 1;
-                            this.registry.events.emit('changeStats', { arrowNumber: this.nor.items.arrows });
                             who.stomp();
                             break;
                     }

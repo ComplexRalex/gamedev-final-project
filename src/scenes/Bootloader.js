@@ -56,6 +56,8 @@ class Bootloader extends Phaser.Scene {
             
             // Items (same note as above)
             { key: 'key', url: 'game/objects/key.png' },
+            { key: 'arrows', url: 'game/objects/arrows.png' },
+            { key: 'bombs', url: 'game/objects/bombs.png' },
             
             // Triggery stuff
             { key: 'button', url: 'game/objects/button.png' },
@@ -114,10 +116,10 @@ class Bootloader extends Phaser.Scene {
             console.warn("Loading complete!");
 
             this.scene.stop('Loading');
-            this.scene.start('Start');
-            this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            // this.scene.start('GUI');
-            // this.scene.launch('Game');
+            // this.scene.start('Start');
+            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+            this.scene.start('GUI');
+            this.scene.launch('Game');
         });
     }
 }

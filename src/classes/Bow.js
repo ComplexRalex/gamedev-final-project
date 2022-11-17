@@ -7,7 +7,7 @@ class Bow extends Phaser.GameObjects.Sprite {
 
         // !
         // ! World settings
-        this.scene = scene;
+        // this.scene = scene;
         this.scene.add.existing(this);
 
         // !

@@ -8,7 +8,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Physics things
-        this.scene = scene;
+        // this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.world.enable(this, Phaser.Physics.Arcade.DYNAMIC_BODY);
 
@@ -309,15 +309,23 @@ class Player extends Phaser.GameObjects.Sprite {
         }
     }
 
+    // ! Este es utilizado cuando se han recibido puntos de vida.
+    getHealed({ healPoints }) {
+        this.scene.cameras.main.flash(120, 180, 180, 180);
+        this.changeHP({ addedHealthPoints: healPoints });
+    }
+
     // ! Este es utilizado cuando se ha recibido daño.
     // ? damagePoints: un número de daño (y ya). Este será multiplicado por 5
     getHurt({ damagePoints }) {
         if (!this.isDamaged) {
+            this.scene.cameras.main.flash(100, 150, 0, 0);
             this.isDamaged = true;
             this.ouchFace = true;
             this.changeHP({ addedHealthPoints: -damagePoints });
 
             if (this.health > 0) {
+                this.scene.cameras.main.shake(150, 0.0015);
                 const immuneEffectTween = this.scene.add.tween({
                     targets: [this],
                     repeat: -1,
@@ -340,6 +348,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 }, this.ouchFaceDuration);
 
             } else {
+                this.scene.cameras.main.shake(400, 0.005);
                 this.isDead = true;
 
                 this.scene.input.keyboard.removeAllKeys();
@@ -361,6 +370,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 });
             }
         }
+        return this.isDead;
     }
 
     // ! Se utiliza para actualizar la vida
@@ -378,6 +388,29 @@ class Player extends Phaser.GameObjects.Sprite {
             health: this.health,
             healthDelta: this.healthDelta,
         });
+    }
+
+    changeStats({ stat, addedPoints }) {
+        switch (stat) {
+            case "key":
+                this.items.keys += addedPoints;
+                this.items.keys = this.items.keys >= 0 ? this.items.keys : 0;
+                this.scene.registry.events.emit('changeStats', { keyNumber: this.items.keys });
+                break;
+            case "arrows":
+                this.items.arrows += addedPoints;
+                this.items.arrows = this.items.arrows >= 0 ? this.items.arrows : 0;
+                this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
+                break;
+            case "bombs":
+                this.items.bombs += addedPoints;
+                this.items.bombs = this.items.bombs >= 0 ? this.items.bombs : 0;
+                if (!this.secondaryWeapons.includes('bombs')) {
+                    this.secondaryWeapons.push('bombs');
+                }
+                this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
+                break;
+        }
     }
 
     update() {
