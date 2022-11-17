@@ -60,9 +60,11 @@ class Bootloader extends Phaser.Scene {
             { key: 'bombs', url: 'game/objects/bombs.png' },
             
             // Triggery stuff
+            { key: 'lock', url: 'game/objects/lock.png' },
             { key: 'button', url: 'game/objects/button.png' },
             { key: 'rock', url: 'game/objects/rock.png' },
             { key: 'gate', url: 'game/objects/gate.png' },
+            { key: 'pillars', url: 'game/objects/pillars.png' },
             { key: 'sign', url: 'game/objects/sign.png' },
 
             // Structures
@@ -101,6 +103,7 @@ class Bootloader extends Phaser.Scene {
             { key: 'bomb_anim', url: 'game/objects/bomb/bomb_anim.json' },
 
             // Items
+            { key: 'heart_anim', url: 'game/objects/heart/heart_anim.json' },
             { key: 'banana_anim', url: 'game/objects/banana/banana_anim.json' },
         ]);
 

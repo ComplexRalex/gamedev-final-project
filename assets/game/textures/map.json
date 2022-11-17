@@ -176,24 +176,6 @@
                 }, 
                 {
                  "class":"",
-                 "gid":19,
-                 "height":16,
-                 "id":91,
-                 "name":"button",
-                 "properties":[
-                        {
-                         "name":"toggles",
-                         "type":"string",
-                         "value":"toggle_0,toggle_1,toggle_2,toggle_7,toggle_8"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":896,
-                 "y":464
-                }, 
-                {
-                 "class":"",
                  "gid":29,
                  "height":16,
                  "id":92,
@@ -290,90 +272,6 @@
                 }, 
                 {
                  "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":110,
-                 "name":"toggle_3",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":448,
-                 "y":240
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":111,
-                 "name":"toggle_4",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":464,
-                 "y":240
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":112,
-                 "name":"toggle_5",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":480,
-                 "y":240
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":113,
-                 "name":"toggle_6",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":496,
-                 "y":240
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":114,
-                 "name":"toggle_0",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":944,
-                 "y":352
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":115,
-                 "name":"toggle_1",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":944,
-                 "y":368
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":116,
-                 "name":"toggle_2",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":944,
-                 "y":384
-                }, 
-                {
-                 "class":"",
                  "height":0,
                  "id":122,
                  "name":"bossInitialPosition",
@@ -383,24 +281,6 @@
                  "width":0,
                  "x":416,
                  "y":336
-                }, 
-                {
-                 "class":"",
-                 "gid":20,
-                 "height":16,
-                 "id":123,
-                 "name":"lock",
-                 "properties":[
-                        {
-                         "name":"toggles",
-                         "type":"string",
-                         "value":"toggle_3,toggle_4,toggle_5,toggle_6"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":480,
-                 "y":224
                 }, 
                 {
                  "class":"",
@@ -437,30 +317,6 @@
                  "width":16,
                  "x":416,
                  "y":64
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":131,
-                 "name":"toggle_7",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":944,
-                 "y":336
-                }, 
-                {
-                 "class":"",
-                 "gid":3,
-                 "height":16,
-                 "id":132,
-                 "name":"toggle_8",
-                 "rotation":0,
-                 "visible":true,
-                 "width":16,
-                 "x":944,
-                 "y":400
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -634,9 +490,108 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"Triggers",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":148,
+                 "name":"button",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"angle",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"targets",
+                         "type":"string",
+                         "value":"150,152"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":904,
+                 "y":455.5
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":149,
+                 "name":"lock",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"targets",
+                         "type":"string",
+                         "value":"151"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":480,
+                 "y":219
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"TriggerTargets",
+         "objects":[
+                {
+                 "class":"",
+                 "height":0,
+                 "id":150,
+                 "name":"pillars",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"angle",
+                         "type":"int",
+                         "value":270
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":959.083333333333,
+                 "y":359.583333333333
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":151,
+                 "name":"gate",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"angle",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":479.75,
+                 "y":238
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":148,
+ "nextlayerid":8,
+ "nextobjectid":153,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

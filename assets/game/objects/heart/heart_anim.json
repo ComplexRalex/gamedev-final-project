@@ -83,6 +83,22 @@
                     "frame": "heart_full_0"
                 }
             ]
+        },
+        {
+            "key": "heart_blink",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "heart",
+                    "frame": "heart_full_0"
+                },
+                {
+                    "key": "heart",
+                    "frame": "heart_full_1"
+                }
+            ]
         }
     ]
 }

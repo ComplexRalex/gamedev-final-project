@@ -1,6 +1,8 @@
 import Arrow from '../classes/Arrow.js';
 import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
+import Trigger from '../classes/Trigger.js';
+import TriggerTarget from '../classes/TriggerTarget.js';
 
 class Game extends Phaser.Scene {
     constructor() {
@@ -133,10 +135,14 @@ class Game extends Phaser.Scene {
         // ! Obtención de capas de objetos
         this.mapHouses = this.map.objects[0].objects;
         this.mappedHouses = [];
-        this.mapObjects = this.map.objects[1].objects;
+        this.mapObjects = this.map.objects.find(layer => layer.name === "Objects").objects;
         this.mappedObjects = [];
-        this.mapItems = this.map.objects[2].objects;
+        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
         this.mappedItems = [];
+        this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
+        this.mappedTriggers = [];
+        this.mapTriggerTargets = this.map.objects.find(layer => layer.name === "TriggerTargets").objects;
+        this.mappedTriggerTargets = [];
 
         // ! Posición inicial de Nor
         const initPos = this.mapObjects.find(obj => obj.name === 'norInitialPosition');
@@ -220,12 +226,21 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa exclusiva para poder obtener los items
         // ! y mapearlos!
         this.mappedItems = this.mapItems.map(item => {
-            console.log(item);
-            const amount = item.name === "bombs"
-                ? 3
-                : item.name === "arrows"
-                    ? 5
-                    : 1;
+            let amount, animation;
+            switch (item.name) {
+                case "banana":
+                    animation = "banana_glow"
+                    break;
+                case "heart":
+                    animation = "heart_blink"
+                    break;
+                case "bombs":
+                    amount = 3;
+                    break;
+                case "arrows":
+                    amount = 5;
+                    break;
+            }
             return new Item({
                 scene: this,
                 x: item.x,
@@ -233,6 +248,42 @@ class Game extends Phaser.Scene {
                 type: item.name,
                 sprite: item.name,
                 amount,
+                animation,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedTriggerTargets = this.mapTriggerTargets.map(target => {
+            const angle = target.properties
+                .find(prop => prop.name === "angle")?.value;
+            return new TriggerTarget({
+                id: target.id,
+                scene: this,
+                x: target.x,
+                y: target.y,
+                type: target.name,
+                angle,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedTriggers = this.mapTriggers.map(trigger => {
+            const angle = trigger.properties
+                .find(prop => prop.name === "angle")?.value ?? 0;
+            const targetsProp = trigger.properties
+                .find(prop => prop.name === 'targets').value
+                .split(',')
+                .map(str => parseInt(str));
+            const targets = this.mappedTriggerTargets.filter(target => {
+                return targetsProp.includes(parseInt(target.id));
+            });
+            return new Trigger({
+                scene: this,
+                x: trigger.x,
+                y: trigger.y,
+                type: trigger.name,
+                angle,
+                targets,
             });
         });
 
@@ -407,18 +458,10 @@ class Game extends Phaser.Scene {
             ]
         );
 
-        // ! Agregada la colisión con las cajas toggle
-        const toggleBlocks = this.mappedObjects
-            .filter(obj => obj.type === 'toggle');
-        this.physics.add.collider(
-            this.nor,
-            toggleBlocks.map(obj => obj.gameObject),
-        );
-
         // ! Agregada la colisión con las rocas
         const rockBlocks = this.mappedObjects
             .filter(obj => obj.type === 'rock');
-        this.physics.add.collider(
+        this.physics.collide(
             this.nor,
             rockBlocks.map(obj => obj.gameObject),
         );
@@ -456,7 +499,10 @@ class Game extends Phaser.Scene {
         this.physics.overlap(this.nor, this.nor.attackObjects.bombs, () => {
             const isDead = this.nor.getHurt({ damagePoints: 2 });
             if (isDead) this.onDead();
-        })
+        });
+
+        // ! Si Nor toca una pared, no podrá pasarla.
+        this.physics.collide(this.nor, this.mappedTriggerTargets);
 
         // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
         // ! bloques "toggle"
@@ -465,33 +511,27 @@ class Game extends Phaser.Scene {
                 this.nor,
                 ...this.nor.attackObjects.arrows,
             ],
-            [this.buttonTrigger.gameObject, this.lockTrigger.gameObject],
+            this.mappedTriggers,
             (who, trigger) => {
-                const object = trigger.getData('parent');
                 const valid =
-                    object.type === "lock" && this.nor.items.keys > 0 && this.nor.isInteracting ||
-                    object.type === "button" && this.nor.items.arrows > 0 && (who instanceof Arrow);
+                    trigger.type === "lock" && this.nor.items.keys > 0 && this.nor.isInteracting ||
+                    trigger.type === "button" && this.nor.items.arrows > 0 && (who instanceof Arrow);
 
-                // *
-                // * Emisión de eventos para actualizar estadísticas según el objeto
-                // * utilizado
-                // *
                 if (valid) {
-                    switch (object.type) {
+                    switch (trigger.type) {
                         case "lock":
-                            this.nor.items.keys -= 1;
-                            this.registry.events.emit('changeStats', { keyNumber: this.nor.items.keys });
+                            this.nor.changeStats({ stat: 'key', addedPoints: -1 });
                             break;
                         case "button":
                             who.stomp();
                             break;
                     }
-                    const toggles = object.props.toggles;
-                    toggles.forEach(name => {
-                        const obj = this.mappedObjects
-                            .find(obj => obj.name === name);
-                        obj.gameObject.destroy();
+                    const targets = trigger.targets;
+                    targets.forEach(target => {
+                        this.mappedTriggerTargets = this.mappedTriggerTargets.filter(t => t !== target);
+                        target.destroy();
                     });
+                    this.mappedTriggers = this.mappedTriggers.filter(t => t !== trigger);
                     trigger.destroy();
                 }
             }
