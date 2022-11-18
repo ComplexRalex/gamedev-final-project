@@ -168,28 +168,23 @@ class GUI extends Phaser.Scene {
             .setAlpha(0.5);
         this.guiSecondaryWeapon.add(this.guiS);
 
-        // Tween al GUI
-        // this.add.tween({
-        //     targets: [this.guiContainer],
-        //     ease: 'Bounce.easeOut',
-        //     delay: 2000,
-        //     duration: 1000,
-        //     props: {
-        //         y: {
-        //             from: 600,
-        //             to: 480,
-        //         },
-        //     },
-        // });
-    }
+        // Contenedor para botones interactivos
+        this.guiInteractiveButtons = this.add.container(600, 80);
+        this.guiContainer.add(this.guiInteractiveButtons);
 
-    isZAXSKey(event) {
-        return [
-            this.playerKeys.a.keyCode,
-            this.playerKeys.s.keyCode,
-            this.playerKeys.z.keyCode,
-            this.playerKeys.x.keyCode
-        ].includes(event.keyCode);
+        // Botón espacio
+        this.guiSpace = this.add.image(0, 0, 'buttons/space')
+            .setOrigin(0)
+            .setScale(1)
+            .setAlpha(0.5);
+        this.guiInteractiveButtons.add(this.guiSpace);
+
+        // Botón mayus
+        this.guiShift = this.add.image(0, 14, 'buttons/shift')
+            .setOrigin(0)
+            .setScale(1)
+            .setAlpha(0.5);
+        this.guiInteractiveButtons.add(this.guiShift);
     }
 
     updateHearts(health, healthDelta) {
@@ -219,26 +214,28 @@ class GUI extends Phaser.Scene {
         this.playerKeys.s = this.input.keyboard.addKey('s');
         this.playerKeys.z = this.input.keyboard.addKey('z');
         this.playerKeys.x = this.input.keyboard.addKey('x');
+        this.playerKeys.space = this.input.keyboard.addKey('Space');
+        this.playerKeys.shiftKey = this.input.keyboard.addKey('Shift');
 
         this.input.keyboard.on('keydown', (event) => {
-            if (this.isZAXSKey(event)) {
-                switch (event.key) {
-                    case 'a': case 'A': this.guiA.setAlpha(1); break;
-                    case 's': case 'S': this.guiS.setAlpha(1); break;
-                    case 'z': case 'Z': this.guiZ.setAlpha(1); break;
-                    case 'x': case 'X': this.guiX.setAlpha(1); break;
-                };
+            switch (event.keyCode) {
+                case this.keyCodes.A: this.guiA.setAlpha(1); break;
+                case this.keyCodes.S: this.guiS.setAlpha(1); break;
+                case this.keyCodes.Z: this.guiZ.setAlpha(1); break;
+                case this.keyCodes.X: this.guiX.setAlpha(1); break;
+                case this.keyCodes.SPACE: this.guiSpace.setAlpha(1); break;
+                case this.keyCodes.SHIFT: this.guiShift.setAlpha(1); break;
             }
         });
 
         this.input.keyboard.on('keyup', (event) => {
-            if (this.isZAXSKey(event)) {
-                switch (event.key) {
-                    case 'a': case 'A': this.guiA.setAlpha(0.5); break;
-                    case 's': case 'S': this.guiS.setAlpha(0.5); break;
-                    case 'z': case 'Z': this.guiZ.setAlpha(0.5); break;
-                    case 'x': case 'X': this.guiX.setAlpha(0.5); break;
-                }
+            switch (event.keyCode) {
+                case this.keyCodes.A: this.guiA.setAlpha(0.5); break;
+                case this.keyCodes.S: this.guiS.setAlpha(0.5); break;
+                case this.keyCodes.Z: this.guiZ.setAlpha(0.5); break;
+                case this.keyCodes.X: this.guiX.setAlpha(0.5); break;
+                case this.keyCodes.SPACE: this.guiSpace.setAlpha(0.5); break;
+                case this.keyCodes.SHIFT: this.guiShift.setAlpha(0.5); break;
             }
         });
 

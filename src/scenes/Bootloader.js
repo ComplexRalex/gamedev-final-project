@@ -46,6 +46,8 @@ class Bootloader extends Phaser.Scene {
             { key: 'buttons/s', url: 'game/gui/buttons/s.png' },
             { key: 'buttons/space', url: 'game/gui/buttons/space.png' },
             { key: 'buttons/shift', url: 'game/gui/buttons/shift.png' },
+            { key: 'gui-dialog', url: 'game/gui/dialog.png' },
+            { key: 'gui-sign', url: 'game/gui/sign.png' },
 
             // Characters (only those who don't have atlas)
             

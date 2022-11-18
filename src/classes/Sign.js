@@ -16,16 +16,15 @@ class Sign extends Phaser.GameObjects.Sprite {
     }
 
     show() {
-        console.log("Entrando");
-        console.log(`"${this.content}"`);
-        console.warn("Aquí debería hacer un launch de otra escena para mostrar el contenido...");
         this.isShowing = true;
         this.scene.scene.pause();
-        setTimeout(() => {
-            this.scene.scene.resume();
-            this.isShowing = false;
-            console.log("Saliendo");
-        }, 500);
+        this.scene.scene.launch('Dialog', {
+            content: this.content,
+            onFinish: () => {
+                this.isShowing = false;
+                this.scene.scene.resume();
+            }
+        });
     }
 }
 

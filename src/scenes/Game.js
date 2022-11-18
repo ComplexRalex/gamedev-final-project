@@ -499,7 +499,7 @@ class Game extends Phaser.Scene {
         );
 
         // ! Agregada la colisión con las rocas
-        // this.physics.collide(this.nor, this.mappedRocks);
+        this.physics.collide(this.nor, this.mappedRocks);
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró

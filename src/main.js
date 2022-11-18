@@ -5,6 +5,7 @@ import GUI from './scenes/GUI.js';
 import Game from './scenes/Game.js';
 import SimpleFadeEffect from './scenes/SimpleFadeEffect.js';
 import Credits from './scenes/Credits.js';
+import Dialog from './scenes/Dialog.js';
 
 const config = {
     title: "proyecto_final",
@@ -31,6 +32,7 @@ const config = {
         Start,
         Game,
         GUI,
+        Dialog,
         SimpleFadeEffect,
         Credits,
     ]

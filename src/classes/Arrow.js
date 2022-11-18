@@ -21,8 +21,14 @@ class Arrow extends Phaser.GameObjects.Sprite {
         // * Este está difícil, ya que las físicas Arcade no permiten
         // * rotar el cuerpo de colisión :c
         // * No se me ocurre otra solución más simple que hardcodear xD
-        this.body.setCircle(13.5);
-        this.body.setOffset(-10.5, 0.5);
+        this.body.setCircle(4);
+        this.body.setOffset(-1.5, 10);
+        
+        // ? Si es muy grande el body, no tendrá sentido que la flecha
+        // ? desaparezca al tocar la pared cuando en realidad no lo
+        // ? parece.
+        // this.body.setCircle(13.5);
+        // this.body.setOffset(-10.5, 0.5);
 
         // !
         // ! Props, and velocity
