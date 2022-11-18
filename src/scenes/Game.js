@@ -3,6 +3,7 @@ import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
 import Sign from '../classes/Sign.js';
+import Teleporter from '../classes/Teleporter.js';
 import Trigger from '../classes/Trigger.js';
 import TriggerTarget from '../classes/TriggerTarget.js';
 
@@ -45,23 +46,11 @@ class Game extends Phaser.Scene {
         this.isQuiting = false;
 
         // ! Variables de control
+        this.cameraPanTime = 350;
 
-        // ! Stats
-        this.data.set({
-            'keys': 0,
-            'arrows': 0,
-            'bombs': 0,
-        });
-        // ! La vida está definida por múltiplos de 5.
-        // ! Cada 5 unidades equivale a medio corazón.
-        this.data.set({
-            'dead': false,
-            'health': 15,
-            'healthDelta': 5,
-            'healthMax': 30,
-            'immuneEffect': false,
-            'immuneEffectTime': 2500,
-        });
+        this.isTeleporting = false;
+        this.teleportingTime = 100;
+
 
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
@@ -92,11 +81,11 @@ class Game extends Phaser.Scene {
             x * this.sceneWidth + this.sceneWidth / 2,
             y * this.sceneHeight + this.sceneHeight / 2,
         ]
-        if (now) {
+        if (now || this.isTeleporting) {
             this.cameras.main.centerOn(centerX, centerY);
             return;
         }
-        this.cameras.main.pan(centerX, centerY, 350, 'Expo.easeOut', true);
+        this.cameras.main.pan(centerX, centerY, this.cameraPanTime, 'Expo.easeOut', true);
     }
 
     checkIfOutOfBounds(coords) {
@@ -131,6 +120,11 @@ class Game extends Phaser.Scene {
         this.tileset = this.map.addTilesetImage("textures");
         this.layer = this.map.createLayer('Background', this.tileset);
 
+        // ! Esto es una prueba para ver si puede jalar más
+        // ! de una capa de esta forma.
+        this.mapHouses = this.map.createLayer('Houses', this.tileset);
+        this.mapHouses.setDepth(5);
+
         // ! Se agrega colisión con los tiles!
         this.layer.setCollisionByExclusion([-1]);
 
@@ -141,10 +135,10 @@ class Game extends Phaser.Scene {
         this.mappedTriggerTargets = [];
         this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
         this.mappedTriggers = [];
+        this.mapTeleports = this.map.objects.find(layer => layer.name === "Teleports").objects;
+        this.mappedTeleports = [];
         this.mapSigns = this.map.objects.find(layer => layer.name === "Signs").objects;
         this.mappedSigns = [];
-        this.mapHouses = this.map.objects.find(layer => layer.name === "Houses").objects;
-        this.mappedHouses = [];
         this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
         this.mappedItems = [];
         this.mapObjects = this.map.objects.find(layer => layer.name === "Objects").objects;
@@ -195,6 +189,26 @@ class Game extends Phaser.Scene {
                 targets,
             });
         });
+
+        // ! Se hace uso de una capa adicional para poder establecer
+        // ! el lugar en donde será telentransportado el jugador.
+        // this.mapTeleports.forEach(console.log);
+        const positions = this.mapTeleports
+            .filter(object => object.point);
+        this.mappedTeleports = this.mapTeleports
+            .filter(object => object.rectangle)
+            .map(object => {
+                const id = object.properties.find(p => p.name === "destiny")?.value;
+                const destiny = positions.find(object => object.id === id);
+                return new Teleporter({
+                    scene: this,
+                    x: object.x,
+                    y: object.y,
+                    width: object.width,
+                    height: object.height,
+                    destiny,
+                });
+            });
 
         // ! Se hace uso de una capa exclusiva para los triggers
         this.mappedSigns = this.mapSigns.map(sign => {
@@ -540,6 +554,21 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor toca una pared, no podrá pasarla.
         this.physics.collide(this.nor, this.mappedTriggerTargets);
+
+        // ! Si Nor toca una caja de teletransportación, entonces será
+        // ! teletransportado (lol).
+        this.physics.overlap(this.nor, this.mappedTeleports, (_, teleporter) => {
+            const destiny = teleporter.destiny;
+            if (destiny) {
+                // * Esta bandera servirá para no hacer la animación del movimiento
+                // * de la cámara cuando se mueva Nor.
+                this.isTeleporting = true;
+                this.nor.setPosition(destiny.x, destiny.y);
+                setTimeout(() => {
+                    this.isTeleporting = false;
+                }, this.teleportingTime);
+            }
+        });
 
         // ! Si Nor interactúa sobre un botón o un candado, entonces se quitan los
         // ! bloques "toggle"
