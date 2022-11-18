@@ -1,6 +1,8 @@
 import Arrow from '../classes/Arrow.js';
 import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
+import Rock from '../classes/Rock.js';
+import Sign from '../classes/Sign.js';
 import Trigger from '../classes/Trigger.js';
 import TriggerTarget from '../classes/TriggerTarget.js';
 
@@ -94,7 +96,7 @@ class Game extends Phaser.Scene {
             this.cameras.main.centerOn(centerX, centerY);
             return;
         }
-        this.cameras.main.pan(centerX, centerY, 350, 'Expo.easeOut');
+        this.cameras.main.pan(centerX, centerY, 350, 'Expo.easeOut', true);
     }
 
     checkIfOutOfBounds(coords) {
@@ -132,17 +134,110 @@ class Game extends Phaser.Scene {
         // ! Se agrega colisión con los tiles!
         this.layer.setCollisionByExclusion([-1]);
 
-        // ! Obtención de capas de objetos
-        this.mapHouses = this.map.objects[0].objects;
-        this.mappedHouses = [];
-        this.mapObjects = this.map.objects.find(layer => layer.name === "Objects").objects;
-        this.mappedObjects = [];
-        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
-        this.mappedItems = [];
-        this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
-        this.mappedTriggers = [];
+        // ! Obtención de las capas de objetosjects = [];
+        this.mapRocks = this.map.objects.find(layer => layer.name === "Rocks").objects;
+        this.mappedRocks = [];
         this.mapTriggerTargets = this.map.objects.find(layer => layer.name === "TriggerTargets").objects;
         this.mappedTriggerTargets = [];
+        this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
+        this.mappedTriggers = [];
+        this.mapSigns = this.map.objects.find(layer => layer.name === "Signs").objects;
+        this.mappedSigns = [];
+        this.mapHouses = this.map.objects.find(layer => layer.name === "Houses").objects;
+        this.mappedHouses = [];
+        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
+        this.mappedItems = [];
+        this.mapObjects = this.map.objects.find(layer => layer.name === "Objects").objects;
+        this.mappedObjects = [];
+
+        // ! >>>> Configuración de las capas de objetos
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedRocks = this.mapRocks.map(rock => {
+            return new Rock({
+                scene: this,
+                x: rock.x,
+                y: rock.y,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedTriggerTargets = this.mapTriggerTargets.map(target => {
+            const angle = target.properties
+                .find(prop => prop.name === "angle")?.value;
+            return new TriggerTarget({
+                id: target.id,
+                scene: this,
+                x: target.x,
+                y: target.y,
+                type: target.name,
+                angle,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedTriggers = this.mapTriggers.map(trigger => {
+            const angle = trigger.properties
+                .find(prop => prop.name === "angle")?.value ?? 0;
+            const targetsProp = trigger.properties
+                .find(prop => prop.name === 'targets').value
+                .split(',')
+                .map(str => parseInt(str));
+            const targets = this.mappedTriggerTargets.filter(target => {
+                return targetsProp.includes(parseInt(target.id));
+            });
+            return new Trigger({
+                scene: this,
+                x: trigger.x,
+                y: trigger.y,
+                type: trigger.name,
+                angle,
+                targets,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para los triggers
+        this.mappedSigns = this.mapSigns.map(sign => {
+            const content = sign.properties
+                .find(prop => prop.name === "content").value;
+            return new Sign({
+                scene: this,
+                x: sign.x,
+                y: sign.y,
+                content,
+            });
+        });
+
+        // ! Se hace uso de una capa exclusiva para poder obtener los items
+        // ! y mapearlos!
+        this.mappedItems = this.mapItems.map(item => {
+            let amount, animation, scale;
+            switch (item.name) {
+                case "banana":
+                    animation = "banana_glow"
+                    break;
+                case "heart":
+                    animation = "heart_blink"
+                    scale = 1.5;
+                    break;
+                case "bombs":
+                    amount = 3;
+                    break;
+                case "arrows":
+                    amount = 5;
+                    break;
+            }
+            return new Item({
+                scene: this,
+                x: item.x,
+                y: item.y,
+                type: item.name,
+                sprite: item.name,
+                amount,
+                animation,
+                scale,
+            });
+        });
 
         // ! Posición inicial de Nor
         const initPos = this.mapObjects.find(obj => obj.name === 'norInitialPosition');
@@ -222,72 +317,6 @@ class Game extends Phaser.Scene {
                 gameObject.setData('parent', mapped);
                 this.mappedObjects.push(mapped);
             });
-
-        // ! Se hace uso de una capa exclusiva para poder obtener los items
-        // ! y mapearlos!
-        this.mappedItems = this.mapItems.map(item => {
-            let amount, animation, scale;
-            switch (item.name) {
-                case "banana":
-                    animation = "banana_glow"
-                    break;
-                case "heart":
-                    animation = "heart_blink"
-                    scale = 1.5;
-                    break;
-                case "bombs":
-                    amount = 3;
-                    break;
-                case "arrows":
-                    amount = 5;
-                    break;
-            }
-            return new Item({
-                scene: this,
-                x: item.x,
-                y: item.y,
-                type: item.name,
-                sprite: item.name,
-                amount,
-                animation,
-                scale,
-            });
-        });
-
-        // ! Se hace uso de una capa exclusiva para los triggers
-        this.mappedTriggerTargets = this.mapTriggerTargets.map(target => {
-            const angle = target.properties
-                .find(prop => prop.name === "angle")?.value;
-            return new TriggerTarget({
-                id: target.id,
-                scene: this,
-                x: target.x,
-                y: target.y,
-                type: target.name,
-                angle,
-            });
-        });
-
-        // ! Se hace uso de una capa exclusiva para los triggers
-        this.mappedTriggers = this.mapTriggers.map(trigger => {
-            const angle = trigger.properties
-                .find(prop => prop.name === "angle")?.value ?? 0;
-            const targetsProp = trigger.properties
-                .find(prop => prop.name === 'targets').value
-                .split(',')
-                .map(str => parseInt(str));
-            const targets = this.mappedTriggerTargets.filter(target => {
-                return targetsProp.includes(parseInt(target.id));
-            });
-            return new Trigger({
-                scene: this,
-                x: trigger.x,
-                y: trigger.y,
-                type: trigger.name,
-                angle,
-                targets,
-            });
-        });
 
         // ! Se obtiene la referencia de algunos triggers para mayor facilidad
         this.buttonTrigger = this.mappedObjects
@@ -423,20 +452,16 @@ class Game extends Phaser.Scene {
                 this.nor,
                 this.boss,
             ],
-            this.layer
+            this.layer,
         );
 
-        // ? Por algún motivo no jala esta madre XD
-        // // ! Se agrega overlap en caso de que la flecha toque muro
-        // this.physics.collide(
-        //     [... this.nor.attackObjects.arrows],
-        //     this.layer,
-        //     (entity, _) => {
-        //         if (entity instanceof Arrow) {
-        //             // entity.stomp();
-        //         }
-        //     }
-        // );
+        // ! Si la flecha pega con la capa de "muros", entonces
+        // ! se tiene que romper.
+        this.physics.collide(
+            [... this.nor.attackObjects.arrows],
+            this.layer,
+            (arrow) => arrow.stomp(),
+        );
 
         // ! Si la flecha se sale de la escena, se tiene que borrar
         this.nor.attackObjects.arrows.forEach((arrow) => {
@@ -462,14 +487,19 @@ class Game extends Phaser.Scene {
             ]
         );
 
-        // ! Agregada la colisión con las rocas
-        const rockBlocks = this.mappedObjects
-            .filter(obj => obj.type === 'rock');
-        this.physics.collide(
+        // ! Se agrega el manejo de overlap con los carteles para mostrar cosas.
+        this.physics.overlap(
             this.nor,
-            rockBlocks.map(obj => obj.gameObject),
+            this.mappedSigns,
+            (_, sign) => {
+                if (this.nor.isInteracting) {
+                    sign.show();
+                }
+            }
         );
 
+        // ! Agregada la colisión con las rocas
+        // this.physics.collide(this.nor, this.mappedRocks);
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró
@@ -545,9 +575,8 @@ class Game extends Phaser.Scene {
         );
 
         // ! Si la explosión toca las rocas, entonces se tienen que romper
-        this.physics.overlap(this.nor.attackObjects.bombs, this.rocks, (_, rock) => {
-            // ! OJO, no se está borrando la referencia. Es probable que en otros
-            // ! lados se tenga que hacer también.
+        this.physics.overlap(this.nor.attackObjects.bombs, this.mappedRocks, (_, rock) => {
+            this.mappedRocks = this.mappedRocks.filter(r => r !== rock);
             rock.destroy();
         })
 

@@ -2,8 +2,8 @@ import { deg2Rad } from "../helpers/deg2Rad.js";
 import { getAngle } from "../helpers/getAngle.js";
 
 const distance = {
-    x: 350,
-    y: 350,
+    x: 500,
+    y: 500,
 };
 
 class Arrow extends Phaser.GameObjects.Sprite {
@@ -25,25 +25,22 @@ class Arrow extends Phaser.GameObjects.Sprite {
         this.body.setOffset(-10.5, 0.5);
 
         // !
-        // ! Props, timer and animation
+        // ! Props, and velocity
         const angle = getAngle(direction);
         this.onFinish = onFinish;
         this.setAngle(angle + 90);
-        this.currentTween = this.scene.add.tween({
-            targets: [this],
-            duration: 800,
-            props: {
-                x: this.x + distance.x * Math.cos(deg2Rad(angle)),
-                y: this.y + distance.y * Math.sin(deg2Rad(angle)),
-            },
-            onComplete: () => {
-                this.stomp();
-            },
-        });
+
+        // ? Antes era un tween, pero dado que la capa de
+        // ? muro no detectaba su colisión, era necesario
+        // ? cambiar a que usara las físicas (que creo que
+        // ? era lo más lógico, lol).
+        this.body.setVelocity(
+            distance.x * Math.cos(deg2Rad(angle)),
+            distance.y * Math.sin(deg2Rad(angle)),
+        );
     }
 
     stomp() {
-        this.currentTween.stop();
         this.onFinish(this);
     }
 }
