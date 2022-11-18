@@ -90,22 +90,20 @@ class Player extends Phaser.GameObjects.Sprite {
             keys: 0,
             arrows: 0,
             bombs: 0,
+            fragments: 0,
         };
 
         // !
-        // ! Secondary weapon stuff
-        // * Relación al arma secundaria
-        // !
-        // !
-        // !
-        // ! CAMBIAR CUANDO YA SE TENGA PROGRESO EN EL JUEGO
-        // !
-        // !
-        // !
+        // ! Weapon stuff!!!11
+        // * Relación a la obtención de armas
         this.hasObtained = {
-            bow: true,
-            bomb: true,
+            sword: false,
+            bow: false,
+            bomb: false,
         }
+
+        // !
+        // ! Secondary weapon stuff
         // ? Este es el índice en el arreglo según el arma que tenga
         // ? actualmente. -1 indica que no tiene. Este tendría que ser
         // ? diferente de -1 cuando hasObtained tenga 'true' en alguna de
@@ -243,67 +241,73 @@ class Player extends Phaser.GameObjects.Sprite {
         console.warn("Aquí se hace el manejo del ataque según sea el caso");
         switch (weapon) {
             case 'sword':
-                const sword = new Sword({
-                    scene: this.scene,
-                    x: this.x,
-                    y: this.y,
-                    direction: this.logicDirection,
-                    onFinish: () => {
-                        this.attackObjects.sword = this.attackObjects.sword.filter(weapon => weapon !== sword);
-                        sword.destroy();
-                    },
-                });
-                this.attackObjects.sword.push(sword);
-                break;
-            case 'bow':
-                const hasArrows = this.items.arrows > 0;
-                if (hasArrows) {
-                    this.items.arrows--;
-                    this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
-                }
-                const bow = new Bow({
-                    scene: this.scene,
-                    x: this.x,
-                    y: this.y,
-                    direction: this.logicDirection,
-                    hasArrows: hasArrows,
-                    onShoot: (arrow) => {
-                        this.attackObjects.arrows.push(arrow);
-                    },
-                    onFinish: (arrow) => {
-                        this.attackObjects.arrows = this.attackObjects.arrows.filter(object => object !== arrow);
-                        arrow.destroy();
-                    },
-                });
-                break;
-            case 'bombs':
-                if (this.items.bombs > 0) {
-                    this.items.bombs--;
-                    this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
-
-                    // Se cambia al arco
-                    if (this.items.bombs === 0) {
-                        this.secondaryIndex = 0;
-                        this.secondaryWeapons.pop();
-                        // console.log(this.secondaryWeapons);
-                        this.scene.registry.events.emit('changeWeapon', {
-                            weapon: this.secondaryWeapons[this.secondaryIndex],
-                        });
-                    }
-
-                    const bomb = new Bomb({
+                if (this.hasObtained.sword) {
+                    const sword = new Sword({
                         scene: this.scene,
                         x: this.x,
                         y: this.y,
+                        direction: this.logicDirection,
                         onFinish: () => {
-                            // console.log("A VER PUES QUE PEDO");
-                            this.attackObjects.bombs = this.attackObjects.bombs.filter(weapon => weapon !== bomb);
-                            bomb.destroy();
+                            this.attackObjects.sword = this.attackObjects.sword.filter(weapon => weapon !== sword);
+                            sword.destroy();
                         },
                     });
-                    this.attackObjects.bombs.push(bomb);
+                    this.attackObjects.sword.push(sword);
                 }
                 break;
+            case 'bow':
+                if (this.hasObtained.bow) {
+                    const hasArrows = this.items.arrows > 0;
+                    if (hasArrows) {
+                        this.items.arrows--;
+                        this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
+                    }
+                    const bow = new Bow({
+                        scene: this.scene,
+                        x: this.x,
+                        y: this.y,
+                        direction: this.logicDirection,
+                        hasArrows: hasArrows,
+                        onShoot: (arrow) => {
+                            this.attackObjects.arrows.push(arrow);
+                        },
+                        onFinish: (arrow) => {
+                            this.attackObjects.arrows = this.attackObjects.arrows.filter(object => object !== arrow);
+                            arrow.destroy();
+                        },
+                    });
+                    break;
+                }
+            case 'bombs':
+                if (this.hasObtained.bomb) {
+                    if (this.items.bombs > 0) {
+                        this.items.bombs--;
+                        this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
+    
+                        // Se cambia al arco
+                        if (this.items.bombs === 0) {
+                            this.secondaryIndex = 0;
+                            this.secondaryWeapons.pop();
+                            // console.log(this.secondaryWeapons);
+                            this.scene.registry.events.emit('changeWeapon', {
+                                weapon: this.secondaryWeapons[this.secondaryIndex],
+                            });
+                        }
+    
+                        const bomb = new Bomb({
+                            scene: this.scene,
+                            x: this.x,
+                            y: this.y,
+                            onFinish: () => {
+                                // console.log("A VER PUES QUE PEDO");
+                                this.attackObjects.bombs = this.attackObjects.bombs.filter(weapon => weapon !== bomb);
+                                bomb.destroy();
+                            },
+                        });
+                        this.attackObjects.bombs.push(bomb);
+                    }
+                    break;
+                }
             default:
                 break;
         }
@@ -373,6 +377,26 @@ class Player extends Phaser.GameObjects.Sprite {
         return this.isDead;
     }
 
+    // ! Cuando obtiene una nueva arma, se tiene que actualizar
+    // ! el GUI, y unas banderas!
+    obtainWeapon({ type }) {
+        this.hasObtained[type] = true;
+        this.scene.registry.events.emit('obtainWeapon', { type });
+    }
+
+    // ! Cuando se obtiene un contenedor de corazón, aumenta
+    // ! la vida máxima
+    changeMaxHealth({ numberOfContainersToAdd }) {
+        this.scene.cameras.main.flash(150, 220, 180, 180);
+        this.healthMax += numberOfContainersToAdd * 2 * this.healthDelta;
+        this.health = this.healthMax;
+        this.scene.registry.events.emit('changeHPStock', {
+            health: this.health,
+            healthMax: this.healthMax,
+            healthDelta: this.healthDelta
+        });
+    }
+
     // ! Se utiliza para actualizar la vida
     changeHP({ addedHealthPoints = 0 }) {
         this.health += this.healthDelta * addedHealthPoints;
@@ -403,6 +427,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
                 break;
             case "bombs":
+                if (!this.hasObtained.bomb) this.obtainWeapon({ type: 'bomb' });
                 this.items.bombs += addedPoints;
                 this.items.bombs = this.items.bombs >= 0 ? this.items.bombs : 0;
                 if (!this.secondaryWeapons.includes('bombs')) {

@@ -387,7 +387,7 @@
                  "visible":true,
                  "width":0,
                  "x":904,
-                 "y":408.333333333333
+                 "y":408.333
                 }, 
                 {
                  "class":"banana",
@@ -399,7 +399,7 @@
                  "visible":true,
                  "width":0,
                  "x":376,
-                 "y":119.333333333333
+                 "y":119.333
                 }, 
                 {
                  "class":"heart",
@@ -410,8 +410,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":583.666666666667,
-                 "y":392.333333333333
+                 "x":583.667,
+                 "y":392.333
                 }, 
                 {
                  "class":"bombs",
@@ -422,8 +422,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":520.333333333333,
-                 "y":392.333333333333
+                 "x":520.333,
+                 "y":392.333
                 }, 
                 {
                  "class":"fragmentedEmerald",
@@ -435,7 +435,7 @@
                  "visible":true,
                  "width":0,
                  "x":440,
-                 "y":344.666666666667
+                 "y":344.667
                 }, 
                 {
                  "class":"banana",
@@ -563,8 +563,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":959.083333333333,
-                 "y":359.583333333333
+                 "x":959.083,
+                 "y":359.583
                 }, 
                 {
                  "class":"",
@@ -591,7 +591,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":153,
+ "nextobjectid":155,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -226,13 +226,14 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa exclusiva para poder obtener los items
         // ! y mapearlos!
         this.mappedItems = this.mapItems.map(item => {
-            let amount, animation;
+            let amount, animation, scale;
             switch (item.name) {
                 case "banana":
                     animation = "banana_glow"
                     break;
                 case "heart":
                     animation = "heart_blink"
+                    scale = 1.5;
                     break;
                 case "bombs":
                     amount = 3;
@@ -249,6 +250,7 @@ class Game extends Phaser.Scene {
                 sprite: item.name,
                 amount,
                 animation,
+                scale,
             });
         });
 
@@ -390,6 +392,8 @@ class Game extends Phaser.Scene {
 
         // ! Emisión de eventos iniciales
         this.nor.changeHP({});
+        this.nor.obtainWeapon({ type: 'sword' });
+        this.nor.obtainWeapon({ type: 'bow' });
     }
 
     update() {
@@ -475,7 +479,10 @@ class Game extends Phaser.Scene {
                     this.nor.getHealed({ healPoints: 1 });
                     break;
                 case "key": case "arrows": case "bombs":
-                    this.nor.changeStats({ stat: item.type, addedPoints: item.props.amount });
+                    this.nor.changeStats({ stat: item.type, addedPoints: item.amount });
+                    break;
+                case "heart":
+                    this.nor.changeMaxHealth({ numberOfContainersToAdd: 1 });
                     break;
                 case "sword": case "bow":
                     // ! Se tiene que activar el tipo de arma que se ha conseguido

@@ -53,12 +53,12 @@ class GUI extends Phaser.Scene {
             key: 'heart',
             quantity: 3,
             setXY: {
-                x: 137,
+                x: 120,
                 y: 0,
-                stepX: 64,
+                stepX: 40,
             },
             setScale: {
-                x: 4,
+                x: 2.5,
             },
             setOrigin: {
                 x: 0.5,
@@ -84,7 +84,8 @@ class GUI extends Phaser.Scene {
         this.guiKeyContainer.add(this.guiKeyNumber);
 
         // Contenedor para flechas
-        this.guiArrowContainer = this.add.container(130, 0);
+        this.guiArrowContainer = this.add.container(130, 0)
+            .setVisible(false);
         this.guiBottomStats.add(this.guiArrowContainer);
 
         this.guiArrow = this.add.image(0, 0, 'textures_atlas', 'arrows')
@@ -97,7 +98,8 @@ class GUI extends Phaser.Scene {
         this.guiArrowContainer.add(this.guiArrowNumber);
 
         // Contenedor para bombas
-        this.guiBombContainer = this.add.container(220, 0);
+        this.guiBombContainer = this.add.container(220, 0)
+            .setVisible(false);
         this.guiBottomStats.add(this.guiBombContainer);
 
         this.guiBomb = this.add.image(0, 0, 'textures_atlas', 'bombs')
@@ -122,9 +124,10 @@ class GUI extends Phaser.Scene {
         );
 
         // Espada
-        this.guiPrimaryWeapon.add(
-            this.add.image(0, 0, 'textures_atlas', 'sword').setScale(4)
-        );
+        this.actualPrimaryWeapon = this.add.image(0, 0, 'textures_atlas', 'sword')
+            .setScale(4)
+            .setVisible(false);
+        this.guiPrimaryWeapon.add(this.actualPrimaryWeapon);
 
         // Botón primario
         this.guiZ = this.add.image(40, 36, 'buttons/z')
@@ -143,7 +146,8 @@ class GUI extends Phaser.Scene {
 
         // Arco
         this.actualSecondaryWeapon = this.add.image(5, -5, 'textures_atlas', 'bow')
-            .setScale(4);
+            .setScale(4)
+            .setVisible(false);
         this.guiSecondaryWeapon.add(this.actualSecondaryWeapon);
 
         // Botón secundario
@@ -264,7 +268,54 @@ class GUI extends Phaser.Scene {
 
         this.registry.events.on('changeWeapon', ({ weapon }) => {
             this.actualSecondaryWeapon.setTexture('textures_atlas', weapon);
-        })
+        });
+
+        // * Cambia el número de contenedores a mostrar, según
+        // * la cantidad de vida máxima de Nor, en el GUI
+        this.registry.events.on('changeHPStock', ({ health, healthMax, healthDelta }) => {
+            console.warn("Actualización de vida máxima: " + healthMax);
+            this.guiTopStats.remove(this.guiHearts);
+            this.guiHearts.destroy(true, true);
+            const amount = Math.floor(healthMax / (healthDelta * 2));
+            this.guiHearts = this.add.group({
+                key: 'heart',
+                quantity: amount,
+                setXY: {
+                    x: 120,
+                    y: 0,
+                    stepX: 40,
+                },
+                setScale: {
+                    x: 2.5,
+                },
+                setOrigin: {
+                    x: 0.5,
+                    y: 0.5,
+                }
+            });
+            this.guiTopStats.add(this.guiHearts.getChildren());
+            this.updateHearts(health, healthDelta);
+        });
+
+        // * En caso de que ay haya obtenido algún arma en
+        // * particular, muestra el objeto que muestra las
+        // * estadísticas.
+        this.registry.events.on('obtainWeapon', ({ type }) => {
+            console.warn("Obtención de nueva arma: " + type);
+            switch (type) {
+                case "sword":
+                    this.actualPrimaryWeapon.setVisible(true);
+                    break;
+                case "bow":
+                    this.actualSecondaryWeapon.setVisible(true);
+                    this.guiArrowContainer.setVisible(true);
+                    break;
+                case "bomb":
+                    this.actualSecondaryWeapon.setVisible(true);
+                    this.guiBombContainer.setVisible(true);
+                    break;
+            }
+        });
     }
 
     create() {

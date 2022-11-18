@@ -1,5 +1,5 @@
 class Item extends Phaser.GameObjects.Sprite {
-    constructor({ scene, x, y, type, sprite, amount = 1, props = {}, animation }) {
+    constructor({ scene, x, y, type, sprite, amount = 1, scale = 1, animation }) {
         super(scene, x, y, sprite);
 
         // !
@@ -8,10 +8,9 @@ class Item extends Phaser.GameObjects.Sprite {
         this.scene.physics.world.enable(this);
 
         this.type = type;
-        this.props = {
-            amount,
-            ...props
-        };
+        this.amount = amount;
+        
+        this.setScale(scale);
 
         if (animation) {
             this.anims.play(animation);

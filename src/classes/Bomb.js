@@ -1,9 +1,6 @@
-import { deg2Rad } from "../helpers/deg2Rad.js";
-import { getAngle } from "../helpers/getAngle.js";
-
 class Bomb extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y, onFinish }) {
-        super(scene, x, y + 10, 'bomb');
+        super(scene, x, y + 16, 'bomb');
 
         // !
         // ! World settings
@@ -13,7 +10,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Physics things
-        this.setScale(2);
+        this.setScale(1);
         this.body.setCircle(24);
         // ? Esta deshabilitado hasta que explote
         this.body.enable = false;
@@ -44,6 +41,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
                     onStart: () => {
                         // ? Se tiene que activar la colisión justo
                         // ? en el momento de la explosión.
+                        this.setScale(2);
                         this.body.enable = true;
                         this.anims.play('bomb_explode');
                         this.scene.cameras.main.shake(300, 0.008);
