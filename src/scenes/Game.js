@@ -1,4 +1,6 @@
 import Arrow from '../classes/Arrow.js';
+import Enemy from '../classes/Enemy.js';
+import GameScene from '../classes/GameScene.js';
 import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
@@ -21,15 +23,34 @@ class Game extends Phaser.Scene {
         // *
 
         // ! Definición de constantes
+
+        // ? Medidas en pixeles
+        this.tileWidth = 16;
+        this.tileHeight = 16;
         this.sceneWidth = 320;
         this.sceneHeight = 240;
+
+        // ? Medidas en tiles
+        this.mapWidth = 80;
+        this.mapHeight = 30;
+        this.sceneWidthTiles = 20;
+        this.sceneHeightTiles = 15;
+
+        // ! Este servirá para poder hacer manejo del spawneo "dinámico"
+        // ! de ciertas entidades en las escenas chiquitas.
+        this.gameScene = new GameScene({
+            tileWidth: this.tileWidth,
+            tileHeight: this.tileHeight,
+            sceneWidth: this.sceneWidthTiles,
+            sceneHeight: this.sceneHeightTiles,
+            mapWidth: this.mapWidth,
+            mapHeight: this.mapHeight,
+        });
+
+        // * Coordenadas de la escena
         this.sceneCoords = {
             x: 0,
             y: 0,
-        };
-        this.cameraCoords = {
-            x: this.sceneWidth / 2,
-            y: this.sceneHeight / 2,
         };
 
         // ! Constantes para las físicas
@@ -51,7 +72,6 @@ class Game extends Phaser.Scene {
         this.isTeleporting = false;
         this.teleportingTime = 100;
 
-
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
     }
@@ -72,7 +92,28 @@ class Game extends Phaser.Scene {
 
     updateSceneCoords({ x, y }, now = false) {
         this.sceneCoords = { x, y };
+        this.updateMapEnemies();
         this.updateCameraCoords(now);
+    }
+
+    // ? Este método se encarga de limpiar y spawnear los
+    // ? enemigos cuando el jugador se encuentre en una
+    // ? escena específica.
+    updateMapEnemies() {
+        const { x, y } = this.sceneCoords;
+        this.mapEnemies.forEach(gameObject => gameObject.destroy());
+        this.mapEnemies = this.gameScene.get({ x, y })
+            .filter(entity => entity.alive)
+            .map(entity => {
+                const enemy = new Enemy({
+                    scene: this,
+                    x: entity.x,
+                    y: entity.y,
+                });
+                enemy.parent = entity;
+                return enemy;
+            });
+        console.log(this.mapEnemies);
     }
 
     updateCameraCoords(now = false) {
@@ -112,10 +153,10 @@ class Game extends Phaser.Scene {
         // ! Configuración de tiles y el mapa
         this.map = this.make.tilemap({
             key: 'tile-map',
-            tileWidth: 16,
-            tileHeight: 16,
-            width: 80,
-            height: 30,
+            tileWidth: this.tileWidth,
+            tileHeight: this.tileHeight,
+            width: this.mapWidth,
+            height: this.mapHeight,
         });
         this.tileset = this.map.addTilesetImage("textures");
         this.layer = this.map.createLayer('Background', this.tileset);
@@ -128,25 +169,11 @@ class Game extends Phaser.Scene {
         // ! Se agrega colisión con los tiles!
         this.layer.setCollisionByExclusion([-1]);
 
-        // ! Obtención de las capas de objetosjects = [];
-        this.mapRocks = this.map.objects.find(layer => layer.name === "Rocks").objects;
-        this.mappedRocks = [];
-        this.mapTriggerTargets = this.map.objects.find(layer => layer.name === "TriggerTargets").objects;
-        this.mappedTriggerTargets = [];
-        this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
-        this.mappedTriggers = [];
-        this.mapTeleports = this.map.objects.find(layer => layer.name === "Teleports").objects;
-        this.mappedTeleports = [];
-        this.mapSigns = this.map.objects.find(layer => layer.name === "Signs").objects;
-        this.mappedSigns = [];
-        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
-        this.mappedItems = [];
-        this.mapObjects = this.map.objects.find(layer => layer.name === "Objects").objects;
-        this.mappedObjects = [];
 
         // ! >>>> Configuración de las capas de objetos
 
-        // ! Se hace uso de una capa exclusiva para los triggers
+        // ! roca
+        this.mapRocks = this.map.objects.find(layer => layer.name === "Rocks").objects;
         this.mappedRocks = this.mapRocks.map(rock => {
             return new Rock({
                 scene: this,
@@ -156,6 +183,7 @@ class Game extends Phaser.Scene {
         });
 
         // ! Se hace uso de una capa exclusiva para los triggers
+        this.mapTriggerTargets = this.map.objects.find(layer => layer.name === "TriggerTargets").objects;
         this.mappedTriggerTargets = this.mapTriggerTargets.map(target => {
             const angle = target.properties
                 .find(prop => prop.name === "angle")?.value;
@@ -170,6 +198,7 @@ class Game extends Phaser.Scene {
         });
 
         // ! Se hace uso de una capa exclusiva para los triggers
+        this.mapTriggers = this.map.objects.find(layer => layer.name === "Triggers").objects;
         this.mappedTriggers = this.mapTriggers.map(trigger => {
             const angle = trigger.properties
                 .find(prop => prop.name === "angle")?.value ?? 0;
@@ -192,9 +221,8 @@ class Game extends Phaser.Scene {
 
         // ! Se hace uso de una capa adicional para poder establecer
         // ! el lugar en donde será telentransportado el jugador.
-        // this.mapTeleports.forEach(console.log);
-        const positions = this.mapTeleports
-            .filter(object => object.point);
+        this.mapTeleports = this.map.objects.find(layer => layer.name === "Teleports").objects;
+        const positions = this.mapTeleports.filter(object => object.point);
         this.mappedTeleports = this.mapTeleports
             .filter(object => object.rectangle)
             .map(object => {
@@ -210,7 +238,9 @@ class Game extends Phaser.Scene {
                 });
             });
 
+
         // ! Se hace uso de una capa exclusiva para los triggers
+        this.mapSigns = this.map.objects.find(layer => layer.name === "Signs").objects;
         this.mappedSigns = this.mapSigns.map(sign => {
             const content = sign.properties
                 .find(prop => prop.name === "content").value;
@@ -224,6 +254,7 @@ class Game extends Phaser.Scene {
 
         // ! Se hace uso de una capa exclusiva para poder obtener los items
         // ! y mapearlos!
+        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
         this.mappedItems = this.mapItems.map(item => {
             let amount, animation, scale;
             switch (item.name) {
@@ -253,9 +284,40 @@ class Game extends Phaser.Scene {
             });
         });
 
-        // ! Posición inicial de Nor
-        const initPos = this.mapObjects.find(obj => obj.name === 'norInitialPosition');
-        const bossInitPos = this.mapObjects.find(obj => obj.name === 'bossInitialPosition');
+        // ! Se hace uso de una capa para poder obtener únicamente los
+        // ! enemigos!
+        this.mapEnemiesData = this.map.objects.find(layer => layer.name === "Enemies").objects;
+        this.mappedEnemiesData = this.mapEnemiesData.forEach(enemy => {
+
+            // ? La idea de esto es que se carguen los datos de los
+            // ? enemigos en las escenas correspondientes según sus
+            // ? coordenadas, esto con el fin de que se puedan
+            // ? cargar y agregar a una lista cuando Nor se encuentre
+            // ? en dicha escena. Cuando salga de la escena, los
+            // ? objetos son destruidos.
+            // ? La intención es ahorrar recursos y no lagear tanto
+            // ? el juego xD.
+
+            // ! Falta más configuración... esto dependerá de cómo
+            // ! se configurarán los enemigos.
+            this.gameScene.insert({
+                ...enemy,
+                alive: true,
+            });
+        });
+        // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
+        this.mapEnemies = [];
+
+        // ! 
+        // ! 
+        // ! TEMPORAL
+        // ! 
+        // ! 
+        // ! Se hace uso de una capa exclusiva para las posiciones de las
+        // ! entidades
+        this.mapPositions = this.map.objects.find(layer => layer.name === "Positions").objects;
+        const initPos = this.mapPositions.find(obj => obj.name === 'nor');
+        const bossInitPos = this.mapPositions.find(obj => obj.name === 'boss');
 
         // ! Configuración de cámara
         this.cameras.main.setViewport(0, 0, 640, 480);
@@ -279,72 +341,6 @@ class Game extends Phaser.Scene {
             .setMaxVelocity(this.maxVelocity)
             .setDrag(this.drag);
         this.boss.body.setCircle(this.boss.body.halfWidth);
-
-        // ! Agregado de objetos
-        this.mapObjects
-            .filter(obj => !obj.name.includes('InitialPosition'))
-            .forEach(obj => {
-                // ! Empieza el mapeo...
-                const type = obj.name.split('_')[0];
-                const gameObject = this.physics.add.sprite(
-                    obj.x,
-                    obj.y,
-                    'textures_atlas',
-                    type,
-                ).setOrigin(0, 1);
-                const props = {};
-
-                // ! Configuración personalizada de cada uno
-                switch (type) {
-                    case 'toggle':
-                        gameObject.body.immovable = true;
-                        break;
-                    case 'button': case 'lock':
-                        const togglesProp = obj.properties
-                            .find(p => p.name === 'toggles');
-                        props.toggles = togglesProp.value.split(',');
-                        gameObject.body.immovable = true;
-                        break;
-                    case 'sign':
-                        gameObject.body.immovable = true;
-                        break;
-                    case 'rock':
-                        gameObject.body.immovable = true;
-                        break;
-                    case 'enemy':
-                        gameObject.body.setCircle(gameObject.body.halfWidth);
-                        gameObject.setDrag(this.drag);
-                        break;
-                    default:
-                        gameObject.setDrag(this.drag);
-                        break;
-                }
-
-                // ! Se almacena el objeto mapeado en un arreglo para después
-                const mapped = {
-                    obj: obj,
-                    props: props,
-                    gameObject: gameObject,
-                    name: obj.name,
-                    type: type,
-                }
-                gameObject.setData('parent', mapped);
-                this.mappedObjects.push(mapped);
-            });
-
-        // ! Se obtiene la referencia de algunos triggers para mayor facilidad
-        this.buttonTrigger = this.mappedObjects
-            .find(obj => obj.type === 'button');
-        this.lockTrigger = this.mappedObjects
-            .find(obj => obj.type === 'lock');
-        this.rocks = this.mappedObjects
-            .filter(obj => obj.type === 'rock')
-            .map(obj => obj.gameObject);
-
-        // ! Se obtienen las referencias de los enemigos
-        this.enemyGameObjects = this.mappedObjects
-            .filter(obj => obj.type === 'enemy')
-            .map(obj => obj.gameObject);
 
         // ! Se agrega texto de ayuda rápido
         this.add.text(
@@ -462,7 +458,6 @@ class Game extends Phaser.Scene {
         // ! Se agrega el manejador de colisiones con las tiles y todos los objetos
         this.physics.collide(
             [
-                ...this.mappedObjects.map(obj => obj.gameObject),
                 this.nor,
                 this.boss,
             ],
@@ -490,16 +485,6 @@ class Game extends Phaser.Scene {
                 bomb.vanish();
             }
         });
-
-        // ! Se agrega el manejador de colisiones con los carteles xD
-        this.physics.collide(
-            this.nor,
-            [
-                ...this.mappedObjects
-                    .filter(obj => obj.type === 'sign')
-                    .map(obj => obj.gameObject)
-            ]
-        );
 
         // ! Se agrega el manejo de overlap con los carteles para mostrar cosas.
         this.physics.overlap(
@@ -541,7 +526,7 @@ class Game extends Phaser.Scene {
         })
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
-        this.physics.collide(this.nor, [...this.enemyGameObjects, this.boss], () => {
+        this.physics.collide(this.nor, [...this.mapEnemies, this.boss], () => {
             const isDead = this.nor.getHurt({ damagePoints: 1 });
             if (isDead) this.onDead();
         });
@@ -618,15 +603,22 @@ class Game extends Phaser.Scene {
                 ...this.nor.attackObjects.bombs,
             ],
             [
-                ...this.enemyGameObjects,
+                ...this.mapEnemies,
                 this.boss
             ],
             (object, enemy) => {
                 if (object instanceof Arrow) object.stomp();
-                this.enemyGameObjects = this.enemyGameObjects.filter(enemyObj => enemyObj !== enemy);
-                if (this.boss === enemy) this.boss = null;
+
+                // ! Cuando el enemigo ha sido destruido, no volverá a
+                // ! spawnear cuando se pase por la misma escena.
+                if (enemy instanceof Enemy) {
+                    this.mapEnemies = this.mapEnemies.filter(object => object !== enemy);
+                    enemy.parent.alive = false;
+                } else if (this.boss === enemy) {
+                    this.boss = null;
+                }
+
                 enemy.destroy();
-                console.log("BOOM B*TCH!");
             }
         );
     }

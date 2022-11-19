@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="184">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="217">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -215,13 +215,13 @@
   </object>
  </objectgroup>
  <objectgroup id="2" name="Teleports">
-  <object id="177" name="pos" x="673.75" y="128.25">
-   <point/>
-  </object>
   <object id="183" x="1200" y="272" width="32" height="32">
    <properties>
-    <property name="destiny" type="int" value="177"/>
+    <property name="destiny" type="int" value="216"/>
    </properties>
+  </object>
+  <object id="216" x="672" y="192">
+   <point/>
   </object>
  </objectgroup>
  <objectgroup id="9" name="Signs">
@@ -279,21 +279,23 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Objects">
-  <object id="85" name="norInitialPosition" x="888" y="120.333">
+ <objectgroup id="13" name="Enemies">
+  <object id="186" name="enemy_3" gid="29" x="1136" y="304" width="16" height="16"/>
+  <object id="187" name="enemy_4" gid="29" x="1136" y="368" width="16" height="16"/>
+  <object id="188" name="enemy_5" gid="29" x="1136" y="432" width="16" height="16"/>
+  <object id="189" name="enemy_0" gid="29" x="704" y="416" width="16" height="16"/>
+  <object id="190" name="enemy_1" gid="29" x="784" y="416" width="16" height="16"/>
+  <object id="191" name="enemy_2" gid="29" x="848" y="416" width="16" height="16"/>
+  <object id="192" name="enemy_8" gid="29" x="416" y="192" width="16" height="16"/>
+  <object id="193" name="enemy_7" gid="29" x="464" y="64" width="16" height="16"/>
+  <object id="194" name="enemy_6" gid="29" x="416" y="64" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="12" name="Positions">
+  <object id="185" name="nor" x="896" y="112">
    <point/>
   </object>
-  <object id="87" name="enemy_0" gid="29" x="704" y="416" width="16" height="16"/>
-  <object id="88" name="enemy_1" gid="29" x="784" y="416" width="16" height="16"/>
-  <object id="89" name="enemy_2" gid="29" x="848" y="416" width="16" height="16"/>
-  <object id="92" name="enemy_3" gid="29" x="1136" y="304" width="16" height="16"/>
-  <object id="93" name="enemy_4" gid="29" x="1136" y="368" width="16" height="16"/>
-  <object id="94" name="enemy_5" gid="29" x="1136" y="432" width="16" height="16"/>
-  <object id="122" name="bossInitialPosition" x="416" y="336">
+  <object id="214" name="boss" x="416" y="336">
    <point/>
   </object>
-  <object id="124" name="enemy_8" gid="29" x="416" y="192" width="16" height="16"/>
-  <object id="125" name="enemy_7" gid="29" x="464" y="64" width="16" height="16"/>
-  <object id="126" name="enemy_6" gid="29" x="416" y="64" width="16" height="16"/>
  </objectgroup>
 </map>
