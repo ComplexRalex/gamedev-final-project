@@ -431,10 +431,10 @@
                  "y":392.333
                 }, 
                 {
-                 "class":"fragmentedEmerald",
+                 "class":"fragmented_emerald",
                  "height":0,
                  "id":143,
-                 "name":"fragmentedEmerald",
+                 "name":"fragmented_emerald",
                  "point":true,
                  "rotation":0,
                  "visible":true,
@@ -651,7 +651,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":217,
+ "nextobjectid":219,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
@@ -660,11 +660,11 @@
         {
          "columns":9,
          "firstgid":1,
-         "image":"textures.png",
+         "image":"generics\/generics.png",
          "imageheight":64,
          "imagewidth":144,
          "margin":0,
-         "name":"textures",
+         "name":"generics",
          "spacing":0,
          "tilecount":36,
          "tileheight":16,

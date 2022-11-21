@@ -1,7 +1,7 @@
 class Enemy extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y }) {
         // ! LO DEL ENEMY ES TEMPORAL
-        super(scene, x, y, 'textures_atlas', 'enemy');
+        super(scene, x, y, 'generics_atlas', 'enemy');
 
         // ? Ideas
         // ? 

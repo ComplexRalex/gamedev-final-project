@@ -158,7 +158,7 @@ class Game extends Phaser.Scene {
             width: this.mapWidth,
             height: this.mapHeight,
         });
-        this.tileset = this.map.addTilesetImage("textures");
+        this.tileset = this.map.addTilesetImage("generics");
         this.layer = this.map.createLayer('Background', this.tileset);
 
         // ! Esto es una prueba para ver si puede jalar más
@@ -271,6 +271,9 @@ class Game extends Phaser.Scene {
                 case "arrows":
                     amount = 5;
                     break;
+                case "fragmented_emerald":
+                    animation = "fragmented_emerald_shine"
+                    break;
             }
             return new Item({
                 scene: this,
@@ -336,7 +339,7 @@ class Game extends Phaser.Scene {
         });
 
         // ! Agregado del jefe final de zona
-        this.boss = this.physics.add.sprite(bossInitPos.x, bossInitPos.y, 'textures_atlas', 'boss')
+        this.boss = this.physics.add.sprite(bossInitPos.x, bossInitPos.y, 'generics_atlas', 'boss')
             .setDepth(1)
             .setMaxVelocity(this.maxVelocity)
             .setDrag(this.drag);

@@ -1,0 +1,188 @@
+{
+	"textures": [
+		{
+			"image": "fragmented_emerald.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 208,
+				"h": 25
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "fragmented_emerald_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 27,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 53,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 79,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_4",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 105,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_5",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 131,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_6",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 157,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				},
+				{
+					"filename": "fragmented_emerald_7",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 4,
+						"w": 24,
+						"h": 23
+					},
+					"frame": {
+						"x": 183,
+						"y": 1,
+						"w": 24,
+						"h": 23
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:257cfe24ab22dd3ac4aa57f731ada940:71746be2d03e15fbd93391d58fc4f890:705052c6a040f848fc5007c977cd7b91$"
+	}
+}

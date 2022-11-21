@@ -1,0 +1,44 @@
+{
+    "anims": [
+        {
+            "key": "fragmented_emerald_shine",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_0"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_1"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_2"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_3"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_4"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_5"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_6"
+                },
+                {
+                    "key": "fragmented_emerald",
+                    "frame": "fragmented_emerald_7"
+                }
+            ]
+        }
+    ]
+}

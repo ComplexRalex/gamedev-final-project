@@ -33,7 +33,7 @@ class Bootloader extends Phaser.Scene {
             // * Game
 
             // Extra
-            { key: 'textures', url: 'game/textures/textures.png' },
+            { key: 'generics', url: 'game/textures/generics/generics.png' },
             { key: 'krt', url: 'menu/logo_krt.png' },
 
             // GUI
@@ -50,17 +50,17 @@ class Bootloader extends Phaser.Scene {
             { key: 'gui-sign', url: 'game/gui/sign.png' },
 
             // Characters (only those who don't have atlas)
-            
+
             // Weapons (same note as above)
             { key: 'sword', url: 'game/objects/sword.png' },
             { key: 'bow', url: 'game/objects/bow.png' },
             { key: 'arrow', url: 'game/objects/arrow.png' },
-            
+
             // Items (same note as above)
             { key: 'key', url: 'game/objects/key.png' },
             { key: 'arrows', url: 'game/objects/arrows.png' },
             { key: 'bombs', url: 'game/objects/bombs.png' },
-            
+
             // Triggery stuff
             { key: 'lock', url: 'game/objects/lock.png' },
             { key: 'button', url: 'game/objects/button.png' },
@@ -74,6 +74,13 @@ class Bootloader extends Phaser.Scene {
             { key: 'temple', url: 'game/objects/temple.png' },
             { key: 'sanctuary', url: 'game/objects/sanctuary.png' },
             { key: 'pedestal', url: 'game/objects/pedestal.png' },
+
+            // Textures
+            { key: 'jungle_zipela', url: 'game/textures/level1/jungle_zipela.png' },
+            { key: 'forest_haru', url: 'game/textures/level2/forest_haru.png' },
+            { key: 'hill_efron', url: 'game/textures/level3/hill_efron.png' },
+            { key: 'cave', url: 'game/textures/level4/cave.png' },
+            { key: 'indoors', url: 'game/textures/indoors/indoors.png' },
         ]);
 
         this.load.atlas([
@@ -89,9 +96,10 @@ class Bootloader extends Phaser.Scene {
             // Items
             { key: 'heart', textureURL: 'game/objects/heart/heart.png', atlasURL: 'game/objects/heart/heart_atlas.json' },
             { key: 'banana', textureURL: 'game/objects/banana/banana.png', atlasURL: 'game/objects/banana/banana_atlas.json' },
+            { key: 'fragmented_emerald', textureURL: 'game/objects/fragmented_emerald/fragmented_emerald.png', atlasURL: 'game/objects/fragmented_emerald/fragmented_emerald_atlas.json' },
 
-            // Textures (scene)
-            { key: 'textures_atlas', textureURL: 'game/textures/textures.png', atlasURL: 'game/textures/textures_atlas.json' },
+            // Textures
+            { key: 'generics_atlas', textureURL: 'game/textures/generics/generics.png', atlasURL: 'game/textures/generics/generics_atlas.json' },
         ]);
 
         this.load.animation([
@@ -99,7 +107,7 @@ class Bootloader extends Phaser.Scene {
 
             // Characters
             { key: 'nor_anim', url: 'game/characters/nor/nor_anim.json' },
-            
+
             // Weapons
             { key: 'sword_attack_anim', url: 'game/objects/sword_attack/sword_attack_anim.json' },
             { key: 'bomb_anim', url: 'game/objects/bomb/bomb_anim.json' },
@@ -107,6 +115,7 @@ class Bootloader extends Phaser.Scene {
             // Items
             { key: 'heart_anim', url: 'game/objects/heart/heart_anim.json' },
             { key: 'banana_anim', url: 'game/objects/banana/banana_anim.json' },
+            { key: 'fragmented_emerald_anim', url: 'game/objects/fragmented_emerald/fragmented_emerald_anim.json' },
         ]);
 
         // ! Esta es la forma de cargar un mapa de "tiles"

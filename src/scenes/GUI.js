@@ -75,7 +75,7 @@ class GUI extends Phaser.Scene {
         this.guiKeyContainer = this.add.container(30, 0);
         this.guiBottomStats.add(this.guiKeyContainer);
 
-        this.guiKey = this.add.image(0, 0, 'textures_atlas', 'key')
+        this.guiKey = this.add.image(0, 0, 'generics_atlas', 'key')
             .setScale(2);
         this.guiKeyContainer.add(this.guiKey);
 
@@ -88,7 +88,7 @@ class GUI extends Phaser.Scene {
             .setVisible(false);
         this.guiBottomStats.add(this.guiArrowContainer);
 
-        this.guiArrow = this.add.image(0, 0, 'textures_atlas', 'arrows')
+        this.guiArrow = this.add.image(0, 0, 'generics_atlas', 'arrows')
             .setScale(2)
             .setAngle(45);
         this.guiArrowContainer.add(this.guiArrow);
@@ -102,7 +102,7 @@ class GUI extends Phaser.Scene {
             .setVisible(false);
         this.guiBottomStats.add(this.guiBombContainer);
 
-        this.guiBomb = this.add.image(0, 0, 'textures_atlas', 'bombs')
+        this.guiBomb = this.add.image(0, 0, 'generics_atlas', 'bombs')
             .setScale(2);
         this.guiBombContainer.add(this.guiBomb);
 
@@ -124,7 +124,7 @@ class GUI extends Phaser.Scene {
         );
 
         // Espada
-        this.actualPrimaryWeapon = this.add.image(0, 0, 'textures_atlas', 'sword')
+        this.actualPrimaryWeapon = this.add.image(0, 0, 'generics_atlas', 'sword')
             .setScale(4)
             .setVisible(false);
         this.guiPrimaryWeapon.add(this.actualPrimaryWeapon);
@@ -145,7 +145,7 @@ class GUI extends Phaser.Scene {
         );
 
         // Arco
-        this.actualSecondaryWeapon = this.add.image(5, -5, 'textures_atlas', 'bow')
+        this.actualSecondaryWeapon = this.add.image(5, -5, 'generics_atlas', 'bow')
             .setScale(4)
             .setVisible(false);
         this.guiSecondaryWeapon.add(this.actualSecondaryWeapon);
@@ -264,7 +264,7 @@ class GUI extends Phaser.Scene {
         });
 
         this.registry.events.on('changeWeapon', ({ weapon }) => {
-            this.actualSecondaryWeapon.setTexture('textures_atlas', weapon);
+            this.actualSecondaryWeapon.setTexture('generics_atlas', weapon);
         });
 
         // * Cambia el número de contenedores a mostrar, según

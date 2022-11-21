@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="217">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="219">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
- <tileset firstgid="1" name="textures" tilewidth="16" tileheight="16" tilecount="36" columns="9">
-  <image source="textures.png" width="144" height="64"/>
+ <tileset firstgid="1" name="generics" tilewidth="16" tileheight="16" tilecount="36" columns="9">
+  <image source="generics/generics.png" width="144" height="64"/>
   <tile id="0">
    <objectgroup draworder="index" id="2">
     <object id="1" x="0" y="0" width="16" height="16"/>
@@ -263,7 +263,7 @@
   <object id="142" name="bombs" class="bombs" x="520.333" y="392.333">
    <point/>
   </object>
-  <object id="143" name="fragmentedEmerald" class="fragmentedEmerald" x="440" y="344.667">
+  <object id="143" name="fragmented_emerald" class="fragmented_emerald" x="440" y="344.667">
    <point/>
   </object>
   <object id="144" name="banana" class="banana" x="64" y="304">
