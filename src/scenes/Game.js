@@ -9,6 +9,7 @@ import Snake from '../classes/Snake.js';
 import Teleporter from '../classes/Teleporter.js';
 import Trigger from '../classes/Trigger.js';
 import TriggerTarget from '../classes/TriggerTarget.js';
+import Wolf from '../classes/Wolf.js';
 
 class Game extends Phaser.Scene {
     constructor() {
@@ -61,7 +62,7 @@ class Game extends Phaser.Scene {
         this.speedUp = 1.3;
 
         // ! Otras constantes
-        this.debugMode = false;
+        this.debugMode = true;
         this.zoomOutActive = false;
         this.zoomOriginal = 2;
         this.zoomFurthest = 0.5;
@@ -106,18 +107,19 @@ class Game extends Phaser.Scene {
         this.mapEnemies = this.gameScene.get({ x, y })
             .filter(entity => entity.alive)
             .map(entity => {
+                const props = {
+                    scene: this,
+                    x: entity.x,
+                    y: entity.y,
+                    parent: entity,
+                    hp: entity.hp,
+                    drops: entity.drops,
+                    dropEverything: entity.dropEverything,
+                    dropDirection: entity.dropDirection,
+                };
                 switch (entity.type) {
-                    case "snake":
-                        return new Snake({
-                            scene: this,
-                            x: entity.x,
-                            y: entity.y,
-                            parent: entity,
-                            hp: entity.hp,
-                            drops: entity.drops,
-                            dropEverything: entity.dropEverything,
-                            dropDirection: entity.dropDirection,
-                        });
+                    case "snake": return new Snake(props);
+                    case "wolf": return new Wolf(props);
                 }
             });
         console.log(this.mapEnemies);
@@ -449,13 +451,13 @@ class Game extends Phaser.Scene {
         this.nor.obtainWeapon({ type: 'bow' });
     }
 
-    update() {
+    update(time, delta) {
         // ! Se actualizan las físicas de Nor!
         this.nor.update();
 
         // ! Se actualizan las físicas de los enemigos!
         this.mapEnemies.forEach(enemy => {
-            enemy.update({ player: this.nor });
+            enemy.update({ player: this.nor, time: time, delta: delta });
         });
 
         // ! Si Nor se sale de la escena actual, se mueve la cámara

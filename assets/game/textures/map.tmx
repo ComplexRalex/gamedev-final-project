@@ -277,7 +277,7 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Enemies">
-  <object id="220" name="snake" x="704" y="112">
+  <object id="220" name="wolf" x="704" y="112">
    <properties>
     <property name="drops" value="null,null,banana"/>
    </properties>
@@ -316,7 +316,7 @@
    </properties>
    <point/>
   </object>
-  <object id="231" name="snake" x="416" y="64">
+  <object id="231" name="wolf" x="416" y="64">
    <properties>
     <property name="drops" value="null,banana,null,null"/>
    </properties>

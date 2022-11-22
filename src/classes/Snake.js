@@ -32,7 +32,7 @@ class Snake extends Enemy {
         // * Esto sirve para poder definir la dirección a la que está
         // * viendo actualmente. Puede ser: 'left' | 'right'
         this.direction = this.prevDirection = 'right';
-        // * Posibles estados: 'idle' | 'walk' | 'attack' | 'hurt' | 'dead'
+        // * Posibles estados: 'idle' | 'walk' | 'hurt' | 'dead'
         this.action = this.prevAction = 'idle';
 
         // ! Se reproduce la animación de 'idle' en un inicio
@@ -77,9 +77,9 @@ class Snake extends Enemy {
 
     update({ player }) {
         this.prevAction = this.action;
+        this.body.setAcceleration(0);
         if (!this.isDead && !this.isStunned) {
             this.detectionArea.setPosition(this.x, this.y);
-            this.body.setAcceleration(0);
             const overlap = this.scene.physics.overlap(player, this.detectionArea, () => {
                 if (!this.isMoving) {
                     this.isMoving = true;
