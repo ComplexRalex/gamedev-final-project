@@ -1,11 +1,6 @@
 import { deg2Rad } from "../helpers/deg2Rad.js";
 import { getAngle } from "../helpers/getAngle.js";
 
-const distance = {
-    x: 500,
-    y: 500,
-};
-
 class Arrow extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y, direction, onFinish }) {
         super(scene, x, y, 'arrow');
@@ -32,6 +27,7 @@ class Arrow extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Props, and velocity
+        this.damagePoints = 1;
         const angle = getAngle(direction);
         this.onFinish = onFinish;
         this.setAngle(angle + 90);
@@ -40,9 +36,10 @@ class Arrow extends Phaser.GameObjects.Sprite {
         // ? muro no detectaba su colisión, era necesario
         // ? cambiar a que usara las físicas (que creo que
         // ? era lo más lógico, lol).
+        this.distance = 500;
         this.body.setVelocity(
-            distance.x * Math.cos(deg2Rad(angle)),
-            distance.y * Math.sin(deg2Rad(angle)),
+            this.distance * Math.cos(deg2Rad(angle)),
+            this.distance * Math.sin(deg2Rad(angle)),
         );
     }
 

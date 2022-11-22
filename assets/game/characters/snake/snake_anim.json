@@ -1,0 +1,120 @@
+{
+    "anims": [
+        {
+            "key": "snake_dead",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "snake",
+                    "frame": "dead1"
+                },
+                {
+                    "key": "snake",
+                    "frame": "dead2"
+                },
+                {
+                    "key": "snake",
+                    "frame": "dead3"
+                },
+                {
+                    "key": "snake",
+                    "frame": "dead4"
+                },
+                {
+                    "key": "snake",
+                    "frame": "dead5"
+                },
+                {
+                    "key": "snake",
+                    "frame": "dead6"
+                }
+            ]
+        },
+        {
+            "key": "snake_hurt",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "snake",
+                    "frame": "hit_1"
+                },
+                {
+                    "key": "snake",
+                    "frame": "hit_2"
+                },
+                {
+                    "key": "snake",
+                    "frame": "hit_3"
+                }
+            ]
+        },
+        {
+            "key": "snake_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "snake",
+                    "frame": "walk1"
+                },
+                {
+                    "key": "snake",
+                    "frame": "walk2"
+                },
+                {
+                    "key": "snake",
+                    "frame": "walk3"
+                },
+                {
+                    "key": "snake",
+                    "frame": "walk4"
+                },
+                {
+                    "key": "snake",
+                    "frame": "walk5"
+                },
+                {
+                    "key": "snake",
+                    "frame": "walk6"
+                }
+            ]
+        },
+        {
+            "key": "snake_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "snake",
+                    "frame": "ready_1"
+                },
+                {
+                    "key": "snake",
+                    "frame": "ready_2"
+                },
+                {
+                    "key": "snake",
+                    "frame": "ready_3"
+                },
+                {
+                    "key": "snake",
+                    "frame": "ready_4"
+                },
+                {
+                    "key": "snake",
+                    "frame": "ready_5"
+                },
+                {
+                    "key": "snake",
+                    "frame": "ready_6"
+                }
+            ]
+        }
+    ]
+}

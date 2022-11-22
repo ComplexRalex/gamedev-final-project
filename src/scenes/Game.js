@@ -5,6 +5,7 @@ import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
 import Sign from '../classes/Sign.js';
+import Snake from '../classes/Snake.js';
 import Teleporter from '../classes/Teleporter.js';
 import Trigger from '../classes/Trigger.js';
 import TriggerTarget from '../classes/TriggerTarget.js';
@@ -105,13 +106,19 @@ class Game extends Phaser.Scene {
         this.mapEnemies = this.gameScene.get({ x, y })
             .filter(entity => entity.alive)
             .map(entity => {
-                const enemy = new Enemy({
-                    scene: this,
-                    x: entity.x,
-                    y: entity.y,
-                });
-                enemy.parent = entity;
-                return enemy;
+                switch (entity.type) {
+                    case "snake":
+                        return new Snake({
+                            scene: this,
+                            x: entity.x,
+                            y: entity.y,
+                            parent: entity,
+                            hp: entity.hp,
+                            drops: entity.drops,
+                            dropEverything: entity.dropEverything,
+                            dropDirection: entity.dropDirection,
+                        });
+                }
             });
         console.log(this.mapEnemies);
     }
@@ -140,6 +147,15 @@ class Game extends Phaser.Scene {
             return true;
         }
         return false;
+    }
+
+    addItem({ type, x, y }) {
+        this.mappedItems.push(Item.ofType({
+            scene: this,
+            type: type,
+            x: x,
+            y: y,
+        }));
     }
 
     create() {
@@ -256,34 +272,11 @@ class Game extends Phaser.Scene {
         // ! y mapearlos!
         this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
         this.mappedItems = this.mapItems.map(item => {
-            let amount, animation, scale;
-            switch (item.name) {
-                case "banana":
-                    animation = "banana_glow"
-                    break;
-                case "heart":
-                    animation = "heart_blink"
-                    scale = 1.5;
-                    break;
-                case "bombs":
-                    amount = 3;
-                    break;
-                case "arrows":
-                    amount = 5;
-                    break;
-                case "fragmented_emerald":
-                    animation = "fragmented_emerald_shine"
-                    break;
-            }
-            return new Item({
+            return Item.ofType({
                 scene: this,
                 x: item.x,
                 y: item.y,
                 type: item.name,
-                sprite: item.name,
-                amount,
-                animation,
-                scale,
             });
         });
 
@@ -300,13 +293,31 @@ class Game extends Phaser.Scene {
             // ? objetos son destruidos.
             // ? La intención es ahorrar recursos y no lagear tanto
             // ? el juego xD.
+            const hp = enemy.properties?.
+                find(prop => prop.name === "hp")?.value;
+            const drops = enemy.properties?.
+                find(prop => prop.name === "drops")?.value
+                .split(',').map(i => {
+                    if (Item.possibleValues.includes(i)) {
+                        return i;
+                    } return null;
+                });
+            const dropEverything = enemy.properties?.
+                find(prop => prop.name === "drop-everything")?.value;
+            const dropDirection = enemy.properties?.
+                find(prop => prop.name === "drop-direction")?.value;
 
-            // ! Falta más configuración... esto dependerá de cómo
-            // ! se configurarán los enemigos.
-            this.gameScene.insert({
+            this.gameScene.insert(Enemy.onlyData({
                 ...enemy,
+                type: enemy.name,
+                x: enemy.x,
+                y: enemy.y,
+                hp: hp,
+                drops: drops,
+                dropEverything: dropEverything,
+                dropDirection: dropDirection,
                 alive: true,
-            });
+            }));
         });
         // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
         this.mapEnemies = [];
@@ -442,6 +453,11 @@ class Game extends Phaser.Scene {
         // ! Se actualizan las físicas de Nor!
         this.nor.update();
 
+        // ! Se actualizan las físicas de los enemigos!
+        this.mapEnemies.forEach(enemy => {
+            enemy.update({ player: this.nor });
+        });
+
         // ! Si Nor se sale de la escena actual, se mueve la cámara
         if (this.checkIfOutOfBounds()) {
             console.log(this.getNorSceneCoords());
@@ -462,9 +478,9 @@ class Game extends Phaser.Scene {
         this.physics.collide(
             [
                 this.nor,
-                this.boss,
+                ...this.mapEnemies,
             ],
-            this.layer,
+            this.layer
         );
 
         // ! Si la flecha pega con la capa de "muros", entonces
@@ -520,8 +536,8 @@ class Game extends Phaser.Scene {
                     // ! Se tiene que activar el tipo de arma que se ha conseguido
                     // ! hasta el momento, según el tipo.
                     break;
-                case "emeraldFragment":
-                    // ! Este solo es simbólico, pero también podría hacerse algo
+                case "fragmented_emerald":
+                    this.nor.obtainFragment();
                     break;
             }
             this.mappedItems = this.mappedItems.filter(i => i !== item);
@@ -529,14 +545,14 @@ class Game extends Phaser.Scene {
         })
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
-        this.physics.collide(this.nor, [...this.mapEnemies, this.boss], () => {
-            const isDead = this.nor.getHurt({ damagePoints: 1 });
+        this.physics.overlap(this.nor, this.mapEnemies, (_, enemy) => {
+            const isDead = this.nor.getHurt({ damagePoints: enemy.damagePoints });
             if (isDead) this.onDead();
         });
 
         // ! Si Nor toca la explosión, entonces también recibe daño.
-        this.physics.overlap(this.nor, this.nor.attackObjects.bombs, () => {
-            const isDead = this.nor.getHurt({ damagePoints: 2 });
+        this.physics.overlap(this.nor, this.nor.attackObjects.bombs, (_, bomb) => {
+            const isDead = this.nor.getHurt({ damagePoints: bomb.damagePoints });
             if (isDead) this.onDead();
         });
 
@@ -606,8 +622,7 @@ class Game extends Phaser.Scene {
                 ...this.nor.attackObjects.bombs,
             ],
             [
-                ...this.mapEnemies,
-                this.boss
+                ...this.mapEnemies
             ],
             (object, enemy) => {
                 if (object instanceof Arrow) object.stomp();
@@ -615,13 +630,11 @@ class Game extends Phaser.Scene {
                 // ! Cuando el enemigo ha sido destruido, no volverá a
                 // ! spawnear cuando se pase por la misma escena.
                 if (enemy instanceof Enemy) {
-                    this.mapEnemies = this.mapEnemies.filter(object => object !== enemy);
-                    enemy.parent.alive = false;
-                } else if (this.boss === enemy) {
-                    this.boss = null;
+                    enemy.getHurt({ damagePoints: object.damagePoints });
+                    if (enemy.health === 0) {
+                        this.mapEnemies = this.mapEnemies.filter(e => e !== enemy);
+                    }
                 }
-
-                enemy.destroy();
             }
         );
     }

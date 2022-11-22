@@ -17,6 +17,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Props, timer and animation
+        this.damagePoints = 2;
         this.onFinish = onFinish;
         this.currentTimeline = this.scene.tweens.timeline({
             targets: [this],

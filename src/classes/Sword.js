@@ -11,6 +11,10 @@ class Sword extends Phaser.GameObjects.Sprite {
         this.scene.physics.world.enable(this);
 
         // !
+        // ! Damage points
+        this.damagePoints = 1;
+
+        // !
         // ! Position and movement things
         // ? x: -1 (izquierda) | 0 (en medio) | 1 (derecha)
         // ? y: -1 (arriba)    | 0 (en medio) | 1 (abajo)

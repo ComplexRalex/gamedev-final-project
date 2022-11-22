@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="219">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="233">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -111,7 +111,7 @@
    </objectgroup>
   </tile>
  </tileset>
- <layer id="1" name="Background" width="80" height="30">
+ <layer id="1" name="Background" width="80" height="30" locked="1">
   <data encoding="csv">
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
@@ -145,7 +145,7 @@
 1,1,1,1,1,1,1,1,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
 </data>
  </layer>
- <layer id="11" name="Houses" width="80" height="30">
+ <layer id="11" name="Houses" width="80" height="30" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -179,13 +179,13 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="8" name="Rocks">
+ <objectgroup id="8" name="Rocks" locked="1">
   <object id="155" gid="4" x="128" y="464" width="16" height="16"/>
   <object id="156" gid="4" x="144" y="464" width="16" height="16"/>
   <object id="157" gid="4" x="160" y="464" width="16" height="16"/>
   <object id="158" gid="4" x="176" y="464" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="7" name="TriggerTargets">
+ <objectgroup id="7" name="TriggerTargets" locked="1">
   <object id="150" name="pillars" x="959.083" y="359.583">
    <properties>
     <property name="angle" type="int" value="270"/>
@@ -199,7 +199,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Triggers">
+ <objectgroup id="6" name="Triggers" locked="1">
   <object id="148" name="button" x="904" y="455.5">
    <properties>
     <property name="angle" type="int" value="0"/>
@@ -214,7 +214,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="2" name="Teleports">
+ <objectgroup id="2" name="Teleports" locked="1">
   <object id="183" x="1200" y="272" width="32" height="32">
    <properties>
     <property name="destiny" type="int" value="216"/>
@@ -224,7 +224,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="9" name="Signs">
+ <objectgroup id="9" name="Signs" locked="1">
   <object id="161" name="sign" x="800" y="112">
    <properties>
     <property name="content" value="Un elefante se columpiaba sobre la tela de una araña"/>
@@ -263,9 +263,6 @@
   <object id="142" name="bombs" class="bombs" x="520.333" y="392.333">
    <point/>
   </object>
-  <object id="143" name="fragmented_emerald" class="fragmented_emerald" x="440" y="344.667">
-   <point/>
-  </object>
   <object id="144" name="banana" class="banana" x="64" y="304">
    <point/>
   </object>
@@ -280,15 +277,51 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Enemies">
-  <object id="186" name="enemy_3" gid="29" x="1136" y="304" width="16" height="16"/>
-  <object id="187" name="enemy_4" gid="29" x="1136" y="368" width="16" height="16"/>
-  <object id="188" name="enemy_5" gid="29" x="1136" y="432" width="16" height="16"/>
-  <object id="189" name="enemy_0" gid="29" x="704" y="416" width="16" height="16"/>
-  <object id="190" name="enemy_1" gid="29" x="784" y="416" width="16" height="16"/>
-  <object id="191" name="enemy_2" gid="29" x="848" y="416" width="16" height="16"/>
-  <object id="192" name="enemy_8" gid="29" x="416" y="192" width="16" height="16"/>
-  <object id="193" name="enemy_7" gid="29" x="464" y="64" width="16" height="16"/>
-  <object id="194" name="enemy_6" gid="29" x="416" y="64" width="16" height="16"/>
+  <object id="220" name="snake" x="704" y="112">
+   <properties>
+    <property name="drops" value="null,null,banana"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="221" name="snake" x="1136" y="304">
+   <point/>
+  </object>
+  <object id="222" name="snake" x="1136" y="368">
+   <point/>
+  </object>
+  <object id="223" name="snake" x="1136" y="432">
+   <point/>
+  </object>
+  <object id="224" name="snake" x="848" y="416">
+   <point/>
+  </object>
+  <object id="225" name="snake" x="480" y="432">
+   <properties>
+    <property name="drops" value="fragmented_emerald"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="226" name="snake" x="720" y="416">
+   <point/>
+  </object>
+  <object id="227" name="snake" x="416" y="176">
+   <properties>
+    <property name="drops" value="null,null,null,banana,null,null,null"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="230" name="snake" x="464" y="64">
+   <properties>
+    <property name="drops" value="null,null,null,banana,null,null,null"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="231" name="snake" x="416" y="64">
+   <properties>
+    <property name="drops" value="null,banana,null,null"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="12" name="Positions">
   <object id="185" name="nor" x="896" y="112">

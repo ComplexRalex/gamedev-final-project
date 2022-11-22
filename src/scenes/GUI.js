@@ -71,20 +71,32 @@ class GUI extends Phaser.Scene {
         this.guiBottomStats = this.add.container(35, 95);
         this.guiContainer.add(this.guiBottomStats);
 
+        // Contenedor para fragmentos de esmeralda
+        this.guiFragmentContainer = this.add.container(0, 0);
+        this.guiBottomStats.add(this.guiFragmentContainer);
+
+        this.guiFragment = this.add.image(0, 0, 'generics_atlas', 'fragmented_emerald')
+            .setScale(2);
+        this.guiFragmentContainer.add(this.guiFragment);
+
+        this.guiFragmentNumber = this.add.text(30, 0, '0', this.guiFontType)
+            .setOrigin(0, 0.5);
+        this.guiFragmentContainer.add(this.guiFragmentNumber);
+
         // Contenedor para llaves
-        this.guiKeyContainer = this.add.container(30, 0);
+        this.guiKeyContainer = this.add.container(77, 0);
         this.guiBottomStats.add(this.guiKeyContainer);
 
-        this.guiKey = this.add.image(0, 0, 'generics_atlas', 'key')
+        this.guiKey = this.add.image(0, 3, 'generics_atlas', 'key')
             .setScale(2);
         this.guiKeyContainer.add(this.guiKey);
 
-        this.guiKeyNumber = this.add.text(40, 0, '0', this.guiFontType)
+        this.guiKeyNumber = this.add.text(30, 0, '0', this.guiFontType)
             .setOrigin(0, 0.5);
         this.guiKeyContainer.add(this.guiKeyNumber);
 
         // Contenedor para flechas
-        this.guiArrowContainer = this.add.container(130, 0)
+        this.guiArrowContainer = this.add.container(160, 0)
             .setVisible(false);
         this.guiBottomStats.add(this.guiArrowContainer);
 
@@ -98,15 +110,15 @@ class GUI extends Phaser.Scene {
         this.guiArrowContainer.add(this.guiArrowNumber);
 
         // Contenedor para bombas
-        this.guiBombContainer = this.add.container(220, 0)
+        this.guiBombContainer = this.add.container(245, 0)
             .setVisible(false);
         this.guiBottomStats.add(this.guiBombContainer);
 
-        this.guiBomb = this.add.image(0, 0, 'generics_atlas', 'bombs')
+        this.guiBomb = this.add.image(0, -3, 'generics_atlas', 'bombs')
             .setScale(2);
         this.guiBombContainer.add(this.guiBomb);
 
-        this.guiBombNumber = this.add.text(30, 0, '0', this.guiFontType)
+        this.guiBombNumber = this.add.text(20, 0, '0', this.guiFontType)
             .setOrigin(0, 0.5);
         this.guiBombContainer.add(this.guiBombNumber);
 
@@ -248,7 +260,11 @@ class GUI extends Phaser.Scene {
         });
 
         // * Cambia estadistica indicada en el GUI
-        this.registry.events.on('changeStats', ({ keyNumber, arrowNumber, bombNumber }) => {
+        this.registry.events.on('changeStats', ({ fragmentNumber, keyNumber, arrowNumber, bombNumber }) => {
+            if (!isNaN(fragmentNumber)) {
+                console.warn("Actualización de estadística [fargments]: " + fragmentNumber);
+                this.guiFragmentNumber.setText(fragmentNumber.toString());
+            }
             if (!isNaN(keyNumber)) {
                 console.warn("Actualización de estadística [keys]: " + keyNumber);
                 this.guiKeyNumber.setText(keyNumber.toString());

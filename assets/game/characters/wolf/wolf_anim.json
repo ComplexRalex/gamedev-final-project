@@ -1,0 +1,136 @@
+{
+    "anims": [
+        {
+            "key": "wolf_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-0.png"
+                }
+            ]
+        },
+        {
+            "key": "wolf_walk",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-0.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-1.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-2.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-3.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-4.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-5.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-6.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Walk-7.png"
+                }
+            ]
+        },
+        {
+            "key": "wolf_run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-0.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-1.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-2.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-3.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-4.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Run-5.png"
+                }
+            ]
+        },
+        {
+            "key": "wolf_howl",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-0.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-1.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-2.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-3.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-4.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-5.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-6.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-7.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-8.png"
+                },
+                {
+                    "key": "wolf",
+                    "frame": "Wolf_Howl-9.png"
+                }
+            ]
+        }
+    ]
+}

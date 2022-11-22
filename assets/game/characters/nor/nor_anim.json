@@ -335,6 +335,50 @@
                     "frame": "nor_idle_down9"
                 }
             ]
+        },
+        {
+            "key": "nor_happy",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "nor",
+                    "frame": "nor_happy1"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy2"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy3"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy4"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy5"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy6"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy7"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy8"
+                },
+                {
+                    "key": "nor",
+                    "frame": "nor_happy9"
+                }
+            ]
         }
     ]
 }

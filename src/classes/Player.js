@@ -30,8 +30,8 @@ class Player extends Phaser.GameObjects.Sprite {
             y: 1, // ? Dirección en el eje y
         };
         // ? Esta dirección es utilizada para la animación
-        // * Posibles estados: 'idle' | 'walk' | 'attack' | 'hurt'
         this.direction = this.prevDirection = 'down';
+        // * Posibles estados: 'idle' | 'walk' | 'attack' | 'hurt'
         this.action = this.prevAction = 'idle';
 
         this.anims.play(`nor_${this.action}_${this.direction}`);
@@ -63,6 +63,10 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.isDoingSomething = false;
         this.doingSomethingTime = 350;
+
+        // * Este únicamente determina el tiempo en el que la animación
+        // * de Nor festejando se mantiene.
+        this.gettingEmeraldFragmentTime = 1500;
 
         // * Este es útil cuando se colisiona con un objeto con el
         // * que se quiere interactuar, por lo que esta bandera es
@@ -283,7 +287,7 @@ class Player extends Phaser.GameObjects.Sprite {
                     if (this.items.bombs > 0) {
                         this.items.bombs--;
                         this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
-    
+
                         // Se cambia al arco
                         if (this.items.bombs === 0) {
                             this.secondaryIndex = 0;
@@ -293,7 +297,7 @@ class Player extends Phaser.GameObjects.Sprite {
                                 weapon: this.secondaryWeapons[this.secondaryIndex],
                             });
                         }
-    
+
                         const bomb = new Bomb({
                             scene: this.scene,
                             x: this.x,
@@ -377,6 +381,34 @@ class Player extends Phaser.GameObjects.Sprite {
         return this.isDead;
     }
 
+    obtainFragment() {
+        this.changeStats({ stat: "fragments", addedPoints: 1 });
+
+        this.isDoingSomething = true;
+        this.action = "happy";
+        this.anims.play("nor_happy");
+
+        this.body.setVelocity(0);
+        this.body.setAcceleration(0);
+
+        this.fragment = this.scene.add
+            .sprite(this.x, this.y - 28, 'fragmented_emerald')
+            .setDepth(this.depth + 1);
+
+        this.scene.add.tween({
+            targets: [this.fragment],
+            duration: 800,
+            props: {
+                y: this.y - 34,
+            }
+        });
+
+        setTimeout(() => {
+            this.fragment.destroy();
+            this.isDoingSomething = false;
+        }, this.gettingEmeraldFragmentTime);
+    }
+
     // ! Cuando obtiene una nueva arma, se tiene que actualizar
     // ! el GUI, y unas banderas!
     obtainWeapon({ type }) {
@@ -434,6 +466,11 @@ class Player extends Phaser.GameObjects.Sprite {
                     this.secondaryWeapons.push('bombs');
                 }
                 this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
+                break;
+            case "fragments":
+                this.items.fragments += addedPoints;
+                this.items.fragments = this.items.fragments >= 0 ? this.items.fragments : 0;
+                this.scene.registry.events.emit('changeStats', { fragmentNumber: this.items.fragments });
                 break;
         }
     }
