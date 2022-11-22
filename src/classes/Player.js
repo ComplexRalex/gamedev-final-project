@@ -275,13 +275,16 @@ class Player extends Phaser.GameObjects.Sprite {
                         onShoot: (arrow) => {
                             this.attackObjects.arrows.push(arrow);
                         },
-                        onFinish: (arrow) => {
+                        onStomp: (arrow) => {
                             this.attackObjects.arrows = this.attackObjects.arrows.filter(object => object !== arrow);
                             arrow.destroy();
                         },
+                        onFinish: () => {
+                            bow.destroy();
+                        }
                     });
-                    break;
                 }
+                break;
             case 'bombs':
                 if (this.hasObtained.bomb) {
                     if (this.items.bombs > 0) {
@@ -310,9 +313,7 @@ class Player extends Phaser.GameObjects.Sprite {
                         });
                         this.attackObjects.bombs.push(bomb);
                     }
-                    break;
                 }
-            default:
                 break;
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="233">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="80" height="30" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="237">
  <editorsettings>
   <export target="map.json" format="json"/>
  </editorsettings>
@@ -277,12 +277,6 @@
   </object>
  </objectgroup>
  <objectgroup id="13" name="Enemies">
-  <object id="220" name="wolf" x="704" y="112">
-   <properties>
-    <property name="drops" value="null,null,banana"/>
-   </properties>
-   <point/>
-  </object>
   <object id="221" name="snake" x="1136" y="304">
    <point/>
   </object>
@@ -310,13 +304,13 @@
    </properties>
    <point/>
   </object>
-  <object id="230" name="snake" x="464" y="64">
+  <object id="231" name="wolf" x="416" y="64">
    <properties>
-    <property name="drops" value="null,null,null,banana,null,null,null"/>
+    <property name="drops" value="null,banana,null,null"/>
    </properties>
    <point/>
   </object>
-  <object id="231" name="wolf" x="416" y="64">
+  <object id="236" name="guard" x="688" y="128">
    <properties>
     <property name="drops" value="null,banana,null,null"/>
    </properties>

@@ -2,6 +2,20 @@ class Enemy extends Phaser.GameObjects.Sprite {
     // ? Sirve para separar los items dropeados
     static gap = 26;
 
+    // ? La idea de estos arreglos es que sean utilizados por el juego para
+    // ? comparar si alguno de los objetos que se encuentran dentro están
+    // ? "overlapeando" o colisionando con el jugador, con el fin de que
+    // ? este puedan interactuar con él.
+    // * Estos arreglos deben contener game objects con cuerpos de colisión.
+    // * Sustancialmente, contendrán los objetos como:
+    // * > > Flecha(s)
+    // * > > Bomba(s)
+    // * Es necesario notar que estos objetos son de clases específicas.
+    static attackObjects = {
+        arrows: [],
+        bombs: [],
+    };
+
     constructor({
         scene,
         x,
@@ -74,22 +88,6 @@ class Enemy extends Phaser.GameObjects.Sprite {
         this.damagedImmuneEffectTime = 1000;
         this.isStunned = false;
         this.stunnedTime = 1000;
-
-        // !
-        // ! Stuff containers XD
-        // ? La idea de estos arreglos es que sean utilizados por el juego para
-        // ? comparar si alguno de los objetos que se encuentran dentro están
-        // ? "overlapeando" o colisionando con el jugador, con el fin de que
-        // ? este puedan interactuar con él.
-        // * Estos arreglos deben contener game objects con cuerpos de colisión.
-        // * Sustancialmente, contendrán los objetos como:
-        // * > > Flecha(s)
-        // * > > Bomba(s)
-        // * Es necesario notar que estos objetos son de clases específicas.
-        this.attackObjects = {
-            arrows: [],
-            bombs: [],
-        };
     }
 
     // ! Está pensado que los enemigos también tengan una forma

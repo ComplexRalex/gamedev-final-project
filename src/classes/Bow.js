@@ -2,7 +2,7 @@ import { getAngle } from "../helpers/getAngle.js";
 import Arrow from "./Arrow.js";
 
 class Bow extends Phaser.GameObjects.Sprite {
-    constructor({ scene, x, y, direction, hasArrows, onShoot, onFinish }) {
+    constructor({ scene, x, y, direction, hasArrows, velocity, onShoot, onFinish, onStomp }) {
         super(scene, x, y, 'bow');
 
         // !
@@ -30,8 +30,10 @@ class Bow extends Phaser.GameObjects.Sprite {
         // !
         // ! Props
         this.onShoot = onShoot;
+        this.onStomp = onStomp;
         this.onFinish = onFinish;
         this.direction = direction;
+        this.velocity = velocity;
 
         // !
         // ! Visual stuff
@@ -50,7 +52,10 @@ class Bow extends Phaser.GameObjects.Sprite {
                     from: 0,
                     to: 1,
                 },
-            }
+            },
+            onComplete: () => {
+                this.onFinish();
+            },
         });
 
         if (hasArrows) {
@@ -64,7 +69,8 @@ class Bow extends Phaser.GameObjects.Sprite {
             x: this.x,
             y: this.y,
             direction: this.direction,
-            onFinish: this.onFinish,
+            velocity: this.velocity,
+            onFinish: this.onStomp,
         });
         this.onShoot(arrow);
     }

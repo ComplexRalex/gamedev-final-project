@@ -92,7 +92,7 @@ class Bootloader extends Phaser.Scene {
             // Enemies
             { key: 'snake', textureURL: 'game/characters/snake/snake.png', atlasURL: 'game/characters/snake/snake_atlas.json' },
             { key: 'wolf', textureURL: 'game/characters/wolf/wolf.png', atlasURL: 'game/characters/wolf/wolf_atlas.json' },
-            // ! FALTA EL QUE DISPARA WEAS
+            { key: 'guard', textureURL: 'game/characters/guard/guard.png', atlasURL: 'game/characters/guard/guard_atlas.json' },
 
             // Weapons
             { key: 'bomb', textureURL: 'game/objects/bomb/bomb.png', atlasURL: 'game/objects/bomb/bomb_atlas.json' },
@@ -116,6 +116,7 @@ class Bootloader extends Phaser.Scene {
             // Enemies
             { key: 'snake_anim', url: 'game/characters/snake/snake_anim.json' },
             { key: 'wolf_anim', url: 'game/characters/wolf/wolf_anim.json' },
+            { key: 'guard_anim', url: 'game/characters/guard/guard_anim.json' },
 
             // Weapons
             { key: 'sword_attack_anim', url: 'game/objects/sword_attack/sword_attack_anim.json' },

@@ -1,0 +1,132 @@
+{
+    "anims": [
+        {
+            "key": "guard_dead",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "guard",
+                    "frame": "guard_dead1"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead2"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead3"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead4"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead5"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead6"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead7"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_dead8"
+                }
+            ]
+        },
+        {
+            "key": "guard_hurt",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "guard",
+                    "frame": "guard_hurt1"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_hurt2"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_hurt3"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_hurt4"
+                }
+            ]
+        },
+        {
+            "key": "guard_attack",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "guard",
+                    "frame": "guard_attack1"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_attack2"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_attack3"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_attack4"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_attack5"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_attack6"
+                }
+            ]
+        },
+        {
+            "key": "guard_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "guard",
+                    "frame": "guard_idle1"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_idle2"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_idle3"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_idle4"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_idle5"
+                },
+                {
+                    "key": "guard",
+                    "frame": "guard_idle6"
+                }
+            ]
+        }
+    ]
+}

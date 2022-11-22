@@ -1,6 +1,7 @@
 import Arrow from '../classes/Arrow.js';
 import Enemy from '../classes/Enemy.js';
 import GameScene from '../classes/GameScene.js';
+import Guard from '../classes/Guard.js';
 import Item from '../classes/Item.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
@@ -62,7 +63,7 @@ class Game extends Phaser.Scene {
         this.speedUp = 1.3;
 
         // ! Otras constantes
-        this.debugMode = true;
+        this.debugMode = false;
         this.zoomOutActive = false;
         this.zoomOriginal = 2;
         this.zoomFurthest = 0.5;
@@ -120,6 +121,7 @@ class Game extends Phaser.Scene {
                 switch (entity.type) {
                     case "snake": return new Snake(props);
                     case "wolf": return new Wolf(props);
+                    case "guard": return new Guard(props);
                 }
             });
         console.log(this.mapEnemies);
@@ -488,7 +490,10 @@ class Game extends Phaser.Scene {
         // ! Si la flecha pega con la capa de "muros", entonces
         // ! se tiene que romper.
         this.physics.collide(
-            [... this.nor.attackObjects.arrows],
+            [
+                ...this.nor.attackObjects.arrows,
+                ...Enemy.attackObjects.arrows,
+            ],
             this.layer,
             (arrow) => arrow.stomp(),
         );
@@ -637,6 +642,37 @@ class Game extends Phaser.Scene {
                         this.mapEnemies = this.mapEnemies.filter(e => e !== enemy);
                     }
                 }
+            }
+        );
+
+        // ! Si algún arma de algún enemigo toca a Nor, entonces tiene que
+        // ! recibir daño.
+        this.physics.overlap(
+            [
+                ...Enemy.attackObjects.arrows,
+                ...Enemy.attackObjects.bombs,
+            ],
+            this.nor,
+            (object, _) => {
+                if (object instanceof Arrow) object.stomp();
+
+                const isDead = this.nor.getHurt({ damagePoints: object.damagePoints });
+                if (isDead) this.onDead();
+            }
+        );
+
+        // ! Si Nor alganza a golpear la flecha con una bomba o de un espadazo,
+        // ! esta se destruye.
+        this.physics.overlap(
+            [
+                ...this.nor.attackObjects.sword,
+                ...this.nor.attackObjects.bombs,
+            ],
+            [
+                ...Enemy.attackObjects.arrows,
+            ],
+            (_, arrow) => {
+                arrow.stomp();
             }
         );
     }

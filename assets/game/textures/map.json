@@ -492,24 +492,6 @@
                 {
                  "class":"",
                  "height":0,
-                 "id":220,
-                 "name":"wolf",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"drops",
-                         "type":"string",
-                         "value":"null,null,banana"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":704,
-                 "y":112
-                }, 
-                {
-                 "class":"",
-                 "height":0,
                  "id":221,
                  "name":"snake",
                  "point":true,
@@ -606,24 +588,6 @@
                 {
                  "class":"",
                  "height":0,
-                 "id":230,
-                 "name":"snake",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"drops",
-                         "type":"string",
-                         "value":"null,null,null,banana,null,null,null"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":464,
-                 "y":64
-                }, 
-                {
-                 "class":"",
-                 "height":0,
                  "id":231,
                  "name":"wolf",
                  "point":true,
@@ -638,6 +602,42 @@
                  "width":0,
                  "x":416,
                  "y":64
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":233,
+                 "name":"guard",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"drops",
+                         "type":"string",
+                         "value":"null,banana,null,null"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":672,
+                 "y":208
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":236,
+                 "name":"guard",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"drops",
+                         "type":"string",
+                         "value":"null,banana,null,null"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":672,
+                 "y":32
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -681,7 +681,7 @@
          "y":0
         }],
  "nextlayerid":14,
- "nextobjectid":233,
+ "nextobjectid":237,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
