@@ -87,7 +87,7 @@ class Wolf extends Enemy {
     update({ player, delta }) {
         this.prevAction = this.action;
         this.body.setAcceleration(0);
-        if (!this.isDead && !this.isStunned) {
+        if (!this.isDead && !this.isStunned && !this.isFalling) {
             this.detectionArea.setPosition(this.x, this.y);
             const overlap = this.scene.physics.overlap(player, this.detectionArea, () => {
                 if (!this.isHowling) {

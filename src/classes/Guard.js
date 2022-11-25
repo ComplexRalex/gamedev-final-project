@@ -71,7 +71,7 @@ class Guard extends Enemy {
     }
 
     update({ player }) {
-        if (!this.isDead && !this.isStunned) {
+        if (!this.isDead && !this.isStunned && !this.isFalling) {
             // * Este no se utiliza, ya que el enemigo no se mueve
             // this.detectionArea.setPosition(this.x, this.y);
             this.scene.physics.overlap(player, this.detectionArea, () => {

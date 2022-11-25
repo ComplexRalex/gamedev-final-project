@@ -88,12 +88,16 @@ class Enemy extends Phaser.GameObjects.Sprite {
         this.damagedImmuneEffectTime = 1000;
         this.isStunned = false;
         this.stunnedTime = 1000;
+
+        // * Este sirve para determinar si el jugador ha caído al vacío.
+        this.isFalling = false;
+        this.fallingTime = 1200;
     }
 
     // ! Está pensado que los enemigos también tengan una forma
     // ! de recibir daño y, por lo tanto, una cantidad de vida.
     getHurt({ damagePoints = 1 }) {
-        if (!this.isDamaged) {
+        if (!this.isDamaged && !this.isFalling) {
             this.isDamaged = true;
             this.health -= this.healthDelta * damagePoints;
             this.setTint(0xFFAAAA);
@@ -152,10 +156,38 @@ class Enemy extends Phaser.GameObjects.Sprite {
                 });
             }
         }
+        return this.isDamaged;
+    }
+
+    fall({ onDead }) {
+        if (!this.isFalling) {
+            this.isFalling = true;
+
+            this.body.setAcceleration(0);
+            this.body.setDrag(200);
+
+            this.isDead = true;
+            this.parent.alive = false;
+
+            this.scene.add.tween({
+                targets: [this],
+                duration: this.fallingTime,
+                props: {
+                    angle: 360 * 3,
+                    scale: 0.2,
+                    alpha: 0,
+                },
+                onComplete: () => {
+                    this.body.enable = false;
+                    this.destroy();
+                    onDead();
+                },
+            });
+        }
     }
 
     dropItem() {
-        if (this.drops.length > 0) {
+        if (this.drops?.length > 0 && !this.isFalling) {
             const v = this.dropDirection === 'vertical' ? 1 : 0;
             const h = this.dropDirection === 'horizontal' ? 1 : 0;
             if (this.dropEverything) {

@@ -10,6 +10,7 @@ import Snake from '../classes/Snake.js';
 import Teleporter from '../classes/Teleporter.js';
 import Trigger from '../classes/Trigger.js';
 import TriggerTarget from '../classes/TriggerTarget.js';
+import Void from '../classes/Void.js';
 import Wolf from '../classes/Wolf.js';
 
 class Game extends Phaser.Scene {
@@ -63,7 +64,7 @@ class Game extends Phaser.Scene {
         this.speedUp = 1.3;
 
         // ! Otras constantes
-        this.debugMode = false;
+        this.debugMode = true;
         this.zoomOutActive = false;
         this.zoomOriginal = 2;
         this.zoomFurthest = 0.5;
@@ -179,18 +180,45 @@ class Game extends Phaser.Scene {
             height: this.mapHeight,
         });
         this.tileset = this.map.addTilesetImage("generics");
-        this.layer = this.map.createLayer('Background', this.tileset);
+
+        // ! >>>> Configuración de las capas de tiles
+
+        // ! Esta capa será el fondo
+        this.mapBackground = this.map.createLayer('Background', this.tileset);
+
+        // ! Esta capa serán las paredes
+        this.mapWalls = this.map.createLayer('Walls', this.tileset);
+        this.mapWalls.setCollisionByExclusion([-1]);
+
+        // ! Esta capa serán las paredes medias (las flechas la atraviesan)
+        this.mapHalfWalls = this.map.createLayer('HalfWalls', this.tileset);
+        this.mapHalfWalls.setCollisionByExclusion([-1]);
 
         // ! Esto es una prueba para ver si puede jalar más
         // ! de una capa de esta forma.
         this.mapHouses = this.map.createLayer('Houses', this.tileset);
         this.mapHouses.setDepth(5);
 
-        // ! Se agrega colisión con los tiles!
-        this.layer.setCollisionByExclusion([-1]);
-
 
         // ! >>>> Configuración de las capas de objetos
+
+        // ! Se hace uso de hitbox para el vacío
+        this.mapVoids = this.map.objects.find(layer => layer.name === "Voids").objects;
+        const respawnPositions = this.mapVoids.filter(object => object.point);
+        this.mappedVoids = this.mapVoids
+            .filter(object => object.rectangle)
+            .map(hitbox => {
+                const id = hitbox.properties?.find(p => p.name === "respawn")?.value;
+                const point = respawnPositions.find(object => object.id === id);
+                return new Void({
+                    scene: this,
+                    x: hitbox.x,
+                    y: hitbox.y,
+                    width: hitbox.width,
+                    height: hitbox.height,
+                    respawnPoint: point,
+                });
+            });
 
         // ! roca
         this.mapRocks = this.map.objects.find(layer => layer.name === "Rocks").objects;
@@ -242,12 +270,12 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa adicional para poder establecer
         // ! el lugar en donde será telentransportado el jugador.
         this.mapTeleports = this.map.objects.find(layer => layer.name === "Teleports").objects;
-        const positions = this.mapTeleports.filter(object => object.point);
+        const toPositions = this.mapTeleports.filter(object => object.point);
         this.mappedTeleports = this.mapTeleports
             .filter(object => object.rectangle)
             .map(object => {
                 const id = object.properties.find(p => p.name === "destiny")?.value;
-                const destiny = positions.find(object => object.id === id);
+                const destiny = toPositions.find(object => object.id === id);
                 return new Teleporter({
                     scene: this,
                     x: object.x,
@@ -380,10 +408,6 @@ class Game extends Phaser.Scene {
         this.createListeners();
     }
 
-    onDead() {
-        this.onQuit();
-    }
-
     onQuit() {
         if (!this.isQuiting) {
             this.isQuiting = true;
@@ -407,6 +431,11 @@ class Game extends Phaser.Scene {
             });
         }
     }
+
+    onDead() {
+        this.onQuit();
+    }
+
 
     createListeners() {
         // Constantes
@@ -484,7 +513,10 @@ class Game extends Phaser.Scene {
                 this.nor,
                 ...this.mapEnemies,
             ],
-            this.layer
+            [
+                this.mapWalls,
+                this.mapHalfWalls,
+            ]
         );
 
         // ! Si la flecha pega con la capa de "muros", entonces
@@ -494,7 +526,7 @@ class Game extends Phaser.Scene {
                 ...this.nor.attackObjects.arrows,
                 ...Enemy.attackObjects.arrows,
             ],
-            this.layer,
+            this.mapWalls,
             (arrow) => arrow.stomp(),
         );
 
@@ -519,6 +551,42 @@ class Game extends Phaser.Scene {
             (_, sign) => {
                 if (this.nor.isInteracting) {
                     sign.show();
+                }
+            }
+        );
+
+        // ! Se agrega el manejo de overlap con los carteles para mostrar cosas.
+        this.physics.overlap(
+            [
+                this.nor,
+                ...this.mapEnemies,
+            ],
+            this.mappedVoids,
+            (anyone, hitbox) => {
+                if (
+                    (hitbox.body.right - anyone.body.left >= 8) && (anyone.body.right - hitbox.body.left >= 8) &&
+                    (
+                        (anyone.body.bottom - hitbox.body.top >= 6 && anyone.body.bottom <= hitbox.body.bottom) ||
+                        (hitbox.body.bottom - anyone.body.top >= 30 && anyone.body.top >= hitbox.body.top)
+                    )
+                ) {
+                    const respawn = hitbox.respawnPoint;
+                    if (respawn) {
+                        if (anyone instanceof Player) {
+                            anyone.fall({
+                                respawnPoint: respawn,
+                                onDead: () => {
+                                    this.onDead();
+                                }
+                            });
+                        } else {
+                            anyone.fall({
+                                onDead: () => {
+                                    this.mapEnemies = this.mapEnemies.filter(e => e !== anyone);
+                                }
+                            })
+                        }
+                    }
                 }
             }
         );

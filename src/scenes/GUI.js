@@ -262,7 +262,7 @@ class GUI extends Phaser.Scene {
         // * Cambia estadistica indicada en el GUI
         this.registry.events.on('changeStats', ({ fragmentNumber, keyNumber, arrowNumber, bombNumber }) => {
             if (!isNaN(fragmentNumber)) {
-                console.warn("Actualización de estadística [fargments]: " + fragmentNumber);
+                console.warn("Actualización de estadística [fragments]: " + fragmentNumber);
                 this.guiFragmentNumber.setText(fragmentNumber.toString());
             }
             if (!isNaN(keyNumber)) {

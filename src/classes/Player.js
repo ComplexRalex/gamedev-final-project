@@ -14,7 +14,8 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.body.setSize(20, 48);
         this.body.setOffset(14, 16);
-        this.body.setDrag(700);
+        this.bodyDrag = 700;
+        this.body.setDrag(this.bodyDrag);
         this.body.setMaxVelocity(100);
 
         this.maxVelocity = 100;
@@ -89,6 +90,10 @@ class Player extends Phaser.GameObjects.Sprite {
         // * la animación.
         this.ouchFace = false;
         this.ouchFaceDuration = 250;
+
+        // * Este sirve para determinar si el jugador ha caído al vacío.
+        this.isFalling = false;
+        this.fallingTime = 1200;
 
         this.items = {
             keys: 0,
@@ -206,7 +211,7 @@ class Player extends Phaser.GameObjects.Sprite {
     // ? type: 'interaction' | 'attack'
     // ? weapon: null | 'sword' | 'bow' | 'bomb'
     doSomething({ type, weapon }) {
-        if (!this.isDoingSomething) {
+        if (!this.isDoingSomething && !this.isFalling) {
             this.isDoingSomething = true;
 
             // ! Establece que el personaje no se mueva si va a hacer algo
@@ -327,7 +332,7 @@ class Player extends Phaser.GameObjects.Sprite {
     // ! Este es utilizado cuando se ha recibido daño.
     // ? damagePoints: un número de daño (y ya). Este será multiplicado por 5
     getHurt({ damagePoints }) {
-        if (!this.isDamaged) {
+        if (!this.isDamaged && !this.isFalling) {
             this.scene.cameras.main.flash(100, 150, 0, 0);
             this.isDamaged = true;
             this.ouchFace = true;
@@ -380,6 +385,44 @@ class Player extends Phaser.GameObjects.Sprite {
             }
         }
         return this.isDead;
+    }
+
+    fall({ respawnPoint, onDead }) {
+        if (!this.isFalling) {
+            this.isFalling = true;
+
+            this.body.setAcceleration(0);
+            this.body.setDrag(200);
+
+            this.action = "hurt";
+            this.anims.play("nor_hurt_down");
+
+            this.scene.add.tween({
+                targets: [this],
+                duration: this.fallingTime,
+                props: {
+                    angle: 360 * 3,
+                    scale: 0.2,
+                    alpha: 0,
+                },
+                onComplete: () => {
+                    this.isFalling = false;
+                    const isDead = this.getHurt({ damagePoints: 2 });
+                    if (isDead) {
+                        onDead();
+                        return;
+                    }
+                    this.setAngle(0);
+                    this.setScale(1);
+                    this.setAlpha(1);
+                    this.body.setDrag(this.bodyDrag);
+                    this.setPosition(
+                        respawnPoint.x,
+                        respawnPoint.y,
+                    );
+                },
+            });
+        }
     }
 
     obtainFragment() {
@@ -478,7 +521,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     update() {
 
-        if (!this.isDead && !this.isDoingSomething) {
+        if (!this.isDead && !this.isDoingSomething && !this.isFalling) {
             // ! Se establecen variables temporales para el movimiento
             let xAcceleration = 0;
             let yAcceleration = 0;
