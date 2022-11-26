@@ -70,9 +70,6 @@ class Bootloader extends Phaser.Scene {
             { key: 'sign', url: 'game/objects/sign.png' },
 
             // Structures
-            { key: 'house', url: 'game/objects/house.png' },
-            { key: 'temple', url: 'game/objects/temple.png' },
-            { key: 'sanctuary', url: 'game/objects/sanctuary.png' },
             { key: 'pedestal', url: 'game/objects/pedestal.png' },
 
             // Textures

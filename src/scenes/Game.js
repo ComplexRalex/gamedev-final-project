@@ -36,7 +36,7 @@ class Game extends Phaser.Scene {
 
         // ? Medidas en tiles
         this.mapWidth = 80;
-        this.mapHeight = 30;
+        this.mapHeight = 45;
         this.sceneWidthTiles = 20;
         this.sceneHeightTiles = 15;
 
@@ -367,7 +367,7 @@ class Game extends Phaser.Scene {
 
         // ! Configuración de cámara
         this.cameras.main.setViewport(0, 0, 640, 480);
-        this.cameras.main.setBounds(0, 0, 1280, 600);
+        this.cameras.main.setBounds(0, 0, 1280, 840);
         this.cameras.main.setZoom(2);
         this.updateSceneCoords({
             x: Math.floor(initPos.x / this.sceneWidth),
@@ -526,7 +526,10 @@ class Game extends Phaser.Scene {
                 ...this.nor.attackObjects.arrows,
                 ...Enemy.attackObjects.arrows,
             ],
-            this.mapWalls,
+            [
+                this.mapWalls,
+                ...this.mappedRocks,
+            ],
             (arrow) => arrow.stomp(),
         );
 
