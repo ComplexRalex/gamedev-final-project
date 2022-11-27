@@ -51,7 +51,7 @@ class GUI extends Phaser.Scene {
         // Gurpo de corazones
         this.guiHearts = this.add.group({
             key: 'heart',
-            quantity: 3,
+            quantity: 2,
             setXY: {
                 x: 120,
                 y: 0,

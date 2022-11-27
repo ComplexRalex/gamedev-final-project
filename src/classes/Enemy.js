@@ -20,6 +20,8 @@ class Enemy extends Phaser.GameObjects.Sprite {
         scene,
         x,
         y,
+        scale = 1,
+        tint = 0xFFFFFF,
         parent,
         sprite,
         hp = 2,
@@ -58,6 +60,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
         // ? En caso de que se dropee todo, entonces se determina la dirección.
         // ? Puede ser: 'vertial' | 'horizontal'
         this.dropDirection = dropDirection;
+        // ? Propiedades varias que cambian la apariencia,
+        this.setScale(scale);
+        this.originalTint = tint;
+        this.setTint(this.originalTint);
 
         // !
         // ! Physics stuff
@@ -85,7 +91,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
         // * Este sirve para establecer un tiempo de invencibilidad
         // * al enemigo
         this.isDamaged = false;
-        this.damagedImmuneEffectTime = 1000;
+        switch (variant) {
+            case 0: this.damagedImmuneEffectTime = 1500; break;
+            case 1: this.damagedImmuneEffectTime = 2500; break;
+        }
         this.isStunned = false;
         this.stunnedTime = 1000;
 
@@ -126,13 +135,13 @@ class Enemy extends Phaser.GameObjects.Sprite {
                     });
                     setTimeout(() => {
                         this.isStunned = false;
-                        this.setAlpha(1);
                         stunnedTween.stop();
                     }, this.stunnedTime);
                 }
                 setTimeout(() => {
                     this.isDamaged = false;
-                    this.clearTint();
+                    this.setAlpha(1);
+                    this.setTint(this.originalTint);
                 }, this.damagedImmuneEffectTime);
             } else {
                 this.isDead = true;
@@ -164,7 +173,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
             this.isFalling = true;
 
             this.body.setAcceleration(0);
-            this.body.setDrag(200);
+            this.body.setDrag(600);
 
             this.isDead = true;
             this.parent.alive = false;
@@ -218,7 +227,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
         type,
         x,
         y,
+        variant,
         hp,
+        scale,
+        tint,
         drops,
         dropEverything,
         dropDirection,
@@ -230,7 +242,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
             type,
             x,
             y,
+            variant,
             hp,
+            scale,
+            tint,
             drops,
             dropEverything,
             dropDirection,

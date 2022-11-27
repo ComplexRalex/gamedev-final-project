@@ -352,7 +352,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="6" name="Triggers">
+ <objectgroup id="6" name="Triggers" locked="1">
   <object id="148" name="button" x="904" y="695.5">
    <properties>
     <property name="angle" type="int" value="0"/>
@@ -380,7 +380,9 @@
  <objectgroup id="9" name="Signs" locked="1">
   <object id="161" name="sign" x="800" y="352">
    <properties>
-    <property name="content" value="Un elefante se columpiaba sobre la tela de una araña"/>
+    <property name="content">Un elefante se columpiaba sobre la tela de una araña
+
+asd</property>
    </properties>
    <point/>
   </object>

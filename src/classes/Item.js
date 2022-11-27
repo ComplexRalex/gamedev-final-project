@@ -1,6 +1,6 @@
 class Item extends Phaser.GameObjects.Sprite {
-    static possibleValues = [
-        'banana', 'heart', 'bombs', 'arrows', 'fragmented_emerald',
+    static possibleDrops = [
+        'sword', 'bow', 'banana', 'heart', 'bombs', 'arrows', 'key', 'fragmented_emerald',
     ];
 
     constructor({ scene, x, y, type, sprite, amount = 1, scale = 1, animation }) {

@@ -2,14 +2,17 @@ import Enemy from "./Enemy.js";
 import Bow from "./Bow.js";
 
 class Guard extends Enemy {
-    static detectionRadius = 200;
+    static detectionRadius = 350;
 
     constructor({
         scene,
         x,
         y,
         parent,
+        variant = 0,
         hp = 2,
+        scale,
+        tint,
         drops,
         dropEverything,
         dropDirection,
@@ -19,8 +22,11 @@ class Guard extends Enemy {
             x,
             y,
             parent,
+            variant,
             sprite: 'guard',
             hp,
+            scale,
+            tint,
             type: 'guard',
             drops,
             dropEverything,
@@ -52,7 +58,11 @@ class Guard extends Enemy {
 
         // ! Esta bandera permite saber si el enemigo está "cargando"
         this.isLoading = false;
-        this.loadingTime = 1600;
+
+        switch (variant) {
+            case 0: this.loadingTime = 1600; break;
+            case 1: this.loadingTime = 800; break;
+        }
     }
 
     destroy() {

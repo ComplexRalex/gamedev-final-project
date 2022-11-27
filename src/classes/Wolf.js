@@ -3,14 +3,18 @@ import { getAngle } from '../helpers/getAngle.js';
 import { deg2Rad } from "../helpers/deg2Rad.js";
 
 class Wolf extends Enemy {
-    static detectionRadius = 200;
+    static detectionRadius0 = 350;
+    static detectionRadius1 = 500;
 
     constructor({
         scene,
         x,
         y,
         parent,
+        variant = 0,
         hp = 4,
+        scale,
+        tint,
         drops,
         dropEverything,
         dropDirection,
@@ -20,8 +24,11 @@ class Wolf extends Enemy {
             x,
             y,
             parent,
+            variant,
             sprite: 'wolf',
             hp,
+            scale,
+            tint,
             type: 'wolf',
             drops,
             dropEverything,
@@ -49,16 +56,28 @@ class Wolf extends Enemy {
 
         // !
         // ! Physics stuff
-        this.acceleration = 300;
         this.body.setSize(43, 32);
         this.body.setOffset(15, 8);
-        this.body.setMaxVelocity(200);
-        this.body.setDrag(600);
+
+        let detectionRadius;
+        switch (variant) {
+            case 0:
+                this.acceleration = 380;
+                detectionRadius = Wolf.detectionRadius0;
+                this.body.setMaxVelocity(250);
+                break;
+            case 1:
+                this.acceleration = 450;
+                detectionRadius = Wolf.detectionRadius1;
+                this.body.setMaxVelocity(320);
+                break;
+        }
+        this.body.setDrag(800);
 
         // ! Se crea un radio de colisión para detectar al personaje
-        this.detectionArea = this.scene.add.circle(this.x, this.y, Wolf.detectionRadius);
+        this.detectionArea = this.scene.add.circle(this.x, this.y, detectionRadius);
         this.scene.physics.world.enable(this.detectionArea);
-        this.detectionArea.body.setCircle(Wolf.detectionRadius);
+        this.detectionArea.body.setCircle(detectionRadius);
 
         // !
         // ! Control props

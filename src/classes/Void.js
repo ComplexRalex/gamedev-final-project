@@ -1,6 +1,10 @@
 import Teleporter from "./Teleporter.js";
 
 class Void extends Teleporter {
+    static xOverlap = 20;
+    static topOverlap = 38;
+    static bottomOverlap = 24;
+
     constructor({ scene, x, y, width, height, respawnPoint }) {
         super({
             scene,

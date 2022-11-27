@@ -530,7 +530,7 @@
                         {
                          "name":"content",
                          "type":"string",
-                         "value":"Un elefante se columpiaba sobre la tela de una ara\u00f1a"
+                         "value":"Un elefante se columpiaba sobre la tela de una ara\u00f1a\n\nasd"
                         }],
                  "rotation":0,
                  "visible":true,

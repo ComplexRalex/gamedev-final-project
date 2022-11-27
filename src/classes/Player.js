@@ -14,13 +14,13 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.body.setSize(20, 48);
         this.body.setOffset(14, 16);
-        this.bodyDrag = 700;
+        this.bodyDrag = 1600;
         this.body.setDrag(this.bodyDrag);
         this.body.setMaxVelocity(100);
 
-        this.maxVelocity = 100;
+        this.maxVelocity = 150;
         this.acceleration = 700;
-        this.speedUp = 1.3;
+        this.speedUp = 1.4;
 
         // !
         // ! Movement and animation things
@@ -56,9 +56,9 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // !
         // ! Health and stat things
-        this.health = 15;
+        this.health = 10;
         this.healthDelta = 5;
-        this.healthMax = 30;
+        this.healthMax = 20;
 
         this.isDead = false;
 
@@ -84,7 +84,7 @@ class Player extends Phaser.GameObjects.Sprite {
         // * Este sirve para determinar si el jugador ha recibido daño y
         // * además si se encuentra en estado de "inmunidad".
         this.isDamaged = false;
-        this.damagedImmuneEffectTime = 1200;
+        this.damagedImmuneEffectTime = 1500;
 
         // * Este es únicamente utilizando para determinar la duración de
         // * la animación.
@@ -94,6 +94,9 @@ class Player extends Phaser.GameObjects.Sprite {
         // * Este sirve para determinar si el jugador ha caído al vacío.
         this.isFalling = false;
         this.fallingTime = 1200;
+
+        // * Este sirve para dejarlo inmóvil (por situaciones diversas)
+        this.isStanding = false;
 
         this.items = {
             keys: 0,
@@ -144,6 +147,8 @@ class Player extends Phaser.GameObjects.Sprite {
         };
 
         this.setListeners();
+
+        this.changeHP({});
     }
 
     setListeners() {
@@ -156,10 +161,12 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // ! Este hace el ataque primario
         this.cursor.z.on('down', () => {
-            this.doSomething({
-                type: 'attack',
-                weapon: 'sword',
-            });
+            if (this.hasObtained.sword) {
+                this.doSomething({
+                    type: 'attack',
+                    weapon: 'sword',
+                });
+            }
         });
 
         // ! Este hace el ataque secundario
@@ -211,7 +218,7 @@ class Player extends Phaser.GameObjects.Sprite {
     // ? type: 'interaction' | 'attack'
     // ? weapon: null | 'sword' | 'bow' | 'bomb'
     doSomething({ type, weapon }) {
-        if (!this.isDoingSomething && !this.isFalling) {
+        if (!this.isDoingSomething && !this.isFalling && !this.isStanding) {
             this.isDoingSomething = true;
 
             // ! Establece que el personaje no se mueva si va a hacer algo
@@ -392,7 +399,7 @@ class Player extends Phaser.GameObjects.Sprite {
             this.isFalling = true;
 
             this.body.setAcceleration(0);
-            this.body.setDrag(200);
+            this.body.setDrag(700);
 
             this.action = "hurt";
             this.anims.play("nor_hurt_down");
@@ -453,6 +460,20 @@ class Player extends Phaser.GameObjects.Sprite {
         }, this.gettingEmeraldFragmentTime);
     }
 
+    // ! A partir de aquí, ya no se podrá interactuar con Nor
+    placeEmerald() {
+        if (!this.isStanding && !this.items.fragments >= 4) {
+            this.changeStats({ stat: "fragments", addedPoints: -4 });
+
+            this.isStanding = true;
+            this.action = "happy";
+            this.anims.play("nor_happy");
+
+            this.body.setVelocity(0);
+            this.body.setAcceleration(0);
+        }
+    }
+
     // ! Cuando obtiene una nueva arma, se tiene que actualizar
     // ! el GUI, y unas banderas!
     obtainWeapon({ type }) {
@@ -462,8 +483,10 @@ class Player extends Phaser.GameObjects.Sprite {
 
     // ! Cuando se obtiene un contenedor de corazón, aumenta
     // ! la vida máxima
-    changeMaxHealth({ numberOfContainersToAdd }) {
-        this.scene.cameras.main.flash(150, 220, 180, 180);
+    changeMaxHealth({ numberOfContainersToAdd = 0 }) {
+        if (numberOfContainersToAdd > 0) {
+            this.scene.cameras.main.flash(150, 220, 180, 180);
+        }
         this.healthMax += numberOfContainersToAdd * 2 * this.healthDelta;
         this.health = this.healthMax;
         this.scene.registry.events.emit('changeHPStock', {
@@ -521,7 +544,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     update() {
 
-        if (!this.isDead && !this.isDoingSomething && !this.isFalling) {
+        if (!this.isDead && !this.isDoingSomething && !this.isFalling && !this.isStanding) {
             // ! Se establecen variables temporales para el movimiento
             let xAcceleration = 0;
             let yAcceleration = 0;

@@ -1,6 +1,6 @@
 class Bomb extends Phaser.GameObjects.Sprite {
     constructor({ scene, x, y, onFinish }) {
-        super(scene, x, y + 16, 'bomb');
+        super(scene, x, y, 'bomb');
 
         // !
         // ! World settings

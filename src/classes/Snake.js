@@ -1,14 +1,18 @@
 import Enemy from "./Enemy.js";
 
 class Snake extends Enemy {
-    static detectionRadius = 100;
+    static detectionRadius0 = 250;
+    static detectionRadius1 = 400;
 
     constructor({
         scene,
         x,
         y,
         parent,
+        variant = 0,
         hp = 2,
+        scale,
+        tint,
         drops,
         dropEverything,
         dropDirection,
@@ -18,8 +22,11 @@ class Snake extends Enemy {
             x,
             y,
             parent,
+            variant,
             sprite: 'snake',
             hp,
+            scale,
+            tint,
             type: 'snake',
             drops,
             dropEverything,
@@ -43,20 +50,32 @@ class Snake extends Enemy {
         this.acceleration = 5000;
         this.body.setCircle(this.body.halfHeight);
         this.body.setOffset(5, 0);
-        this.body.setMaxVelocity(5000);
-        this.body.setDrag(400);
+
+        let detectionRadius;
+        switch (variant) {
+            case 0:
+                detectionRadius = Snake.detectionRadius0;
+                this.body.setMaxVelocity(5000);
+                this.body.setDrag(420);
+                break;
+            case 1:
+                detectionRadius = Snake.detectionRadius1;
+                this.body.setMaxVelocity(6000);
+                this.body.setDrag(390);
+                break;
+        }
 
         // ! Se crea un radio de colisión para detectar al personaje
-        this.detectionArea = this.scene.add.circle(this.x, this.y, Snake.detectionRadius);
+        this.detectionArea = this.scene.add.circle(this.x, this.y, detectionRadius);
         this.scene.physics.world.enable(this.detectionArea);
-        this.detectionArea.body.setCircle(Snake.detectionRadius);
+        this.detectionArea.body.setCircle(detectionRadius);
 
         // !
         // ! Control props
 
         // ! Esta bandera permite saber si ya se ha movido "un poco"
         this.isMoving = false;
-        this.movingTime = 200;
+        this.movingTime = 190;
     }
 
     destroy() {

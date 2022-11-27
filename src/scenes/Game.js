@@ -3,6 +3,7 @@ import Enemy from '../classes/Enemy.js';
 import GameScene from '../classes/GameScene.js';
 import Guard from '../classes/Guard.js';
 import Item from '../classes/Item.js';
+import Pedestal from '../classes/Pedestal.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
 import Sign from '../classes/Sign.js';
@@ -29,14 +30,14 @@ class Game extends Phaser.Scene {
         // ! Definición de constantes
 
         // ? Medidas en pixeles
-        this.tileWidth = 16;
-        this.tileHeight = 16;
-        this.sceneWidth = 320;
-        this.sceneHeight = 240;
+        this.tileWidth = 32;
+        this.tileHeight = 32;
+        this.sceneWidth = 640;
+        this.sceneHeight = 480;
 
         // ? Medidas en tiles
-        this.mapWidth = 80;
-        this.mapHeight = 45;
+        this.mapWidth = 100;
+        this.mapHeight = 105;
         this.sceneWidthTiles = 20;
         this.sceneHeightTiles = 15;
 
@@ -57,24 +58,20 @@ class Game extends Phaser.Scene {
             y: 0,
         };
 
-        // ! Constantes para las físicas
-        this.maxVelocity = 100;
-        this.acceleration = 700;
-        this.drag = 700;
-        this.speedUp = 1.3;
-
-        // ! Otras constantes
-        this.debugMode = true;
+        // ! Constantes debug
+        this.debugMode = false;
         this.zoomOutActive = false;
-        this.zoomOriginal = 2;
-        this.zoomFurthest = 0.5;
-        this.isQuiting = false;
+        this.zoomOriginal = 1;
+        this.zoomFurthest = 0.25;
 
         // ! Variables de control
         this.cameraPanTime = 350;
 
         this.isTeleporting = false;
         this.teleportingTime = 100;
+
+        this.isQuiting = false;
+        this.isGG = false;
 
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
@@ -114,7 +111,10 @@ class Game extends Phaser.Scene {
                     x: entity.x,
                     y: entity.y,
                     parent: entity,
+                    variant: entity.variant,
                     hp: entity.hp,
+                    scale: entity.scale,
+                    tint: entity.tint,
                     drops: entity.drops,
                     dropEverything: entity.dropEverything,
                     dropDirection: entity.dropDirection,
@@ -125,7 +125,7 @@ class Game extends Phaser.Scene {
                     case "guard": return new Guard(props);
                 }
             });
-        console.log(this.mapEnemies);
+        console.warn("Enemigos en la escena", this.mapEnemies);
     }
 
     updateCameraCoords(now = false) {
@@ -173,30 +173,50 @@ class Game extends Phaser.Scene {
 
         // ! Configuración de tiles y el mapa
         this.map = this.make.tilemap({
-            key: 'tile-map',
+            key: 'floresta-tile-map',
             tileWidth: this.tileWidth,
             tileHeight: this.tileHeight,
             width: this.mapWidth,
             height: this.mapHeight,
         });
-        this.tileset = this.map.addTilesetImage("generics");
+        this.tsJungleZipela = this.map.addTilesetImage("level1");
+        this.tsForestHaru = this.map.addTilesetImage("level2");
+        this.tsHillEfron = this.map.addTilesetImage("level3");
+        this.tsCave = this.map.addTilesetImage("level4");
+        this.tsIndoors = this.map.addTilesetImage("indoors");
+        this.tsHouses = this.map.addTilesetImage("houses");
 
         // ! >>>> Configuración de las capas de tiles
 
         // ! Esta capa será el fondo
-        this.mapBackground = this.map.createLayer('Background', this.tileset);
+        this.mapBackground = this.map.createLayer('Background', [
+            this.tsJungleZipela,
+            this.tsForestHaru,
+            this.tsHillEfron,
+            this.tsCave,
+            this.tsIndoors,
+        ]);
 
         // ! Esta capa serán las paredes
-        this.mapWalls = this.map.createLayer('Walls', this.tileset);
+        this.mapWalls = this.map.createLayer('Walls', [
+            this.tsJungleZipela,
+            this.tsForestHaru,
+            this.tsHillEfron,
+            this.tsCave,
+            this.tsIndoors,
+        ]);
         this.mapWalls.setCollisionByExclusion([-1]);
 
         // ! Esta capa serán las paredes medias (las flechas la atraviesan)
-        this.mapHalfWalls = this.map.createLayer('HalfWalls', this.tileset);
+        this.mapHalfWalls = this.map.createLayer('HalfWalls', [
+            this.tsForestHaru,
+            this.tsIndoors,
+        ]);
         this.mapHalfWalls.setCollisionByExclusion([-1]);
 
         // ! Esto es una prueba para ver si puede jalar más
         // ! de una capa de esta forma.
-        this.mapHouses = this.map.createLayer('Houses', this.tileset);
+        this.mapHouses = this.map.createLayer('Houses', this.tsHouses);
         this.mapHouses.setDepth(5);
 
 
@@ -290,8 +310,8 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa exclusiva para los triggers
         this.mapSigns = this.map.objects.find(layer => layer.name === "Signs").objects;
         this.mappedSigns = this.mapSigns.map(sign => {
-            const content = sign.properties
-                .find(prop => prop.name === "content").value;
+            const content = sign.properties?.
+                find(prop => prop.name === "content")?.value ?? '';
             return new Sign({
                 scene: this,
                 x: sign.x,
@@ -327,24 +347,33 @@ class Game extends Phaser.Scene {
             // ? el juego xD.
             const hp = enemy.properties?.
                 find(prop => prop.name === "hp")?.value;
+            const scale = enemy.properties?.
+                find(prop => prop.name === "scale")?.value;
+            const variant = enemy.properties?.
+                find(prop => prop.name === "variant")?.value;
+            const tint = parseInt(enemy.properties?.
+                find(prop => prop.name === "tint")?.value ?? '0xFFFFFF', 16);
             const drops = enemy.properties?.
                 find(prop => prop.name === "drops")?.value
                 .split(',').map(i => {
-                    if (Item.possibleValues.includes(i)) {
+                    if (Item.possibleDrops.includes(i)) {
                         return i;
                     } return null;
                 });
             const dropEverything = enemy.properties?.
-                find(prop => prop.name === "drop-everything")?.value;
+                find(prop => prop.name === "dropEverything")?.value;
             const dropDirection = enemy.properties?.
-                find(prop => prop.name === "drop-direction")?.value;
+                find(prop => prop.name === "dropDirection")?.value;
 
             this.gameScene.insert(Enemy.onlyData({
                 ...enemy,
                 type: enemy.name,
                 x: enemy.x,
                 y: enemy.y,
+                variant: variant,
                 hp: hp,
+                scale: scale,
+                tint: tint,
                 drops: drops,
                 dropEverything: dropEverything,
                 dropDirection: dropDirection,
@@ -354,21 +383,23 @@ class Game extends Phaser.Scene {
         // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
         this.mapEnemies = [];
 
-        // ! 
-        // ! 
-        // ! TEMPORAL
-        // ! 
-        // ! 
         // ! Se hace uso de una capa exclusiva para las posiciones de las
         // ! entidades
         this.mapPositions = this.map.objects.find(layer => layer.name === "Positions").objects;
         const initPos = this.mapPositions.find(obj => obj.name === 'nor');
-        const bossInitPos = this.mapPositions.find(obj => obj.name === 'boss');
+        // const bossInitPos = this.mapPositions.find(obj => obj.name === 'boss');
+        const pedestalPos = this.mapPositions.find(obj => obj.name === 'pedestal');
 
         // ! Configuración de cámara
-        this.cameras.main.setViewport(0, 0, 640, 480);
-        this.cameras.main.setBounds(0, 0, 1280, 840);
-        this.cameras.main.setZoom(2);
+        this.cameras.main.setViewport(0, 0,
+            this.sceneWidth,
+            this.sceneHeight,
+        );
+        this.cameras.main.setBounds(0, 0,
+            this.sceneWidth * this.tileWidth,
+            this.sceneHeight * this.tileHeight,
+        );
+        this.cameras.main.setZoom(this.zoomOriginal);
         this.updateSceneCoords({
             x: Math.floor(initPos.x / this.sceneWidth),
             y: Math.floor(initPos.y / this.sceneHeight)
@@ -382,28 +413,18 @@ class Game extends Phaser.Scene {
         });
 
         // ! Agregado del jefe final de zona
-        this.boss = this.physics.add.sprite(bossInitPos.x, bossInitPos.y, 'generics_atlas', 'boss')
-            .setDepth(1)
-            .setMaxVelocity(this.maxVelocity)
-            .setDrag(this.drag);
-        this.boss.body.setCircle(this.boss.body.halfWidth);
+        // this.boss = this.physics.add.sprite(bossInitPos.x, bossInitPos.y, 'generics_atlas', 'boss')
+        //     .setDepth(1)
+        //     .setMaxVelocity(this.maxVelocity)
+        //     .setDrag(this.drag);
+        // this.boss.body.setCircle(this.boss.body.halfWidth);
 
-        // ! Se agrega texto de ayuda rápido
-        this.add.text(
-            this.sceneWidth * 2 + 90,
-            20,
-            '[ FLECHAS ]: Movimiento\n' +
-            '[  SHIFT  ]: Acelerar (presionado)\n' +
-            '[  SPACE  ]: Interactuar\n' +
-            '[    D    ]: Cambiar modo debug\n' +
-            '[    M    ]: Cambiar camara\n' +
-            '',
-            { fontFamily: 'monospace', fontSize: 10 },
-        );
-
-        // ! Logo por los loles
-        this.logo = this.add.image(this.sceneWidth * 2, this.sceneHeight * 3, 'krt')
-            .setScale(0.5);
+        // ! Configuración del pedestal
+        this.pedestal = new Pedestal({
+            scene: this,
+            x: pedestalPos.x,
+            y: pedestalPos.y,
+        });
 
         this.createListeners();
     }
@@ -413,7 +434,7 @@ class Game extends Phaser.Scene {
             this.isQuiting = true;
             this.scene.launch('SimpleFadeEffect', { fadeIn: true, yoyo: true });
             this.add.tween({
-                targets: [this.logo],
+                targets: [this.nor],
                 duration: 1000,
                 props: {
                     alpha: 1,
@@ -477,9 +498,8 @@ class Game extends Phaser.Scene {
         });
 
         // ! Emisión de eventos iniciales
-        this.nor.changeHP({});
-        this.nor.obtainWeapon({ type: 'sword' });
-        this.nor.obtainWeapon({ type: 'bow' });
+        // this.nor.obtainWeapon({ type: 'sword' });
+        // this.nor.obtainWeapon({ type: 'bow' });
     }
 
     update(time, delta) {
@@ -567,10 +587,10 @@ class Game extends Phaser.Scene {
             this.mappedVoids,
             (anyone, hitbox) => {
                 if (
-                    (hitbox.body.right - anyone.body.left >= 8) && (anyone.body.right - hitbox.body.left >= 8) &&
+                    (hitbox.body.right - anyone.body.left >= Void.xOverlap) && (anyone.body.right - hitbox.body.left >= Void.xOverlap) &&
                     (
-                        (anyone.body.bottom - hitbox.body.top >= 6 && anyone.body.bottom <= hitbox.body.bottom) ||
-                        (hitbox.body.bottom - anyone.body.top >= 30 && anyone.body.top >= hitbox.body.top)
+                        (anyone.body.bottom - hitbox.body.top >= Void.bottomOverlap && anyone.body.bottom <= hitbox.body.bottom) ||
+                        (hitbox.body.bottom - anyone.body.top >= Void.topOverlap && anyone.body.top >= hitbox.body.top)
                     )
                 ) {
                     const respawn = hitbox.respawnPoint;
@@ -611,8 +631,7 @@ class Game extends Phaser.Scene {
                     this.nor.changeMaxHealth({ numberOfContainersToAdd: 1 });
                     break;
                 case "sword": case "bow":
-                    // ! Se tiene que activar el tipo de arma que se ha conseguido
-                    // ! hasta el momento, según el tipo.
+                    this.nor.obtainWeapon({ type: item.type });
                     break;
                 case "fragmented_emerald":
                     this.nor.obtainFragment();
@@ -624,8 +643,10 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor colisiona con un enemigo, tiene que actualizar su vida
         this.physics.overlap(this.nor, this.mapEnemies, (_, enemy) => {
-            const isDead = this.nor.getHurt({ damagePoints: enemy.damagePoints });
-            if (isDead) this.onDead();
+            if (!enemy.isFalling) {
+                const isDead = this.nor.getHurt({ damagePoints: enemy.damagePoints });
+                if (isDead) this.onDead();
+            }
         });
 
         // ! Si Nor toca la explosión, entonces también recibe daño.
@@ -684,6 +705,20 @@ class Game extends Phaser.Scene {
                 }
             }
         );
+
+        // ! Si Nor toca el pedestal, entonces GG.
+        this.physics.overlap(this.nor, this.pedestal, () => {
+            if (this.nor.isInteracting && this.nor.items.fragments >= 4 && !this.isGG) {
+                this.isGG = true;
+
+                this.nor.placeEmerald();
+                this.pedestal.placeEmerald();
+
+                setTimeout(() => {
+                    this.onQuit();
+                }, 5000);
+            }
+        });
 
         // ! Si la explosión toca las rocas, entonces se tienen que romper
         this.physics.overlap(this.nor.attackObjects.bombs, this.mappedRocks, (_, rock) => {
