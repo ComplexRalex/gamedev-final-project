@@ -346,7 +346,7 @@ class Player extends Phaser.GameObjects.Sprite {
             this.changeHP({ addedHealthPoints: -damagePoints });
 
             if (this.health > 0) {
-                this.scene.cameras.main.shake(150, 0.0015);
+                this.scene.cameras.main.shake(150, 0.01);
                 const immuneEffectTween = this.scene.add.tween({
                     targets: [this],
                     repeat: -1,
@@ -369,7 +369,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 }, this.ouchFaceDuration);
 
             } else {
-                this.scene.cameras.main.shake(400, 0.005);
+                this.scene.cameras.main.shake(400, 0.015);
                 this.isDead = true;
 
                 this.scene.input.keyboard.removeAllKeys();
@@ -462,7 +462,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     // ! A partir de aquí, ya no se podrá interactuar con Nor
     placeEmerald() {
-        if (!this.isStanding && !this.items.fragments >= 4) {
+        if (!this.isStanding && this.items.fragments >= 4) {
             this.changeStats({ stat: "fragments", addedPoints: -4 });
 
             this.isStanding = true;

@@ -22,6 +22,9 @@ class GUI extends Phaser.Scene {
         // ! y ejecutandolos al mismo tiempo.
         this.registry.events.removeAllListeners('changeHP');
         this.registry.events.removeAllListeners('changeStats');
+        this.registry.events.removeAllListeners('changeWeapon');
+        this.registry.events.removeAllListeners('changeHPStock');
+        this.registry.events.removeAllListeners('obtainWeapon');
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
     }

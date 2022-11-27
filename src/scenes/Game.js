@@ -92,6 +92,7 @@ class Game extends Phaser.Scene {
     }
 
     updateSceneCoords({ x, y }, now = false) {
+        console.log("Coordenadas de la cámara", { x, y });
         this.sceneCoords = { x, y };
         this.updateMapEnemies();
         this.updateCameraCoords(now);
@@ -513,7 +514,6 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor se sale de la escena actual, se mueve la cámara
         if (this.checkIfOutOfBounds()) {
-            console.log(this.getNorSceneCoords());
             this.updateSceneCoords(this.getNorSceneCoords());
         }
 

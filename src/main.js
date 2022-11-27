@@ -5,6 +5,7 @@ import GUI from './scenes/GUI.js';
 import Game from './scenes/Game.js';
 import SimpleFadeEffect from './scenes/SimpleFadeEffect.js';
 import Credits from './scenes/Credits.js';
+import Controls from './scenes/Controls.js';
 import Dialog from './scenes/Dialog.js';
 
 const config = {
@@ -34,6 +35,7 @@ const config = {
         GUI,
         Dialog,
         SimpleFadeEffect,
+        Controls,
         Credits,
     ]
 };

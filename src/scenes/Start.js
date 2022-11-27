@@ -9,7 +9,7 @@ class Start extends Phaser.Scene {
         console.log('Start Scene');
 
         this.playClicked = false;
-        this.creditsPlaying = false;
+        this.topLayerScenePlaying = false;
 
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
@@ -36,7 +36,16 @@ class Start extends Phaser.Scene {
         this.contenedorFondo.add(this.play);
         this.krt = this.add.image(570, 520, 'logo_krt').setScale(0.15).setInteractive();
         this.contenedorFondo.add(this.krt);
-        //this.nor = this.add.image(620, 450, 'pantallainicial/nor').setScale(.5);
+        this.controles = this.add.image(70, 520, 'control').setScale(1.4).setInteractive();
+        this.contenedorFondo.add(this.controles);
+        this.botones = this.add.container(0,0);
+        this.botonEnter = this.add.image(320, 460, 'buttons/enter').setScale(2);
+        this.botones.add(this.botonEnter);
+        this.botonP = this.add.image(570, 570, 'buttons/p').setScale(2);
+        this.botones.add(this.botonP);
+        this.botonC = this.add.image(70, 570, 'buttons/c').setScale(2);
+        this.botones.add(this.botonC);
+        this.contenedorFondo.add(this.botones);
         this.menu_s = this.sound.add('menu');
         var musconf = {
             mute: false,
@@ -112,30 +121,50 @@ class Start extends Phaser.Scene {
             this.onEnterCredits();
         });
 
+        this.input.keyboard.addKey('c').on('down', () => {
+            this.onEnterControls();
+        });
+
         this.input.on(eventos.GAMEOBJECT_DOWN, (pointer, gameObject) => {
-            if (gameObject.texture.key == "play") {
-                //lo que pasa al darle play o jugar
-                this.onEnterGame();
-            }
-            if (gameObject.texture.key == "logo_krt") {
-                //lo que pasa al darle configuracion
-                this.onEnterCredits();
+            switch (gameObject) {
+                case this.play:
+                    //lo que pasa al darle play o jugar
+                    this.onEnterGame();
+                    break;
+                case this.controles:
+                    //lo que pasa al darle play o jugar
+                    this.onEnterControls();
+                    break;
+                case this.krt:
+                    //lo que pasa al darle play o jugar
+                    this.onEnterCredits();
+                    break;
             }
         });
         this.input.on(eventos.GAMEOBJECT_OVER, (pointer, gameObject) => {
-            if (gameObject.texture.key == "play") {
-                gameObject.setScale(0.4)
-            }
-            if (gameObject.texture.key == "logo_krt") {
-                gameObject.setScale(0.20)
+            switch (gameObject) {
+                case this.play:
+                    gameObject.setScale(0.4)
+                    break;
+                case this.controles:
+                    gameObject.setScale(1.8)
+                    break;
+                case this.krt:
+                    gameObject.setScale(0.20)
+                    break;
             }
         });
         this.input.on(eventos.GAMEOBJECT_OUT, (pointer, gameObject) => {
-            if (gameObject.texture.key == "play") {
-                gameObject.setScale(0.3)
-            }
-            if (gameObject.texture.key == "logo_krt") {
-                gameObject.setScale(0.15)
+            switch (gameObject) {
+                case this.play:
+                    gameObject.setScale(0.3)
+                    break;
+                case this.controles:
+                    gameObject.setScale(1.4)
+                    break;
+                case this.krt:
+                    gameObject.setScale(0.15)
+                    break;
             }
         });
         //this.arbol = this.add.image(120, 300, 'pantallainicial/arbol').setScale(1.5);
@@ -151,12 +180,12 @@ class Start extends Phaser.Scene {
 
         this.teclaesc = this.input.keyboard.addKey(keyCodes.ESC);
         this.teclaesc.on('down', () => {
-            if (this.creditsPlaying && !this.playClicked) {
+            if (this.topLayerScenePlaying && !this.playClicked) {
                 this.tweens.getTweensOf(this.titulo).forEach(tween => tween.stop());
-                this.creditsPlaying = false;
+                this.topLayerScenePlaying = false;
                 this.scene.stop('Credits');
                 this.add.tween({
-                    targets: [this.titulo, this.krt, this.play],
+                    targets: [this.titulo, this.krt, this.play, this.controles, this.botones],
                     duration: 200,
                     props: {
                         alpha: {
@@ -170,7 +199,7 @@ class Start extends Phaser.Scene {
     }
 
     onEnterGame() {
-        if (!this.playClicked && !this.creditsPlaying) {
+        if (!this.playClicked && !this.topLayerScenePlaying) {
             this.playClicked = true;
             this.add.tween({
                 targets: [this.titulo],
@@ -183,7 +212,13 @@ class Start extends Phaser.Scene {
                 },
             });
             this.add.tween({
-                targets: [this.play],
+                targets: [this.krt, this.controles, this.botones],
+                props: {
+                    alpha: 0,
+                },
+            });
+            this.add.tween({
+                targets: [this.play, this.botonEnter],
                 duration: 3000,
                 ease: 'Sine.easeInOut',
                 props: {
@@ -192,7 +227,7 @@ class Start extends Phaser.Scene {
                 },
             });
             this.tweens.timeline({
-                targets: [this.play],
+                targets: [this.play, this.botonEnter],
                 loop: 2,
                 tweens: [
                     {
@@ -253,11 +288,27 @@ class Start extends Phaser.Scene {
     }
 
     onEnterCredits() {
-        if (!this.creditsPlaying && !this.playClicked) {
+        if (!this.topLayerScenePlaying && !this.playClicked) {
             this.scene.launch('Credits');
-            this.creditsPlaying = true;
+            this.topLayerScenePlaying = true;
             this.add.tween({
-                targets: [this.play, this.krt, this.titulo],
+                targets: [this.play, this.krt, this.titulo, this.controles, this.botones],
+                props: {
+                    alpha: {
+                        from: 1,
+                        to: 0,
+                    },
+                },
+            });
+        }
+    }
+
+    onEnterControls() {
+        if (!this.topLayerScenePlaying && !this.playClicked) {
+            this.scene.launch('Controls');
+            this.topLayerScenePlaying = true;
+            this.add.tween({
+                targets: [this.play, this.krt, this.titulo, this.controles, this.botones],
                 props: {
                     alpha: {
                         from: 1,

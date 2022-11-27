@@ -17,9 +17,10 @@ class Bootloader extends Phaser.Scene {
             // Logo
             { key: 'titulo_v2', url: 'menu/titulo_v2.png' },
             { key: 'logo_krt', url: 'menu/logo_krt.png' },
-
+            
             // GUI (Menu)
             { key: 'play', url: 'menu/play.png' },
+            { key: 'control', url: 'menu/control.png' },
 
             // Objects (Menu)
             { key: 'hoja1', url: 'menu/hoja1.png' },
@@ -39,13 +40,19 @@ class Bootloader extends Phaser.Scene {
             // GUI
             { key: 'nor-face', url: 'game/gui/nor-face.png' },
             { key: 'gui-bg', url: 'game/gui/gui-bg.png' },
+            { key: 'big-gui-bg', url: 'game/gui/big-gui-bg.png' },
             { key: 'weapon-bg', url: 'game/gui/weapon-bg.png' },
             { key: 'buttons/z', url: 'game/gui/buttons/z.png' },
             { key: 'buttons/x', url: 'game/gui/buttons/x.png' },
             { key: 'buttons/a', url: 'game/gui/buttons/a.png' },
             { key: 'buttons/s', url: 'game/gui/buttons/s.png' },
+            { key: 'buttons/p', url: 'game/gui/buttons/p.png' },
+            { key: 'buttons/c', url: 'game/gui/buttons/c.png' },
             { key: 'buttons/space', url: 'game/gui/buttons/space.png' },
             { key: 'buttons/shift', url: 'game/gui/buttons/shift.png' },
+            { key: 'buttons/enter', url: 'game/gui/buttons/enter.png' },
+            { key: 'buttons/esc', url: 'game/gui/buttons/esc.png' },
+            { key: 'buttons/arrows', url: 'game/gui/buttons/arrows.png' },
             { key: 'gui-dialog', url: 'game/gui/dialog.png' },
             { key: 'gui-sign', url: 'game/gui/sign.png' },
 
