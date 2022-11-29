@@ -2,7 +2,9 @@ import Arrow from '../classes/Arrow.js';
 import Enemy from '../classes/Enemy.js';
 import GameScene from '../classes/GameScene.js';
 import Guard from '../classes/Guard.js';
+import IanDed from '../classes/IanDed.js';
 import Item from '../classes/Item.js';
+import Maya from '../classes/Maya.js';
 import Pedestal from '../classes/Pedestal.js';
 import Player from '../classes/Player.js';
 import Rock from '../classes/Rock.js';
@@ -256,12 +258,15 @@ class Game extends Phaser.Scene {
         this.mappedTriggerTargets = this.mapTriggerTargets.map(target => {
             const angle = target.properties
                 .find(prop => prop.name === "angle")?.value;
+            const name = target.properties
+                .find(prop => prop.name === "name")?.value;
             return new TriggerTarget({
                 id: target.id,
                 scene: this,
                 x: target.x,
                 y: target.y,
                 type: target.name,
+                name,
                 angle,
             });
         });
@@ -388,6 +393,9 @@ class Game extends Phaser.Scene {
         // ! entidades
         this.mapPositions = this.map.objects.find(layer => layer.name === "Positions").objects;
         const initPos = this.mapPositions.find(obj => obj.name === 'nor');
+        const ianDedPos = this.mapPositions.find(obj => obj.name === 'ian_ded');
+        const tenFramePos = this.mapPositions.find(obj => obj.name === 'ten');
+        const mayaPos = this.mapPositions.find(obj => obj.name === 'maya');
         // const bossInitPos = this.mapPositions.find(obj => obj.name === 'boss');
         const pedestalPos = this.mapPositions.find(obj => obj.name === 'pedestal');
 
@@ -405,6 +413,33 @@ class Game extends Phaser.Scene {
             x: Math.floor(initPos.x / this.sceneWidth),
             y: Math.floor(initPos.y / this.sceneHeight)
         }, true);
+
+        // ! Arreglo de NPCs
+        this.mapNPCs = [];
+
+        // ! Configuración de Ian Ded
+        this.ianDed = new IanDed({
+            scene: this,
+            x: ianDedPos.x,
+            y: ianDedPos.y,
+        });
+        this.mapNPCs.push(this.ianDed);
+
+        // ! Agregado de Ten (su marco XD)
+        this.tenFrame = this.add.image(
+            tenFramePos.x,
+            tenFramePos.y,
+            'ten',
+            'ten_frame'
+        ).setDepth(6);
+
+        // ! Configuración de Maya
+        this.maya = new Maya({
+            scene: this,
+            x: mayaPos.x,
+            y: mayaPos.y,
+        });
+        this.mapNPCs.push(this.maya);
 
         // ! Configuración del jugador
         this.nor = new Player({
@@ -574,6 +609,31 @@ class Game extends Phaser.Scene {
             (_, sign) => {
                 if (this.nor.isInteracting) {
                     sign.show();
+                }
+            }
+        );
+
+        // ! Cuando Nor interactúa con un NPC, empieza a chatear.
+        this.physics.overlap(
+            this.nor,
+            this.mapNPCs,
+            (_, npc) => {
+                if (this.nor.isInteracting) {
+                    if (npc instanceof IanDed) {
+                        this.ianDed.handleChat({
+                            hasObtained: {
+                                ...this.nor.hasObtained,
+                                key: this.nor.items.keys > 0,
+                            },
+                            gateOpened: !this.mappedTriggerTargets.some(target => {
+                                return target.name === "initialGate";
+                            }),
+                        });
+                    } else if (npc instanceof Maya) {
+                        this.maya.handleChat({
+                            noEnemies: this.mapEnemies.length === 0,
+                        })
+                    }
                 }
             }
         );

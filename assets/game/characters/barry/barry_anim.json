@@ -1,0 +1,196 @@
+{
+    "anims": [
+        {
+            "key": "barry_idle_up",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up1"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up2"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up3"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up4"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up5"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up6"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up7"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up8"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up9"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_up10"
+                }
+            ]
+        },
+        {
+            "key": "barry_idle_side",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side1"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side2"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side3"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side4"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side5"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side6"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side7"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side8"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side9"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side10"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side11"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side12"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side13"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side14"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side15"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_side16"
+                }
+            ]
+        },
+        {
+            "key": "barry_idle_down",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down1"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down2"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down3"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down4"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down5"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down6"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down7"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down8"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down9"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down10"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down11"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down12"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down13"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down14"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down15"
+                },
+                {
+                    "key": "barry",
+                    "frame": "barry_idle_down16"
+                }
+            ]
+        }
+    ]
+}

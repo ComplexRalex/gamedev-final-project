@@ -1,5 +1,5 @@
 class TriggerTarget extends Phaser.GameObjects.Sprite {
-    constructor({ id, scene, x, y, type, angle = 0 }) {
+    constructor({ id, scene, x, y, type, name, angle = 0 }) {
         super(scene, x, y, type);
 
         // !
@@ -10,6 +10,10 @@ class TriggerTarget extends Phaser.GameObjects.Sprite {
         // * Este ID sirve para poder ser identificado y asignado
         // * a un trigger.
         this.id = id;
+
+        // * Este campo sirve para poder identificar más cómodamente
+        // * el target.
+        this.name = name;
 
         // ! Es un bloque, por lo tanto no podrá moverse.
         this.body.immovable = true;

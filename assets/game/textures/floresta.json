@@ -3093,6 +3093,11 @@
                          "name":"angle",
                          "type":"int",
                          "value":270
+                        }, 
+                        {
+                         "name":"name",
+                         "type":"string",
+                         "value":"initialGate"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -4377,7 +4382,7 @@
                         {
                          "name":"content",
                          "type":"string",
-                         "value":""
+                         "value":"Casa de Ten"
                         }],
                  "rotation":0,
                  "visible":true,
@@ -4905,18 +4910,6 @@
                  "width":0,
                  "x":1840,
                  "y":96
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":377,
-                 "name":"banana",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":2128,
-                 "y":2960
                 }, 
                 {
                  "class":"",
@@ -5516,8 +5509,44 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":144,
-                 "y":2976
+                 "x":152,
+                 "y":2968
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":441,
+                 "name":"ian_ded",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":992,
+                 "y":128
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":442,
+                 "name":"ten",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":2624
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":444,
+                 "name":"maya",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":304,
+                 "y":2680
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5526,7 +5555,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":441,
+ "nextobjectid":445,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

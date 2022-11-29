@@ -1,0 +1,40 @@
+{
+    "anims": [
+        {
+            "key": "maya_sleep",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "maya",
+                    "frame": "maya3"
+                }
+            ]
+        },
+        {
+            "key": "maya_surprise",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "maya",
+                    "frame": "maya2"
+                }
+            ]
+        },
+        {
+            "key": "maya_attack",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "maya",
+                    "frame": "maya1"
+                }
+            ]
+        }
+    ]
+}

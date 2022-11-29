@@ -17,7 +17,7 @@ class Bootloader extends Phaser.Scene {
             // Logo
             { key: 'titulo_v2', url: 'menu/titulo_v2.png' },
             { key: 'logo_krt', url: 'menu/logo_krt.png' },
-            
+
             // GUI (Menu)
             { key: 'play', url: 'menu/play.png' },
             { key: 'control', url: 'menu/control.png' },
@@ -55,6 +55,13 @@ class Bootloader extends Phaser.Scene {
             { key: 'buttons/arrows', url: 'game/gui/buttons/arrows.png' },
             { key: 'gui-dialog', url: 'game/gui/dialog.png' },
             { key: 'gui-sign', url: 'game/gui/sign.png' },
+
+            // GUI faces
+            { key: 'faces/nor', url: 'game/gui/faces/nor.png' },
+            { key: 'faces/maya', url: 'game/gui/faces/maya.png' },
+            { key: 'faces/ten', url: 'game/gui/faces/ten.png' },
+            { key: 'faces/ian_ded', url: 'game/gui/faces/ian_ded.png' },
+            { key: 'faces/barry', url: 'game/gui/faces/barry.png' },
 
             // Characters (only those who don't have atlas)
 
@@ -94,6 +101,10 @@ class Bootloader extends Phaser.Scene {
 
             // Characters
             { key: 'nor', textureURL: 'game/characters/nor/nor.png', atlasURL: 'game/characters/nor/nor_atlas.json' },
+            { key: 'maya', textureURL: 'game/characters/maya/maya.png', atlasURL: 'game/characters/maya/maya_atlas.json' },
+            { key: 'ten', textureURL: 'game/characters/ten/ten.png', atlasURL: 'game/characters/ten/ten_atlas.json' },
+            { key: 'ian_ded', textureURL: 'game/characters/ian_ded/ian_ded.png', atlasURL: 'game/characters/ian_ded/ian_ded_atlas.json' },
+            { key: 'barry', textureURL: 'game/characters/barry/barry.png', atlasURL: 'game/characters/barry/barry_atlas.json' },
 
             // Enemies
             { key: 'snake', textureURL: 'game/characters/snake/snake.png', atlasURL: 'game/characters/snake/snake_atlas.json' },
@@ -118,7 +129,11 @@ class Bootloader extends Phaser.Scene {
 
             // Characters
             { key: 'nor_anim', url: 'game/characters/nor/nor_anim.json' },
-            
+            { key: 'maya_anim', url: 'game/characters/maya/maya_anim.json' },
+            { key: 'ten_anim', url: 'game/characters/ten/ten_anim.json' },
+            { key: 'ian_ded_anim', url: 'game/characters/ian_ded/ian_ded_anim.json' },
+            { key: 'barry_anim', url: 'game/characters/barry/barry_anim.json' },
+
             // Enemies
             { key: 'snake_anim', url: 'game/characters/snake/snake_anim.json' },
             { key: 'wolf_anim', url: 'game/characters/wolf/wolf_anim.json' },
@@ -147,10 +162,10 @@ class Bootloader extends Phaser.Scene {
             console.warn("Loading complete!");
 
             this.scene.stop('Loading');
-            this.scene.start('Start');
-            this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            // this.scene.start('GUI');
-            // this.scene.launch('Game');
+            // this.scene.start('Start');
+            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+            this.scene.start('GUI');
+            this.scene.launch('Game');
         });
     }
 }

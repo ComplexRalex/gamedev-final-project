@@ -1,0 +1,47 @@
+{
+    "frames": [
+        {
+            "filename": "maya3",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 1,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "maya2",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 51,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "maya1",
+            "frame": {
+                "w": 48,
+                "h": 64,
+                "x": 101,
+                "y": 1
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "ian_ded_asleep",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "ian_ded",
+                    "frame": "ianded2"
+                }
+            ]
+        },
+        {
+            "key": "ian_ded_awake",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "ian_ded",
+                    "frame": "ianded1"
+                }
+            ]
+        }
+    ]
+}

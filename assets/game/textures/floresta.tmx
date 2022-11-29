@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="441">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="445">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -1079,6 +1079,7 @@
   <object id="210" name="gate" x="1264" y="240">
    <properties>
     <property name="angle" type="int" value="270"/>
+    <property name="name" value="initialGate"/>
    </properties>
    <point/>
   </object>
@@ -1467,7 +1468,7 @@
   </object>
   <object id="281" x="256" y="2672">
    <properties>
-    <property name="content" value=""/>
+    <property name="content" value="Casa de Ten"/>
    </properties>
    <point/>
   </object>
@@ -1606,9 +1607,6 @@
    <point/>
   </object>
   <object id="374" name="heart" x="1840" y="96">
-   <point/>
-  </object>
-  <object id="377" name="banana" x="2128" y="2960">
    <point/>
   </object>
   <object id="378" name="banana" x="2128" y="3280">
@@ -1780,7 +1778,16 @@
   <object id="426" name="pedestal" x="2896" y="3120">
    <point/>
   </object>
-  <object id="432" name="nor" x="144" y="2976">
+  <object id="432" name="nor" x="152" y="2968">
+   <point/>
+  </object>
+  <object id="441" name="ian_ded" x="992" y="128">
+   <point/>
+  </object>
+  <object id="442" name="ten" x="160" y="2624">
+   <point/>
+  </object>
+  <object id="444" name="maya" x="304" y="2680">
    <point/>
   </object>
  </objectgroup>

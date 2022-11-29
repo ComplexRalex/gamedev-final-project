@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "ten_frame",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "ten",
+                    "frame": "ten_frame"
+                }
+            ]
+        },
+        {
+            "key": "ten_idle",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "ten",
+                    "frame": "ten"
+                }
+            ]
+        }
+    ]
+}
