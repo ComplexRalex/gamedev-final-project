@@ -19,6 +19,8 @@ class Start extends Phaser.Scene {
         const eventos = Phaser.Input.Events;
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
 
+        this.clickSound = this.sound.add('clicking');
+
         this.contenedorFondo = this.add.container(0, 0);
 
         this.fondo = this.add.image(0, 0, 'fondo_p').setOrigin(0);
@@ -181,6 +183,7 @@ class Start extends Phaser.Scene {
         this.teclaesc = this.input.keyboard.addKey(keyCodes.ESC);
         this.teclaesc.on('down', () => {
             if (this.topLayerScenePlaying && !this.playClicked) {
+                this.clickSound.play();
                 this.tweens.getTweensOf(this.titulo).forEach(tween => tween.stop());
                 this.topLayerScenePlaying = false;
                 this.scene.stop('Credits');
@@ -200,6 +203,7 @@ class Start extends Phaser.Scene {
 
     onEnterGame() {
         if (!this.playClicked && !this.topLayerScenePlaying) {
+            this.clickSound.play();
             this.playClicked = true;
             this.add.tween({
                 targets: [this.titulo],
@@ -292,6 +296,7 @@ class Start extends Phaser.Scene {
 
     onEnterCredits() {
         if (!this.topLayerScenePlaying && !this.playClicked) {
+            this.clickSound.play();
             this.scene.launch('Credits');
             this.topLayerScenePlaying = true;
             this.add.tween({
@@ -308,6 +313,7 @@ class Start extends Phaser.Scene {
 
     onEnterControls() {
         if (!this.topLayerScenePlaying && !this.playClicked) {
+            this.clickSound.play();
             this.scene.launch('Controls');
             this.topLayerScenePlaying = true;
             this.add.tween({

@@ -42,7 +42,7 @@ class Barry extends NPC {
     update({ player }) {
         this.scene?.physics.overlap(player, this.activationHitbox, () => {
             if (!this.chatActivated) {
-                localStorage.setItem('B4RRY_ACK_VALUE', '=)');
+                localStorage.setItem('B4RRY_ACK_END_VALUE', '=)');
                 this.chatActivated = true;
                 player.stand();
                 this.scene?.add.tween({

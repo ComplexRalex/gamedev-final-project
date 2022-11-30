@@ -171,12 +171,15 @@ class Game extends Phaser.Scene {
     }
 
     create() {
-        // ! Música!
+        // ! Música
         this.bgMusic = this.sound.add('game', {
             volume: 1,
             loop: true,
         });
         this.bgMusic.play();
+
+        // ! Sonidos
+        this.interactSound = this.sound.add('interacting');
 
         // ! Configuración de tiles y el mapa
         this.map = this.make.tilemap({
@@ -649,6 +652,7 @@ class Game extends Phaser.Scene {
             this.mappedSigns,
             (_, sign) => {
                 if (this.nor.isInteracting) {
+                    this.interactSound.play();
                     sign.show();
                 }
             }
@@ -660,6 +664,7 @@ class Game extends Phaser.Scene {
             this.mapNPCs,
             (_, npc) => {
                 if (this.nor.isInteracting) {
+                    this.interactSound.play();
                     if (npc instanceof IanDed) {
                         this.ianDed.handleChat({
                             hasObtained: {
@@ -788,6 +793,7 @@ class Game extends Phaser.Scene {
                     trigger.type === "button" && this.nor.items.arrows > 0 && (who instanceof Arrow);
 
                 if (valid) {
+                    this.interactSound.play();
                     switch (trigger.type) {
                         case "lock":
                             this.nor.changeStats({ stat: 'key', addedPoints: -1 });
@@ -810,6 +816,7 @@ class Game extends Phaser.Scene {
         // ! Si Nor toca el pedestal, entonces GG.
         this.physics.overlap(this.nor, this.pedestal, () => {
             if (this.nor.isInteracting && this.nor.items.fragments >= 4 && !this.isGG) {
+                this.interactSound.play();
                 this.isGG = true;
 
                 this.nor.placeEmerald();

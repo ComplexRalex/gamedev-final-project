@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="465">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="508">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -1722,7 +1722,7 @@
    </properties>
    <point/>
   </object>
-  <object id="368" name="snake" x="280" y="2640">
+  <object id="368" name="snake" x="400" y="2640">
    <point/>
   </object>
   <object id="369" name="snake" x="1168" y="3120">
@@ -1772,7 +1772,7 @@
   <object id="442" name="ten" x="160" y="2624">
    <point/>
   </object>
-  <object id="444" name="maya" x="304" y="2680">
+  <object id="444" name="maya" x="304" y="2672">
    <point/>
   </object>
   <object id="445" name="barry" x="2240" y="2120">

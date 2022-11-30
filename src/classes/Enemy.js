@@ -101,12 +101,18 @@ class Enemy extends Phaser.GameObjects.Sprite {
         // * Este sirve para determinar si el jugador ha caído al vacío.
         this.isFalling = false;
         this.fallingTime = 1200;
+
+        // !
+        // ! Sound FX things
+        this.takeDamageSound = this.scene.sound.add('taking_damage_enemy');
+        this.fallSound = this.scene.sound.add('falling');
     }
 
     // ! Está pensado que los enemigos también tengan una forma
     // ! de recibir daño y, por lo tanto, una cantidad de vida.
     getHurt({ damagePoints = 1 }) {
         if (!this.isDamaged && !this.isFalling) {
+            this.takeDamageSound.play();
             this.isDamaged = true;
             this.health -= this.healthDelta * damagePoints;
             this.setTint(0xFFAAAA);
@@ -171,6 +177,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
     fall({ onDead }) {
         if (!this.isFalling) {
+            this.fallSound.play();
             this.isFalling = true;
 
             this.body.setAcceleration(0);

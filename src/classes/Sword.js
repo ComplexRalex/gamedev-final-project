@@ -47,7 +47,7 @@ class Sword extends Phaser.GameObjects.Sprite {
         let yBody = direction.y !== 0
             ? direction.y > 0 ? 24 : -24
             : 0;
-        
+
         xBody += xBody !== 0 && yBody !== 0
             ? -1 * Math.sign(xBody) * 7
             : 0;
@@ -58,7 +58,12 @@ class Sword extends Phaser.GameObjects.Sprite {
         this.body.setOffset(xCenter + xBody, yCenter + yBody);
 
         // !
+        // ! Sound
+        this.slashSound = this.scene.sound.add('slashing');
+
+        // !
         // ! Timer and animation
+        this.slashSound.play();
         this.anims.play(`sword_attack`);
         this.anims.hideOnComplete = true;
         this.on('animationcomplete', () => {

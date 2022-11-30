@@ -146,6 +146,16 @@ class Player extends Phaser.GameObjects.Sprite {
             bombs: [],
         };
 
+        // !
+        // ! Sound FX things
+        this.healSound = this.scene.sound.add('healing');
+        this.maximizeLifeSound = this.scene.sound.add('maximizing_life');
+        this.getItemSound = this.scene.sound.add('getting_item');
+        this.getSpecialItemSound = this.scene.sound.add('getting_special_item');
+        this.takeDamageSound = this.scene.sound.add('taking_damage');
+        this.fallSound = this.scene.sound.add('falling');
+        this.dieSound = this.scene.sound.add('dying');
+
         this.setListeners();
 
         this.changeHP({});
@@ -181,7 +191,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // ! Este cambia al arma de la izquierda (si es que la hay)
         this.cursor.a.on('down', () => {
-            if (this.secondaryIndex !== -1) {
+            if (this.secondaryIndex !== -1 && !this.isStanding) {
                 this.secondaryIndex = (
                     ((this.secondaryIndex - 1) % this.secondaryWeapons.length
                         + this.secondaryWeapons.length)
@@ -195,7 +205,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         // ! Este cambia al arma de la derecha (si es que la hay)
         this.cursor.s.on('down', () => {
-            if (this.secondaryIndex !== -1) {
+            if (this.secondaryIndex !== -1 && !this.isStanding) {
                 this.secondaryIndex =
                     (this.secondaryIndex + 1) % this.secondaryWeapons.length;
                 this.scene.registry.events.emit('changeWeapon', {
@@ -332,6 +342,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     // ! Este es utilizado cuando se han recibido puntos de vida.
     getHealed({ healPoints }) {
+        this.healSound.play();
         this.scene.cameras.main.flash(120, 180, 180, 180);
         this.changeHP({ addedHealthPoints: healPoints });
     }
@@ -346,6 +357,7 @@ class Player extends Phaser.GameObjects.Sprite {
             this.changeHP({ addedHealthPoints: -damagePoints });
 
             if (this.health > 0) {
+                this.takeDamageSound.play();
                 this.scene.cameras.main.shake(150, 0.01);
                 const immuneEffectTween = this.scene?.add.tween({
                     targets: [this],
@@ -369,6 +381,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 }, this.ouchFaceDuration);
 
             } else {
+                this.dieSound.play();
                 this.scene.cameras.main.shake(400, 0.015);
                 this.isDead = true;
 
@@ -396,6 +409,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
     fall({ respawnPoint, onDead }) {
         if (!this.isFalling) {
+            this.fallSound.play();
             this.isFalling = true;
 
             this.body.setAcceleration(0);
@@ -435,6 +449,7 @@ class Player extends Phaser.GameObjects.Sprite {
     obtainFragment() {
         this.changeStats({ stat: "fragments", addedPoints: 1 });
 
+        this.isStanding = true;
         this.isDoingSomething = true;
         this.action = "happy";
         this.anims.play("nor_happy");
@@ -442,12 +457,12 @@ class Player extends Phaser.GameObjects.Sprite {
         this.body.setVelocity(0);
         this.body.setAcceleration(0);
 
-        this.fragment = this.scene.add
+        const fragment = this.scene.add
             .sprite(this.x, this.y - 28, 'fragmented_emerald')
             .setDepth(this.depth + 1);
 
         this.scene?.add.tween({
-            targets: [this.fragment],
+            targets: [fragment],
             duration: 800,
             props: {
                 y: this.y - 34,
@@ -455,7 +470,8 @@ class Player extends Phaser.GameObjects.Sprite {
         });
 
         setTimeout(() => {
-            this.fragment.destroy();
+            fragment.destroy();
+            this.isStanding = false;
             this.isDoingSomething = false;
         }, this.gettingEmeraldFragmentTime);
     }
@@ -495,6 +511,7 @@ class Player extends Phaser.GameObjects.Sprite {
     // ! Cuando obtiene una nueva arma, se tiene que actualizar
     // ! el GUI, y unas banderas!
     obtainWeapon({ type }) {
+        this.getItemSound.play();
         this.hasObtained[type] = true;
         this.scene.registry.events.emit('obtainWeapon', { type });
     }
@@ -504,6 +521,7 @@ class Player extends Phaser.GameObjects.Sprite {
     changeMaxHealth({ numberOfContainersToAdd = 0 }) {
         if (numberOfContainersToAdd > 0) {
             this.scene.cameras.main.flash(150, 220, 180, 180);
+            this.maximizeLifeSound.play();
         }
         this.healthMax += numberOfContainersToAdd * 2 * this.healthDelta;
         this.health = this.healthMax;
@@ -534,16 +552,19 @@ class Player extends Phaser.GameObjects.Sprite {
     changeStats({ stat, addedPoints }) {
         switch (stat) {
             case "key":
+                if (addedPoints > 0) this.getItemSound.play();
                 this.items.keys += addedPoints;
                 this.items.keys = this.items.keys >= 0 ? this.items.keys : 0;
                 this.scene.registry.events.emit('changeStats', { keyNumber: this.items.keys });
                 break;
             case "arrows":
+                if (addedPoints > 0) this.getItemSound.play();
                 this.items.arrows += addedPoints;
                 this.items.arrows = this.items.arrows >= 0 ? this.items.arrows : 0;
                 this.scene.registry.events.emit('changeStats', { arrowNumber: this.items.arrows });
                 break;
             case "bombs":
+                if (addedPoints > 0) this.getItemSound.play();
                 if (!this.hasObtained.bomb) this.obtainWeapon({ type: 'bomb' });
                 this.items.bombs += addedPoints;
                 this.items.bombs = this.items.bombs >= 0 ? this.items.bombs : 0;
@@ -553,6 +574,7 @@ class Player extends Phaser.GameObjects.Sprite {
                 this.scene.registry.events.emit('changeStats', { bombNumber: this.items.bombs });
                 break;
             case "fragments":
+                this.getSpecialItemSound.play();
                 this.items.fragments += addedPoints;
                 this.items.fragments = this.items.fragments >= 0 ? this.items.fragments : 0;
                 this.scene.registry.events.emit('changeStats', { fragmentNumber: this.items.fragments });

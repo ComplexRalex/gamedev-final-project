@@ -58,6 +58,10 @@ class Cinematic0 extends Phaser.Scene {
 
     create() {
 
+        // ! Sonidos!
+        this.blackHoleSound = this.sound.add('spinning_black_hole');
+        this.explosionSound = this.sound.add('exploding_massively');
+
         // ! Configuración de tiles y el mapa
         this.map = this.make.tilemap({
             key: 'cinematic0-tile-map',
@@ -278,14 +282,15 @@ class Cinematic0 extends Phaser.Scene {
                 {
                     targets: [this.blackHole],
                     delay: 100,
-                    hold: 1800,
+                    hold: 1200,
                     duration: 200,
                     props: {
                         alpha: { from: 0, to: 1 },
                     },
                     onStart: () => {
+                        this.blackHoleSound.play();
                         this.blackHole.setPosition(this.emerald.x, this.emerald.y);
-                        this.cameras.main.shake(2000, 0.008, true);
+                        this.cameras.main.shake(1400, 0.008, true);
                     },
                     onComplete: () => {
                         const ourChat = !this.barryAckIntro && !this.barryAckEnd
@@ -322,9 +327,10 @@ class Cinematic0 extends Phaser.Scene {
                     duration: 400,
                     props: {
                         alpha: { from: 0, to: 1 },
-                        scale: { from: 1, to: 30 },
+                        scale: { from: 1, to: 20 },
                     },
                     onStart: () => {
+                        this.explosionSound.play();
                         this.maya.anims.play('maya_surprise');
                         this.explosion.setPosition(this.emerald.x, this.emerald.y);
                         this.cameras.main.shake(400, 0.015, true);

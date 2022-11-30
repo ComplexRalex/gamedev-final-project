@@ -13,7 +13,6 @@ class IanDed extends NPC {
     }
 
     handleChat({ hasObtained, gateOpened }) {
-        console.log(gateOpened);
         this.hasAlreadyTalked = this.hasObtained.sword === hasObtained.sword
             && this.hasObtained.key === hasObtained.key;
         this.hasObtained = hasObtained;

@@ -36,6 +36,10 @@ class Bow extends Phaser.GameObjects.Sprite {
         this.velocity = velocity;
 
         // !
+        // ! Sound
+        this.shootArrow = this.scene.sound.add('shooting_arrow');
+
+        // !
         // ! Visual stuff
         this.setOrigin(
             direction.x >= 0 ? -0.5 : 1.5,
@@ -64,6 +68,7 @@ class Bow extends Phaser.GameObjects.Sprite {
     }
 
     spawnArrow() {
+        this.shootArrow.play();
         const arrow = new Arrow({
             scene: this.scene,
             x: this.x,

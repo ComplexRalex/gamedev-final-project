@@ -197,8 +197,30 @@ class Bootloader extends Phaser.Scene {
 
             // Final credits
             { key: 'endm', url: 'music/endm.mp3' },
-
+            
             // Sounds!
+            
+            // Menu
+            { key: 'clicking', url: 'sfx/clicking.mp3' },
+            
+            // Cinematic0
+            { key: 'exploding_massively', url: 'sfx/exploding_massively.mp3' },
+            { key: 'spinning_black_hole', url: 'sfx/spinning_black_hole.mp3' },
+
+            // Game
+            { key: 'interacting', url: 'sfx/interacting.mp3' },
+            { key: 'slashing', url: 'sfx/slashing.mp3' },
+            { key: 'shooting_arrow', url: 'sfx/shooting_arrow.mp3' },
+            { key: 'placing_bomb', url: 'sfx/placing_bomb.mp3' },
+            { key: 'exploding_bomb', url: 'sfx/exploding_bomb.mp3' },
+            { key: 'healing', url: 'sfx/healing.mp3' },
+            { key: 'maximizing_life', url: 'sfx/maximizing_life.mp3' },
+            { key: 'getting_item', url: 'sfx/getting_item.mp3' },
+            { key: 'getting_special_item', url: 'sfx/getting_special_item.mp3' },
+            { key: 'taking_damage', url: 'sfx/taking_damage.mp3' },
+            { key: 'taking_damage_enemy', url: 'sfx/taking_damage_enemy.mp3' },
+            { key: 'falling', url: 'sfx/falling.mp3' },
+            { key: 'dying', url: 'sfx/dying.mp3' },
         ]);
 
         this.load.on('complete', () => {

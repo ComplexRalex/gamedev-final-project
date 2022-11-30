@@ -5291,7 +5291,7 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":280,
+                 "x":400,
                  "y":2640
                 }, 
                 {
@@ -5492,7 +5492,7 @@
                  "visible":true,
                  "width":0,
                  "x":304,
-                 "y":2680
+                 "y":2672
                 }, 
                 {
                  "class":"",
@@ -5560,7 +5560,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":465,
+ "nextobjectid":508,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

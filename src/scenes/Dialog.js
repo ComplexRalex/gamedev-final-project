@@ -15,6 +15,8 @@ class Dialog extends Phaser.Scene {
         this.showed = false;
         this.pressed = false;
 
+        this.clickSound = this.sound.add('clicking');
+
         this.container = this.add.container(0, 0);
 
         this.rect = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.5)
@@ -73,6 +75,7 @@ class Dialog extends Phaser.Scene {
 
         this.input.keyboard.addKey('space').on('down', () => {
             if (this.showed && !this.pressed) {
+                this.clickSound.play();
                 this.pressed = true;
                 this.guiSpace.setAlpha(1);
                 this.add.tween({
@@ -102,6 +105,7 @@ class Dialog extends Phaser.Scene {
 
         this.input.keyboard.addKey('space').on('down', () => {
             if (this.showed && !this.pressed) {
+                this.clickSound.play();
                 this.showed = false;
                 if (this.chat.length > this.index) {
                     this.showNextDialog();

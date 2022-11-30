@@ -15,6 +15,10 @@ class Bomb extends Phaser.GameObjects.Sprite {
         // ? Esta deshabilitado hasta que explote
         this.body.enable = false;
 
+        // ! Sound
+        this.placeBombSound = this.scene.sound.add('placing_bomb');
+        this.explodeBombSound = this.scene.sound.add('exploding_bomb');
+
         // !
         // ! Props, timer and animation
         this.damagePoints = 2;
@@ -27,6 +31,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
                     duration: 1000,
                     onStart: () => {
                         this.anims.play('bomb_active');
+                        this.placeBombSound.play();
                     },
                 },
                 {
@@ -42,6 +47,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
                     onStart: () => {
                         // ? Se tiene que activar la colisión justo
                         // ? en el momento de la explosión.
+                        this.explodeBombSound.play();
                         this.setScale(2);
                         this.body.enable = true;
                         this.anims.play('bomb_explode');

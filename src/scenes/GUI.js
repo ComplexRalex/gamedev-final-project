@@ -215,6 +215,9 @@ class GUI extends Phaser.Scene {
 
     setListeners() {
 
+        // ! Sonido
+        this.changeWeaponSound = this.sound.add('clicking');
+
         // Constantes
         this.keyCodes = Phaser.Input.Keyboard.KeyCodes;
         this.keyEvents = Phaser.Input.Keyboard.Events;
@@ -283,6 +286,7 @@ class GUI extends Phaser.Scene {
         });
 
         this.registry.events.on('changeWeapon', ({ weapon }) => {
+            this.changeWeaponSound.play();
             this.actualSecondaryWeapon.setTexture('generics_atlas', weapon);
         });
 
