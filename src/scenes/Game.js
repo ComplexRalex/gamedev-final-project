@@ -492,7 +492,7 @@ class Game extends Phaser.Scene {
     }
 
     onQuit() {
-        if (!this.isQuiting) {
+        if (!this.isQuiting && !this.isGG) {
             this.isQuiting = true;
             this.scene.launch('SimpleFadeEffect', { fadeIn: true, yoyo: true });
             this.add.tween({
@@ -517,6 +517,19 @@ class Game extends Phaser.Scene {
 
     onDead() {
         this.onQuit();
+    }
+
+    onFinish() {
+        if (!this.isQuiting) {
+            this.scene.launch('FinalCredits', {
+                onFinish: () => {
+                    this.scene.stop();
+                    this.scene.stop("GUI");
+                    this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                    this.scene.launch("Start");
+                },
+            });
+        }
     }
 
     createListeners() {
@@ -802,9 +815,24 @@ class Game extends Phaser.Scene {
                 this.nor.placeEmerald();
                 this.pedestal.placeEmerald();
 
+                this.add.tween({
+                    targets: [this.nor],
+                    duration: 2000,
+                    props: {
+                        alpha: 1,
+                    },
+                    onUpdate: () => {
+                        if (this.bgMusic.volume > 0)
+                            this.bgMusic.setVolume(this.bgMusic.volume - 0.01);
+                    },
+                    onComplete: () => {
+                        this.bgMusic.stop();
+                    }
+                });
+
                 setTimeout(() => {
-                    this.onQuit();
-                }, 5000);
+                    this.onFinish();
+                }, 2000);
             }
         });
 

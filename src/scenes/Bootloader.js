@@ -31,6 +31,31 @@ class Bootloader extends Phaser.Scene {
             // Logo
             { key: 'logokrt', url: 'credits/logokrt.png' },
 
+            // Credit Images
+            { key: 'ed1', url: 'credits/ed1.png' },
+            { key: 'ed2', url: 'credits/ed2.png' },
+            { key: 'ed3', url: 'credits/ed3.png' },
+            { key: 'ed4', url: 'credits/ed4.png' },
+            { key: 'ed5', url: 'credits/ed5.png' },
+            { key: 'ed6', url: 'credits/ed6.png' },
+            { key: 'ed7', url: 'credits/ed7.png' },
+            { key: 'ed8', url: 'credits/ed8.png' },
+            { key: 'ed9', url: 'credits/ed9.png' },
+            { key: 'ed10', url: 'credits/ed10.png' },
+            { key: 'ed11', url: 'credits/ed11.png' },
+            { key: 'ed12', url: 'credits/ed12.png' },
+            { key: 'ed13', url: 'credits/ed13.png' },
+            { key: 'ed14', url: 'credits/ed14.png' },
+            { key: 'ed15', url: 'credits/ed15.png' },
+            { key: 'ed16', url: 'credits/ed16.png' },
+            { key: 'ed17', url: 'credits/ed17.png' },
+            { key: 'ed18', url: 'credits/ed18.png' },
+            { key: 'ed19', url: 'credits/ed19.png' },
+            { key: 'ed20', url: 'credits/ed20.png' },
+            { key: 'flash', url: 'credits/flash.png' },
+            { key: 'fondo', url: 'credits/fondo.png' },
+            { key: 'fin', url: 'credits/fin.png' },
+
             // * Game
 
             // Extra
@@ -161,8 +186,19 @@ class Bootloader extends Phaser.Scene {
         this.load.tilemapTiledJSON("cinematic0-tile-map", "game/textures/cinematic0.json", null);
 
         this.load.audio([
+
+            // Music!
+
+            // Start
             { key: 'menu', url: 'music/main_loop.mp3' },
-            { key: 'game', url: 'music/game_loop.mp3' }
+
+            // Game
+            { key: 'game', url: 'music/game_loop.mp3' },
+
+            // Final credits
+            { key: 'endm', url: 'music/endm.mp3' },
+
+            // Sounds!
         ]);
 
         this.load.on('complete', () => {

@@ -6,6 +6,7 @@ import Cinematic0 from './scenes/Cinematic0.js';
 import Game from './scenes/Game.js';
 import SimpleFadeEffect from './scenes/SimpleFadeEffect.js';
 import Credits from './scenes/Credits.js';
+import FinalCredits from './scenes/FinalCredits.js';
 import Controls from './scenes/Controls.js';
 import Dialog from './scenes/Dialog.js';
 
@@ -39,6 +40,7 @@ const config = {
         SimpleFadeEffect,
         Controls,
         Credits,
+        FinalCredits,
     ]
 };
 
