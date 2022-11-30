@@ -33,6 +33,12 @@ class Cinematic0 extends Phaser.Scene {
 
         // ! Variables de control
 
+        // * No tiene sentido, pero el chiste es que el usuario no se spoilee xD
+        this.barryAckIntro = localStorage.getItem('B4RRY_ACK_INTRO_VALUE') === '=)';
+        this.barryAckEnd = localStorage.getItem('B4RRY_ACK_END_VALUE') === '=)';
+
+        // * Claro, cuando ya pasó, pues ya lo vivió xD
+        localStorage.setItem('B4RRY_ACK_INTRO_VALUE', '=)');
     }
 
     updateSceneCoords({ x, y }) {
@@ -41,7 +47,7 @@ class Cinematic0 extends Phaser.Scene {
         this.updateCameraCoords();
     }
 
-    updateCameraCoords(now = false) {
+    updateCameraCoords() {
         const { x, y } = this.sceneCoords;
         const [centerX, centerY] = [
             x * this.sceneWidth + this.sceneWidth / 2,
@@ -197,10 +203,27 @@ class Cinematic0 extends Phaser.Scene {
                         this.emerald.setPosition(this.barry.x - 20, this.barry.y);
                     },
                     onComplete: () => {
-                        const dialogs = [
-                            { who: 'barry', what: '¡No dejaré que vuelva a ocurrir!', forward: false },
-                        ];
-                        this.chat(dialogs);
+                        const ourChat = !this.barryAckIntro && !this.barryAckEnd
+                            ? [
+                                { who: 'barry', what: '¡No dejaré que vuelva a ocurrir!', forward: false },
+                            ]
+                            : this.barryAckIntro && !this.barryAckEnd
+                                ? [
+                                    { who: 'barry', what: 'Mmm...', forward: false },
+                                ]
+                                : this.barryAckIntro && this.barryAckEnd
+                                    ? [
+                                        { who: 'barry', what: '¡Aquí voy de nuevo!', forward: false },
+                                    ]
+                                    : [
+                                        { who: 'barry', what: 'Mmm...', forward: false },
+                                        { who: 'barry', what: 'Qué raro...', forward: false },
+                                        { who: 'barry', what: '...', forward: false },
+                                        { who: 'barry', what: 'Ya sé qué ocurre...', forward: false },
+                                        { who: 'barry', what: 'Hola :)', forward: false },
+                                        { who: 'barry', what: 'Sí, tú... al que está dentrás de esta pantalla.', forward: false },
+                                    ];
+                        this.chat(ourChat);
                     }
                 },
                 {
@@ -225,12 +248,31 @@ class Cinematic0 extends Phaser.Scene {
                         alpha: { from: 1, to: 0 },
                     },
                     onComplete: () => {
-                        const dialogs = [
-                            { who: 'maya', what: 'No sé cómo sabes mi nombre, ni tampoco entendí nada de lo que dijiste, pero...', forward: true },
-                            { who: 'maya', what: '¡LUCHARÉ POR FLORESTA!', forward: true },
-                            { who: 'barry', what: '¿Estás segura de eso?', forward: false },
-                        ];
-                        this.chat(dialogs);
+                        const ourChat = !this.barryAckIntro && !this.barryAckEnd
+                            ? [
+                                { who: 'maya', what: 'No sé cómo sabes mi nombre, ni tampoco entendí nada de lo que dijiste, pero...', forward: true },
+                                { who: 'maya', what: '¡LUCHARÉ POR FLORESTA!', forward: true },
+                                { who: 'barry', what: '¿Estás segura de eso?', forward: false },
+                            ]
+                            : this.barryAckIntro && !this.barryAckEnd
+                                ? [
+                                    { who: 'maya', what: 'No sé cómo sabes mi nombre, ni tampoco entendí nada de lo que dijiste, pero...', forward: true },
+                                    { who: 'maya', what: '¡LUCHARÉ POR FLORESTA!', forward: true },
+                                    { who: 'barry', what: 'Acabemos con esto de una vez.', forward: false },
+                                ]
+                                : this.barryAckIntro && this.barryAckEnd
+                                    ? [
+                                        { who: 'maya', what: 'No sé cómo sabes mi nombre, ni tampoco entendí nada de-', forward: true },
+                                        { who: 'barry', what: 'Ajam...', forward: false },
+                                    ]
+                                    : [
+                                        { who: 'maya', what: 'No sé cómo sabes mi nombre, ni tampoco entendí nada de-', forward: true },
+                                        { who: 'barry', what: 'Veo que estás jugando con mis valores de acknowledge, ¿verdad?', forward: false },
+                                        { who: 'maya', what: '¿Qué?', forward: true },
+                                        { who: 'barry', what: 'Ahhh, perdón... no estaba hablando contigo.', forward: false },
+                                        { who: 'maya', what: '¿De qué estás ha-?', forward: true },
+                                    ];
+                        this.chat(ourChat);
                     }
                 },
                 {
@@ -246,11 +288,31 @@ class Cinematic0 extends Phaser.Scene {
                         this.cameras.main.shake(2000, 0.008, true);
                     },
                     onComplete: () => {
-                        const dialogs = [
-                            { who: 'maya', what: '¡¿PERO QUÉ RAYOS?!', forward: true },
-                            { who: 'barry', what: '=)', forward: false },
-                        ];
-                        this.chat(dialogs);
+                        const ourChat = !this.barryAckIntro && !this.barryAckEnd
+                            ? [
+                                { who: 'maya', what: '¡¿PERO QUÉ RAYOS?!', forward: true },
+                                { who: 'barry', what: 'Adiós =)', forward: false },
+                            ]
+                            : this.barryAckIntro && !this.barryAckEnd
+                                ? [
+                                    { who: 'maya', what: '¡¿PERO QUÉ RAYOS?!', forward: true },
+                                    { who: 'barry', what: 'Adiós =D', forward: false },
+                                ]
+                                : this.barryAckIntro && this.barryAckEnd
+                                    ? [
+                                        { who: 'maya', what: '¡¿PERO QUÉ RAYOS?!', forward: true },
+                                        { who: 'barry', what: 'Adiós, de nuevo =)', forward: false },
+                                        { who: 'maya', what: '¡¿DE NUEVO?! ¡¿DE QUÉ HA-?!', forward: true },
+                                    ]
+                                    : [
+                                        { who: 'maya', what: '¡¿PERO QUÉ RAYOS?!', forward: true },
+                                        { who: 'barry', what: 'Bueno, ahora sabes mi secreto.', forward: false },
+                                        { who: 'barry', what: '¡Creo que esto podrías verlo como un "easter egg"! está muy genial encontrarse esto en los jue-', forward: false },
+                                        { who: 'maya', what: '¡¿QUÉ RAYOS ESTÁS DICIENDO?!', forward: true },
+                                        { who: 'barry', what: 'Ahhh, cierto. Tengo que terminar contigo... nos vemos luego ;)', forward: false },
+                                        { who: 'maya', what: '¡¿LUEGO?! ¡ESTÁS LOCO!', forward: true },
+                                    ];
+                        this.chat(ourChat);
                     }
                 },
                 {

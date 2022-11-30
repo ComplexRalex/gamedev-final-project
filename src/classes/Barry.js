@@ -13,7 +13,7 @@ class Barry extends NPC {
 
         // ?
         // ? What the h*** is this?
-        this.again = localStorage.getItem('B4RRY_ACK_VALUE') === '=)';
+        this.again = localStorage.getItem('B4RRY_ACK_END_VALUE') === '=)';
 
         // !
         // ! Control variables
@@ -100,7 +100,7 @@ class Barry extends NPC {
                 { who: 'nor', what: '¡No! ¡Todo estaba bien hasta que tú llegaste!', forward: true },
                 { who: 'barry', what: 'Nor, esto no es real.', forward: false },
                 { who: 'barry', what: 'Todo lo que existe aquí en realidad forma parte de una realidad fuera de la nuestra.', forward: false },
-                { who: 'nor', what: '¡¿De qué estás-?!', forward: true },
+                { who: 'nor', what: '¡¿Cómo sabes mi-?! ¡¿De qué estás-?!', forward: true },
                 { who: 'barry', what: 'No eres real, "Nor", nadie lo es.', forward: false },
                 { who: 'barry', what: '¡Sólo somos parte de un código en un programa que es interpretado por una computadora!', forward: false },
                 { who: 'nor', what: 'Mmm... con que a esto se refería Maya.', forward: true },
@@ -119,7 +119,7 @@ class Barry extends NPC {
                 { who: 'barry', what: 'En la versión anterior tú solo eras un simple vendedor en una tienda.', forward: false },
                 { who: 'nor', what: '¿Qué rayos...?', forward: true },
                 { who: 'barry', what: 'Maya era la protagonista... hasta que me "inyecté" en el código del juego y lo corrompí.', forward: false },
-                { who: 'barry', what: 'Los desarrolladores tuvieron que rehacer el juego para su materia de-.', forward: false },
+                { who: 'barry', what: 'Los desarrolladores tuvieron que rehacer el juego para su materia de-', forward: false },
                 { who: 'nor', what: 'No estoy entendiendo casi nada...', forward: true },
                 { who: 'nor', what: 'Pero de lo poco que entendí, es que efectivamente ¡TÚ FUISTE EL CULPABLE DE TODO!', forward: true },
                 { who: 'barry', what: 'Como sea, no tiene caso combatir...', forward: false },
