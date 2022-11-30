@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="445">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="458">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -1496,12 +1496,6 @@
    </properties>
    <point/>
   </object>
-  <object id="433" x="2240" y="2160">
-   <properties>
-    <property name="content" value="Barry se fue de vacaciones xD"/>
-   </properties>
-   <point/>
-  </object>
  </objectgroup>
  <objectgroup id="12" name="Items" locked="1">
   <object id="288" name="arrows" x="880" y="584">
@@ -1616,12 +1610,6 @@
    <point/>
   </object>
   <object id="415" name="heart" x="2160" y="3280">
-   <point/>
-  </object>
-  <object id="434" name="fragmented_emerald" x="2192" y="2192">
-   <point/>
-  </object>
-  <object id="435" name="key" x="2288" y="2192">
    <point/>
   </object>
  </objectgroup>
@@ -1778,9 +1766,6 @@
   <object id="426" name="pedestal" x="2896" y="3120">
    <point/>
   </object>
-  <object id="432" name="nor" x="152" y="2968">
-   <point/>
-  </object>
   <object id="441" name="ian_ded" x="992" y="128">
    <point/>
   </object>
@@ -1788,6 +1773,19 @@
    <point/>
   </object>
   <object id="444" name="maya" x="304" y="2680">
+   <point/>
+  </object>
+  <object id="445" name="barry" x="2240" y="2120">
+   <point/>
+  </object>
+  <object id="446" name="barryAppearsHitbox" x="2048" y="2192" width="384" height="15.5"/>
+  <object id="447" name="fragmented_emerald" x="2192" y="2176">
+   <point/>
+  </object>
+  <object id="448" name="key" x="2288" y="2176">
+   <point/>
+  </object>
+  <object id="456" name="nor" x="160" y="2976">
    <point/>
   </object>
  </objectgroup>

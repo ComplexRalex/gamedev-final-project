@@ -85,7 +85,7 @@ class Dialog extends Phaser.Scene {
                         },
                     },
                     onComplete: () => {
-                        this.scene.stop();
+                        this.scene?.stop();
                         this.onFinish();
                     },
                 });
@@ -117,7 +117,7 @@ class Dialog extends Phaser.Scene {
                             },
                         },
                         onComplete: () => {
-                            this.scene.stop();
+                            this.scene?.stop();
                             this.onFinish();
                         },
                     });

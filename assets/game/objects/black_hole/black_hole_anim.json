@@ -1,0 +1,76 @@
+{
+    "anims": [
+        {
+            "key": "black_hole",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 16,
+            "frames": [
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole1"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole2"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole3"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole4"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole5"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole6"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole7"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole8"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole9"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole10"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole11"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole12"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole13"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole14"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole15"
+                },
+                {
+                    "key": "black_hole",
+                    "frame": "black_hole16"
+                }
+            ]
+        }
+    ]
+}

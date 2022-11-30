@@ -254,7 +254,7 @@ class Player extends Phaser.GameObjects.Sprite {
     // ! En este se manejan todos los tipos de ataque, según el que haya
     // ! sido utilizado
     attack({ weapon }) {
-        console.warn("Aquí se hace el manejo del ataque según sea el caso");
+        // console.warn("Aquí se hace el manejo del ataque según sea el caso");
         switch (weapon) {
             case 'sword':
                 if (this.hasObtained.sword) {
@@ -347,7 +347,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
             if (this.health > 0) {
                 this.scene.cameras.main.shake(150, 0.01);
-                const immuneEffectTween = this.scene.add.tween({
+                const immuneEffectTween = this.scene?.add.tween({
                     targets: [this],
                     repeat: -1,
                     yoyo: true,
@@ -378,7 +378,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
                 this.action = 'hurt';
                 this.updateAnimation();
-                this.scene.add.tween({
+                this.scene?.add.tween({
                     targets: [this],
                     duration: 800,
                     props: {
@@ -404,7 +404,7 @@ class Player extends Phaser.GameObjects.Sprite {
             this.action = "hurt";
             this.anims.play("nor_hurt_down");
 
-            this.scene.add.tween({
+            this.scene?.add.tween({
                 targets: [this],
                 duration: this.fallingTime,
                 props: {
@@ -446,7 +446,7 @@ class Player extends Phaser.GameObjects.Sprite {
             .sprite(this.x, this.y - 28, 'fragmented_emerald')
             .setDepth(this.depth + 1);
 
-        this.scene.add.tween({
+        this.scene?.add.tween({
             targets: [this.fragment],
             duration: 800,
             props: {
@@ -458,6 +458,24 @@ class Player extends Phaser.GameObjects.Sprite {
             this.fragment.destroy();
             this.isDoingSomething = false;
         }, this.gettingEmeraldFragmentTime);
+    }
+
+    stand(now) {
+        if (!this.isStanding) {
+            this.isStanding = true;
+
+            if (now) this.body.setVelocity(0);
+            this.body.setAcceleration(0);
+
+            this.action = "idle";
+            this.updateAnimation();
+        }
+    }
+
+    moveOn() {
+        if (this.isStanding) {
+            this.isStanding = false;
+        }
     }
 
     // ! A partir de aquí, ya no se podrá interactuar con Nor

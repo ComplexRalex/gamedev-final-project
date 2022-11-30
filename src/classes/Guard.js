@@ -65,9 +65,8 @@ class Guard extends Enemy {
         }
     }
 
-    destroy() {
-        this.detectionArea.destroy();
-        super.destroy();
+    destroyComplements() {
+        this.detectionArea?.destroy();
     }
 
     getHurt({ damagePoints = 1 }) {

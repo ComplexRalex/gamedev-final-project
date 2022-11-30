@@ -28,8 +28,8 @@ class NPC extends Phaser.GameObjects.Sprite {
 
     talk() {
         this.isShowing = true;
-        this.scene.scene.pause();
-        this.scene.scene.launch('Dialog', {
+        this.scene?.scene?.pause();
+        this.scene?.scene?.launch('Dialog', {
             type: 'chat',
             chat: this.dialogs,
             onFinish: () => {

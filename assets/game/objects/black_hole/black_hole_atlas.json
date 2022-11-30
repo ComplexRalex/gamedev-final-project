@@ -1,0 +1,216 @@
+{
+    "frames": [
+        {
+            "filename": "black_hole1",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole16",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 80,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole2",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 160,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole3",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 240,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole4",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 320,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole5",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 400,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole6",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 480,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole7",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 560,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole8",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 0,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole9",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 80,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole10",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 160,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole11",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 240,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole12",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 320,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole13",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 400,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole14",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 480,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "black_hole15",
+            "frame": {
+                "w": 80,
+                "h": 80,
+                "x": 560,
+                "y": 80
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

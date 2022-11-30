@@ -42,7 +42,7 @@ class Bow extends Phaser.GameObjects.Sprite {
             0.5,
         );
         this.setAlpha(0);
-        this.scene.add.tween({
+        this.scene?.add.tween({
             targets: [this],
             duration: 80,
             yoyo: true,

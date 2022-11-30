@@ -78,9 +78,8 @@ class Snake extends Enemy {
         this.movingTime = 190;
     }
 
-    destroy() {
-        this.detectionArea.destroy();
-        super.destroy();
+    destroyComplements() {
+        this.detectionArea?.destroy();
     }
 
     getHurt({ damagePoints = 1 }) {
@@ -95,9 +94,9 @@ class Snake extends Enemy {
     }
 
     update({ player }) {
-        this.prevAction = this.action;
-        this.body.setAcceleration(0);
         if (!this.isDead && !this.isStunned && !this.isFalling) {
+            this.prevAction = this.action;
+            this.body.setAcceleration(0);
             this.detectionArea.setPosition(this.x, this.y);
             const overlap = this.scene.physics.overlap(player, this.detectionArea, () => {
                 if (!this.isMoving) {

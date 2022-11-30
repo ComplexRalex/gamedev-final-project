@@ -120,6 +120,9 @@ class Bootloader extends Phaser.Scene {
             { key: 'banana', textureURL: 'game/objects/banana/banana.png', atlasURL: 'game/objects/banana/banana_atlas.json' },
             { key: 'fragmented_emerald', textureURL: 'game/objects/fragmented_emerald/fragmented_emerald.png', atlasURL: 'game/objects/fragmented_emerald/fragmented_emerald_atlas.json' },
 
+            // Objects
+            { key: 'black_hole', textureURL: 'game/objects/black_hole/black_hole.png', atlasURL: 'game/objects/black_hole/black_hole_atlas.json' },
+
             // Textures
             { key: 'generics_atlas', textureURL: 'game/textures/generics/generics.png', atlasURL: 'game/textures/generics/generics_atlas.json' },
         ]);
@@ -147,11 +150,15 @@ class Bootloader extends Phaser.Scene {
             { key: 'heart_anim', url: 'game/objects/heart/heart_anim.json' },
             { key: 'banana_anim', url: 'game/objects/banana/banana_anim.json' },
             { key: 'fragmented_emerald_anim', url: 'game/objects/fragmented_emerald/fragmented_emerald_anim.json' },
+
+            // Objects
+            { key: 'black_hole_anim', url: 'game/objects/black_hole/black_hole_anim.json' },
         ]);
 
         // ! Esta es la forma de cargar un mapa de "tiles"
         // this.load.tilemapTiledJSON("tile-map", "game/textures/map.json", null);
         this.load.tilemapTiledJSON("floresta-tile-map", "game/textures/floresta.json", null);
+        this.load.tilemapTiledJSON("cinematic0-tile-map", "game/textures/cinematic0.json", null);
 
         this.load.audio([
             { key: 'menu', url: 'music/main_loop.mp3' },
@@ -162,10 +169,13 @@ class Bootloader extends Phaser.Scene {
             console.warn("Loading complete!");
 
             this.scene.stop('Loading');
-            // this.scene.start('Start');
+            this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+            this.scene.start('Start');
             // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            this.scene.start('GUI');
-            this.scene.launch('Game');
+            // this.scene.start('GUI');
+            // this.scene.launch('Game');
+            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+            // this.scene.start('Cinematic0');
         });
     }
 }

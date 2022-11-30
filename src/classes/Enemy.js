@@ -117,7 +117,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
             if (this.health > 0) {
                 if (!this.isStunned) {
                     this.isStunned = true;
-                    const stunnedTween = this.scene.add.tween({
+                    const stunnedTween = this.scene?.add.tween({
                         targets: [this],
                         repeat: -1,
                         yoyo: true,
@@ -148,7 +148,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                 this.parent.alive = false;
                 this.body.enable = false;
 
-                this.scene.add.tween({
+                this.scene?.add.tween({
                     targets: [this],
                     duration: 800,
                     props: {
@@ -161,6 +161,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                     onComplete: () => {
                         this.dropItem();
                         this.destroy();
+                        if (this.destroyComplements) this.destroyComplements();
                     },
                 });
             }
@@ -178,7 +179,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
             this.isDead = true;
             this.parent.alive = false;
 
-            this.scene.add.tween({
+            this.scene?.add.tween({
                 targets: [this],
                 duration: this.fallingTime,
                 props: {
@@ -189,6 +190,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                 onComplete: () => {
                     this.body.enable = false;
                     this.destroy();
+                    if (this.destroyComplements) this.destroyComplements();
                     onDead();
                 },
             });

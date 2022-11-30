@@ -38,7 +38,7 @@ class Start extends Phaser.Scene {
         this.contenedorFondo.add(this.krt);
         this.controles = this.add.image(70, 520, 'control').setScale(1.4).setInteractive();
         this.contenedorFondo.add(this.controles);
-        this.botones = this.add.container(0,0);
+        this.botones = this.add.container(0, 0);
         this.botonEnter = this.add.image(320, 460, 'buttons/enter').setScale(2);
         this.botones.add(this.botonEnter);
         this.botonP = this.add.image(570, 570, 'buttons/p').setScale(2);
@@ -265,9 +265,12 @@ class Start extends Phaser.Scene {
                         },
                         onComplete: () => {
                             this.menu_s.stop();
+                            this.scene.stop();
                             this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-                            this.scene.launch('GUI');
-                            this.scene.launch('Game');
+                            this.scene.launch('Cinematic0');
+                            // this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                            // this.scene.launch('GUI');
+                            // this.scene.launch('Game');
                         },
                     })
                 },

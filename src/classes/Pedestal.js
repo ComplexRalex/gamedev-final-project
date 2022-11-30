@@ -22,7 +22,7 @@ class Pedestal extends Phaser.GameObjects.Sprite {
                 'emerald',
             ).setAlpha(0);
 
-            this.scene.add.tween({
+            this.scene?.add.tween({
                 targets: [emerald],
                 duration: 500,
                 props: {
@@ -33,7 +33,7 @@ class Pedestal extends Phaser.GameObjects.Sprite {
                 }
             });
 
-            this.scene.add.tween({
+            this.scene?.add.tween({
                 targets: [emerald],
                 duration: 1000,
                 yoyo: true,

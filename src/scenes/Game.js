@@ -1,4 +1,5 @@
 import Arrow from '../classes/Arrow.js';
+import Barry from '../classes/Barry.js';
 import Enemy from '../classes/Enemy.js';
 import GameScene from '../classes/GameScene.js';
 import Guard from '../classes/Guard.js';
@@ -105,7 +106,10 @@ class Game extends Phaser.Scene {
     // ? escena específica.
     updateMapEnemies() {
         const { x, y } = this.sceneCoords;
-        this.mapEnemies.forEach(gameObject => gameObject.destroy());
+        this.mapEnemies.forEach(gameObject => {
+            gameObject.destroy();
+            gameObject.destroyComplements();
+        });
         this.mapEnemies = this.gameScene.get({ x, y })
             .filter(entity => entity.alive)
             .map(entity => {
@@ -392,11 +396,30 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa exclusiva para las posiciones de las
         // ! entidades
         this.mapPositions = this.map.objects.find(layer => layer.name === "Positions").objects;
+
+        // * Posición inicial de Nor
         const initPos = this.mapPositions.find(obj => obj.name === 'nor');
+
+        // * Posición de Ian Ded
         const ianDedPos = this.mapPositions.find(obj => obj.name === 'ian_ded');
+
+        // * Posición del marco de Ten
         const tenFramePos = this.mapPositions.find(obj => obj.name === 'ten');
+
+        // * Posición de Maya
         const mayaPos = this.mapPositions.find(obj => obj.name === 'maya');
-        // const bossInitPos = this.mapPositions.find(obj => obj.name === 'boss');
+
+        // * Posición de Barry
+        const barryPos = this.mapPositions.find(obj => obj.name === 'barry');
+
+        // * Posición de hitbox de activación de barry
+        const barryAppearsHitbox = this.mapPositions.find(obj => obj.name === 'barryAppearsHitbox');
+
+        // * Posiciones de objetos que se agregarán después
+        const lastFragmentPos = this.mapPositions.find(obj => obj.name === 'fragmented_emerald');
+        const lastKeyPos = this.mapPositions.find(obj => obj.name === 'key');
+
+        // * Posición del pedestal
         const pedestalPos = this.mapPositions.find(obj => obj.name === 'pedestal');
 
         // ! Configuración de cámara
@@ -441,19 +464,22 @@ class Game extends Phaser.Scene {
         });
         this.mapNPCs.push(this.maya);
 
+        // ! Configuración de Barry
+        this.barry = new Barry({
+            scene: this,
+            x: barryPos.x,
+            y: barryPos.y,
+            items: [lastFragmentPos, lastKeyPos],
+            activationHitbox: barryAppearsHitbox,
+        });
+        this.mapNPCs.push(this.barry);
+
         // ! Configuración del jugador
         this.nor = new Player({
             scene: this,
             x: initPos.x,
             y: initPos.y,
         });
-
-        // ! Agregado del jefe final de zona
-        // this.boss = this.physics.add.sprite(bossInitPos.x, bossInitPos.y, 'generics_atlas', 'boss')
-        //     .setDepth(1)
-        //     .setMaxVelocity(this.maxVelocity)
-        //     .setDrag(this.drag);
-        // this.boss.body.setCircle(this.boss.body.halfWidth);
 
         // ! Configuración del pedestal
         this.pedestal = new Pedestal({
@@ -492,7 +518,6 @@ class Game extends Phaser.Scene {
     onDead() {
         this.onQuit();
     }
-
 
     createListeners() {
         // Constantes
@@ -546,6 +571,9 @@ class Game extends Phaser.Scene {
         this.mapEnemies.forEach(enemy => {
             enemy.update({ player: this.nor, time: time, delta: delta });
         });
+
+        // ! Se actualizan las físicas de Barry (en caso de que siga)
+        if (this.barry.update) this.barry.update({ player: this.nor });
 
         // ! Si Nor se sale de la escena actual, se mueve la cámara
         if (this.checkIfOutOfBounds()) {

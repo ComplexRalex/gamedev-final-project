@@ -4461,24 +4461,6 @@
                  "width":0,
                  "x":2240,
                  "y":2672
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":433,
-                 "name":"",
-                 "point":true,
-                 "properties":[
-                        {
-                         "name":"content",
-                         "type":"string",
-                         "value":"Barry se fue de vacaciones xD"
-                        }],
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":2240,
-                 "y":2160
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -4946,30 +4928,6 @@
                  "width":0,
                  "x":2160,
                  "y":3280
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":434,
-                 "name":"fragmented_emerald",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":2192,
-                 "y":2192
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":435,
-                 "name":"key",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":2288,
-                 "y":2192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5503,18 +5461,6 @@
                 {
                  "class":"",
                  "height":0,
-                 "id":432,
-                 "name":"nor",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":152,
-                 "y":2968
-                }, 
-                {
-                 "class":"",
-                 "height":0,
                  "id":441,
                  "name":"ian_ded",
                  "point":true,
@@ -5547,6 +5493,65 @@
                  "width":0,
                  "x":304,
                  "y":2680
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":445,
+                 "name":"barry",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2240,
+                 "y":2120
+                }, 
+                {
+                 "class":"",
+                 "height":15.5,
+                 "id":446,
+                 "name":"barryAppearsHitbox",
+                 "rotation":0,
+                 "visible":true,
+                 "width":384,
+                 "x":2048,
+                 "y":2192
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":447,
+                 "name":"fragmented_emerald",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2192,
+                 "y":2176
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":448,
+                 "name":"key",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2288,
+                 "y":2176
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":456,
+                 "name":"nor",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":160,
+                 "y":2976
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -5555,7 +5560,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":445,
+ "nextobjectid":458,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

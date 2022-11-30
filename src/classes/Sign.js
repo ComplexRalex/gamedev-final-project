@@ -17,8 +17,8 @@ class Sign extends Phaser.GameObjects.Sprite {
 
     show() {
         this.isShowing = true;
-        this.scene.scene.pause();
-        this.scene.scene.launch('Dialog', {
+        this.scene?.scene?.pause();
+        this.scene?.scene?.launch('Dialog', {
             content: this.content,
             onFinish: () => {
                 this.isShowing = false;

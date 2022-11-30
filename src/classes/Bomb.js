@@ -19,7 +19,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
         // ! Props, timer and animation
         this.damagePoints = 2;
         this.onFinish = onFinish;
-        this.currentTimeline = this.scene.tweens.timeline({
+        this.currentTimeline = this.scene?.tweens.timeline({
             targets: [this],
             tweens: [
                 {
@@ -45,7 +45,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
                         this.setScale(2);
                         this.body.enable = true;
                         this.anims.play('bomb_explode');
-                        this.scene.cameras.main.shake(300, 0.008);
+                        this.scene?.cameras.main.shake(300, 0.008);
                         this.on('animationcomplete', () => {
                             this.vanish();
                         });
