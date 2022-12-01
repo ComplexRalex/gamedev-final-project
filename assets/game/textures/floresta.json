@@ -2391,8 +2391,8 @@
                  "properties":[
                         {
                          "name":"respawn",
-                         "type":"string",
-                         "value":"232"
+                         "type":"int",
+                         "value":232
                         }],
                  "rotation":0,
                  "visible":true,
@@ -5991,7 +5991,7 @@
          "y":0
         }],
  "nextlayerid":16,
- "nextobjectid":548,
+ "nextobjectid":549,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="548">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="549">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -1012,7 +1012,7 @@
   </object>
   <object id="231" x="384" y="2912" width="128" height="64">
    <properties>
-    <property name="respawn" value="232"/>
+    <property name="respawn" type="int" value="232"/>
    </properties>
   </object>
   <object id="232" x="448" y="3136">
