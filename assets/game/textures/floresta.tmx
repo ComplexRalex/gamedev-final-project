@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="508">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="548">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -1786,6 +1786,113 @@
    <point/>
   </object>
   <object id="456" name="nor" x="160" y="2976">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="15" name="Music" locked="1">
+  <object id="508" name="jungle" x="64" y="64">
+   <point/>
+  </object>
+  <object id="509" name="jungle" x="704" y="64">
+   <point/>
+  </object>
+  <object id="510" name="jungle" x="1344" y="64">
+   <point/>
+  </object>
+  <object id="511" name="jungle" x="1984" y="64">
+   <point/>
+  </object>
+  <object id="512" name="jungle" x="2624" y="64">
+   <point/>
+  </object>
+  <object id="513" name="jungle" x="2624" y="544">
+   <point/>
+  </object>
+  <object id="514" name="jungle" x="704" y="544">
+   <point/>
+  </object>
+  <object id="515" name="jungle" x="64" y="544">
+   <point/>
+  </object>
+  <object id="516" name="jungle" x="64" y="1024">
+   <point/>
+  </object>
+  <object id="517" name="jungle" x="64" y="2944">
+   <point/>
+  </object>
+  <object id="518" name="forest" x="1984" y="544">
+   <point/>
+  </object>
+  <object id="519" name="forest" x="1984" y="1024">
+   <point/>
+  </object>
+  <object id="520" name="forest" x="2624" y="1024">
+   <point/>
+  </object>
+  <object id="521" name="forest" x="1344" y="1024">
+   <point/>
+  </object>
+  <object id="522" name="forest" x="704" y="1024">
+   <point/>
+  </object>
+  <object id="523" name="forest" x="1984" y="1504">
+   <point/>
+  </object>
+  <object id="524" name="forest" x="2624" y="1504">
+   <point/>
+  </object>
+  <object id="525" name="forest" x="2624" y="1984">
+   <point/>
+  </object>
+  <object id="526" name="hill" x="704" y="1504">
+   <point/>
+  </object>
+  <object id="527" name="hill" x="64" y="1504">
+   <point/>
+  </object>
+  <object id="528" name="hill" x="64" y="1984">
+   <point/>
+  </object>
+  <object id="529" name="hill" x="704" y="1984">
+   <point/>
+  </object>
+  <object id="530" name="hill" x="704" y="2464">
+   <point/>
+  </object>
+  <object id="531" name="hill" x="64" y="2464">
+   <point/>
+  </object>
+  <object id="532" name="bossfight" x="1984" y="2944">
+   <point/>
+  </object>
+  <object id="533" name="bossfight" x="704" y="2944">
+   <point/>
+  </object>
+  <object id="534" name="bossfight" x="1344" y="2944">
+   <point/>
+  </object>
+  <object id="535" name="cave" x="1344" y="1504">
+   <point/>
+  </object>
+  <object id="537" name="cave" x="1344" y="1984">
+   <point/>
+  </object>
+  <object id="538" name="cave" x="1344" y="2464">
+   <point/>
+  </object>
+  <object id="539" name="cave" x="1984" y="2464">
+   <point/>
+  </object>
+  <object id="540" name="cave" x="1984" y="1984">
+   <point/>
+  </object>
+  <object id="541" name="forest" x="1344" y="544">
+   <point/>
+  </object>
+  <object id="542" name="cave" x="2624" y="2464">
+   <point/>
+  </object>
+  <object id="543" name="cave" x="2624" y="2944">
    <point/>
   </object>
  </objectgroup>

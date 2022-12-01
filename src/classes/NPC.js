@@ -34,7 +34,7 @@ class NPC extends Phaser.GameObjects.Sprite {
             chat: this.dialogs,
             onFinish: () => {
                 this.isShowing = false;
-                this.scene.scene.resume();
+                this.scene?.scene?.resume();
             }
         });
     }

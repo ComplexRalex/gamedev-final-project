@@ -58,6 +58,14 @@ class Cinematic0 extends Phaser.Scene {
 
     create() {
 
+        // ! Música!
+        this.barryMusic = this.sound.add('barry', {
+            volume: 0.6,
+            delay: 800,
+            loop: true,
+        });
+        this.barryMusic.play();
+
         // ! Sonidos!
         this.blackHoleSound = this.sound.add('spinning_black_hole');
         this.explosionSound = this.sound.add('exploding_massively');
@@ -334,6 +342,13 @@ class Cinematic0 extends Phaser.Scene {
                         this.maya.anims.play('maya_surprise');
                         this.explosion.setPosition(this.emerald.x, this.emerald.y);
                         this.cameras.main.shake(400, 0.015, true);
+                    },
+                    onUpdate: () => {
+                        if (this.barryMusic.volume > 0)
+                            this.barryMusic.setVolume(this.barryMusic.volume - 0.05);
+                    },
+                    onComplete: () => {
+                        this.barryMusic.stop();
                     }
                 },
                 {

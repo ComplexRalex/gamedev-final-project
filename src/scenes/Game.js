@@ -55,6 +55,17 @@ class Game extends Phaser.Scene {
             mapHeight: this.mapHeight,
         });
 
+        // ! Este servirá para poder hacer manejo de las rolas
+        // ! que van de fondo.
+        this.gameSceneMusic = new GameScene({
+            tileWidth: this.tileWidth,
+            tileHeight: this.tileHeight,
+            sceneWidth: this.sceneWidthTiles,
+            sceneHeight: this.sceneHeightTiles,
+            mapWidth: this.mapWidth,
+            mapHeight: this.mapHeight,
+        });
+
         // * Coordenadas de la escena
         this.sceneCoords = {
             x: 0,
@@ -73,6 +84,7 @@ class Game extends Phaser.Scene {
         this.isTeleporting = false;
         this.teleportingTime = 100;
 
+        this.isBusy = false;
         this.isQuiting = false;
         this.isGG = false;
 
@@ -98,6 +110,7 @@ class Game extends Phaser.Scene {
         console.log("Coordenadas de la cámara", { x, y });
         this.sceneCoords = { x, y };
         this.updateMapEnemies();
+        this.updateMusic();
         this.updateCameraCoords(now);
     }
 
@@ -133,6 +146,25 @@ class Game extends Phaser.Scene {
                 }
             });
         console.warn("Enemigos en la escena", this.mapEnemies);
+    }
+
+    updateMusic() {
+        const { x, y } = this.sceneCoords;
+        const object = this.gameSceneMusic.get({ x, y })[0];
+        let sceneMusic;
+        switch (object.music) {
+            case "jungle": sceneMusic = this.jungleMusic; break;
+            case "forest": sceneMusic = this.forestMusic; break;
+            case "hill": sceneMusic = this.hillMusic; break;
+            case "cave": sceneMusic = this.caveMusic; break;
+            case "bossfight": sceneMusic = this.bossfightMusic; break;
+        }
+        if (this.activeMusic !== sceneMusic) {
+            if (this.activeMusic?.stop) this.activeMusic?.stop();
+            this.activeMusic = sceneMusic;
+            this.activeMusic.play({ loop: true });
+        }
+        console.warn(`Rola de la escena`, { music: object.music });
     }
 
     updateCameraCoords(now = false) {
@@ -172,11 +204,24 @@ class Game extends Phaser.Scene {
 
     create() {
         // ! Música
-        this.bgMusic = this.sound.add('game', {
-            volume: 1,
+
+        // * Esta variable almacenará la música actual
+        this.activeMusic = this.sound.add('wind'); // ! Asignación temporal
+        this.jungleMusic = this.sound.add('jungle', {
             loop: true,
         });
-        this.bgMusic.play();
+        this.forestMusic = this.sound.add('forest', {
+            loop: true,
+        });
+        this.hillMusic = this.sound.add('hill', {
+            loop: true,
+        });
+        this.caveMusic = this.sound.add('cave', {
+            loop: true,
+        });
+        this.bossfightMusic = this.sound.add('bossfight', {
+            loop: true,
+        });
 
         // ! Sonidos
         this.interactSound = this.sound.add('interacting');
@@ -348,7 +393,7 @@ class Game extends Phaser.Scene {
         // ! Se hace uso de una capa para poder obtener únicamente los
         // ! enemigos!
         this.mapEnemiesData = this.map.objects.find(layer => layer.name === "Enemies").objects;
-        this.mappedEnemiesData = this.mapEnemiesData.forEach(enemy => {
+        this.mapEnemiesData.forEach(enemy => {
 
             // ? La idea de esto es que se carguen los datos de los
             // ? enemigos en las escenas correspondientes según sus
@@ -395,6 +440,16 @@ class Game extends Phaser.Scene {
         });
         // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
         this.mapEnemies = [];
+
+        // ! Se hace uso de una capa para poder obtener las rolas!
+        this.mapMusic = this.map.objects.find(layer => layer.name === "Music").objects;
+        this.mapMusic.forEach(scene => {
+            // ? Se supone que esta capa contiene un objeto "musical"
+            // ? por cada una de las escenas, esto con el fin de que
+            // ? se pueda establecer qué canción de fondo tiene cada
+            // ? escenario.
+            this.gameSceneMusic.insert({ ...scene, name: scene.name, music: scene.name });
+        });
 
         // ! Se hace uso de una capa exclusiva para las posiciones de las
         // ! entidades
@@ -495,8 +550,9 @@ class Game extends Phaser.Scene {
     }
 
     onQuit() {
-        if (!this.isQuiting && !this.isGG) {
+        if (!this.isBusy && !this.isQuiting && !this.isGG) {
             this.isQuiting = true;
+            this.nor.stand(false);
             this.scene.launch('SimpleFadeEffect', { fadeIn: true, yoyo: true });
             this.add.tween({
                 targets: [this.nor],
@@ -505,11 +561,11 @@ class Game extends Phaser.Scene {
                     alpha: 1,
                 },
                 onUpdate: () => {
-                    if (this.bgMusic.volume > 0)
-                        this.bgMusic.setVolume(this.bgMusic.volume - 0.01);
+                    if (this.activeMusic.volume > 0)
+                        this.activeMusic.setVolume(this.activeMusic.volume - 0.02);
                 },
                 onComplete: () => {
-                    this.bgMusic.stop();
+                    this.activeMusic.stop();
                     this.scene.stop();
                     this.scene.stop("GUI");
                     this.scene.start("Start");
@@ -829,11 +885,11 @@ class Game extends Phaser.Scene {
                         alpha: 1,
                     },
                     onUpdate: () => {
-                        if (this.bgMusic.volume > 0)
-                            this.bgMusic.setVolume(this.bgMusic.volume - 0.01);
+                        if (this.activeMusic.volume > 0)
+                            this.activeMusic.setVolume(this.activeMusic.volume - 0.01);
                     },
                     onComplete: () => {
-                        this.bgMusic.stop();
+                        this.activeMusic.stop();
                     }
                 });
 

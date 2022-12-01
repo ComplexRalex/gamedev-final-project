@@ -470,7 +470,7 @@ class Player extends Phaser.GameObjects.Sprite {
         });
 
         setTimeout(() => {
-            fragment.destroy();
+            if (fragment.destroy) fragment.destroy();
             this.isStanding = false;
             this.isDoingSomething = false;
         }, this.gettingEmeraldFragmentTime);

@@ -189,20 +189,29 @@ class Bootloader extends Phaser.Scene {
 
             // Music!
 
-            // Start
-            { key: 'menu', url: 'music/main_loop.mp3' },
+            // Menu
+            { key: 'menu', url: 'music/floresta.mp3' },
+
+            // Cinematic0
+            { key: 'barry', url: 'music/barry.mp3' },
 
             // Game
-            { key: 'game', url: 'music/game_loop.mp3' },
+            { key: 'jungle', url: 'music/jungle.mp3' },
+            { key: 'forest', url: 'music/forest.mp3' },
+            { key: 'hill', url: 'music/hill.mp3' },
+            { key: 'cave', url: 'music/cave.mp3' },
+            { key: 'wind', url: 'music/wind.mp3' },
+            { key: 'bossfight', url: 'music/bossfight.mp3' },
 
             // Final credits
-            { key: 'endm', url: 'music/endm.mp3' },
-            
+            { key: 'credits', url: 'music/credits.mp3' },
+
+
             // Sounds!
-            
+
             // Menu
             { key: 'clicking', url: 'sfx/clicking.mp3' },
-            
+
             // Cinematic0
             { key: 'exploding_massively', url: 'sfx/exploding_massively.mp3' },
             { key: 'spinning_black_hole', url: 'sfx/spinning_black_hole.mp3' },

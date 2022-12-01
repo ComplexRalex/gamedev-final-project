@@ -78,7 +78,7 @@ class FinalCredits extends Phaser.Scene {
         this.ed20 = this.add.image(320, 300, 'ed20').setAlpha(0);
         this.fin = this.add.image(320, 300, 'fin').setAlpha(0);
         this.flash = this.add.image(0, 0, 'flash').setAlpha(0).setScale(10);
-        this.musica = this.sound.add('endm');
+        this.musica = this.sound.add('credits');
         this.musica.play();
 
         this.t_flsh = this.tweens.timeline({
