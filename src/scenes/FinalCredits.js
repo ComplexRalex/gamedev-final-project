@@ -10,7 +10,7 @@ class FinalCredits extends Phaser.Scene {
     }
 
     oc(diapositiva) {
-        this.tweens = this.add.tween({
+        this.add.tween({
             duration: 3000,
             targets: [diapositiva],
             alpha: 0
@@ -19,7 +19,7 @@ class FinalCredits extends Phaser.Scene {
     }
 
     mostrar(diapositiva, duracion, duracion_off) {
-        this.tweens = this.add.tween({
+        this.add.tween({
             duration: duracion,
             targets: [diapositiva],
             alpha: 1,
@@ -33,7 +33,7 @@ class FinalCredits extends Phaser.Scene {
         });
     }
     mostrar(diapositiva, duracion) {
-        this.tweens = this.add.tween({
+        this.add.tween({
             duration: duracion,
             targets: [diapositiva],
             alpha: 1,
@@ -48,7 +48,7 @@ class FinalCredits extends Phaser.Scene {
     }
 
     ocultar(diapositiva, duracion) {
-        this.tweens = this.add.tween({
+        this.add.tween({
             duration: duracion,
             targets: [diapositiva],
             alpha: 0,
