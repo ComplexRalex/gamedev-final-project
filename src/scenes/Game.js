@@ -777,7 +777,10 @@ class Game extends Phaser.Scene {
         );
 
         // ! Agregada la colisión con las rocas
-        this.physics.collide(this.nor, this.mappedRocks);
+        this.physics.collide([
+            this.nor,
+            ...this.mapEnemies,
+        ], this.mappedRocks);
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró
@@ -818,7 +821,10 @@ class Game extends Phaser.Scene {
         });
 
         // ! Si Nor toca una pared, no podrá pasarla.
-        this.physics.collide(this.nor, this.mappedTriggerTargets);
+        this.physics.collide([
+            this.nor,
+            ...this.mapEnemies,
+        ], this.mappedTriggerTargets);
 
         // ! Si Nor toca una caja de teletransportación, entonces será
         // ! teletransportado (lol).

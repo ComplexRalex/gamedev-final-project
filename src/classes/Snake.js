@@ -47,7 +47,7 @@ class Snake extends Enemy {
 
         // !
         // ! Physics stuff
-        this.acceleration = 5000;
+        this.acceleration = 200;
         this.body.setCircle(this.body.halfHeight);
         this.body.setOffset(5, 0);
 
@@ -55,15 +55,14 @@ class Snake extends Enemy {
         switch (variant) {
             case 0:
                 detectionRadius = Snake.detectionRadius0;
-                this.body.setMaxVelocity(5000);
-                this.body.setDrag(420);
+                this.body.setMaxVelocity(75);
                 break;
             case 1:
                 detectionRadius = Snake.detectionRadius1;
-                this.body.setMaxVelocity(6000);
-                this.body.setDrag(390);
+                this.body.setMaxVelocity(120);
                 break;
         }
+        this.body.setDrag(500);
 
         // ! Se crea un radio de colisión para detectar al personaje
         this.detectionArea = this.scene.add.circle(this.x, this.y, detectionRadius);
@@ -99,22 +98,15 @@ class Snake extends Enemy {
             this.body.setAcceleration(0);
             this.detectionArea.setPosition(this.x, this.y);
             const overlap = this.scene.physics.overlap(player, this.detectionArea, () => {
-                if (!this.isMoving) {
-                    this.isMoving = true;
 
-                    const distanceX = player.x - this.x;
-                    const distanceY = player.y - this.y;
+                const distanceX = player.x - this.x;
+                const distanceY = player.y - this.y;
 
-                    if (Math.abs(distanceX) >= Math.abs(distanceY)) {
-                        this.flipX = distanceX < 0 ? true : false;
-                        this.body.setAccelerationX(Math.sign(distanceX) * this.acceleration);
-                    } else {
-                        this.body.setAccelerationY(Math.sign(distanceY) * this.acceleration);
-                    }
-
-                    setTimeout(() => {
-                        this.isMoving = false;
-                    }, this.movingTime);
+                if (Math.abs(distanceX) >= Math.abs(distanceY)) {
+                    this.flipX = distanceX < 0 ? true : false;
+                    this.body.setAccelerationX(Math.sign(distanceX) * this.acceleration);
+                } else {
+                    this.body.setAccelerationY(Math.sign(distanceY) * this.acceleration);
                 }
             });
             this.action = overlap ? 'walk' : 'idle';
