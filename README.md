@@ -62,7 +62,7 @@ Algunos caminos se encontrarán bloqueados, por lo que tendrás que hacer uso de
 
 ## Cómo jugar
 
-...
+¿Instalar? *pffff*. Basta con que abras el juego en el enlace de **GitHub Pages** que se encuentra en la información del repositorio, o dando [click aquí](https://complexralex.github.io/gamedev-final-project/).
 
 ### Jugar desde código fuente
 
