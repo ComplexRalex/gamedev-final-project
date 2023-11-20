@@ -195,7 +195,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                     alpha: 0,
                 },
                 onComplete: () => {
-                    this.body.enable = false;
+                    if (this.body) this.body.enable = false;
                     this.destroy();
                     if (this.destroyComplements) this.destroyComplements();
                     onDead();
