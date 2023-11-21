@@ -1,0 +1,13 @@
+{
+  "name": "floresta-game",
+  "version": "1.0.3",
+  "description": "Final project of a videogame course.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kaiser Rocket Team",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}

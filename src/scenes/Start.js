@@ -13,6 +13,9 @@ class Start extends Phaser.Scene {
 
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
+
+        this.width = this.sys.game.scale.gameSize.width;
+        this.height = this.sys.game.scale.gameSize.height;
     }
 
     create() {
@@ -20,6 +23,12 @@ class Start extends Phaser.Scene {
         const keyCodes = Phaser.Input.Keyboard.KeyCodes;
 
         this.clickSound = this.sound.add('clicking');
+
+        this.gameVersion = this.sys.game.config.gameVersion;
+
+        this.simpleFont = {
+            fontFamily: 'monospace',
+        };
 
         this.contenedorFondo = this.add.container(0, 0);
 
@@ -48,6 +57,13 @@ class Start extends Phaser.Scene {
         this.botonC = this.add.image(70, 570, 'buttons/c').setScale(2);
         this.botones.add(this.botonC);
         this.contenedorFondo.add(this.botones);
+        this.version = this.add.text(
+            this.width - 5,
+            this.height - 5,
+            "v" + this.gameVersion,
+            this.simpleFont,
+        ).setOrigin(1);
+        this.contenedorFondo.add(this.version);
         this.menu_s = this.sound.add('menu');
         var musconf = {
             mute: false,
@@ -188,7 +204,7 @@ class Start extends Phaser.Scene {
                 this.topLayerScenePlaying = false;
                 this.scene.stop('Credits');
                 this.add.tween({
-                    targets: [this.titulo, this.krt, this.play, this.controles, this.botones],
+                    targets: [this.titulo, this.krt, this.play, this.controles, this.botones, this.version],
                     duration: 200,
                     props: {
                         alpha: {
@@ -216,7 +232,7 @@ class Start extends Phaser.Scene {
                 },
             });
             this.add.tween({
-                targets: [this.krt, this.controles, this.botones],
+                targets: [this.krt, this.controles, this.botones, this.version],
                 props: {
                     alpha: 0,
                 },
@@ -300,7 +316,7 @@ class Start extends Phaser.Scene {
             this.scene.launch('Credits');
             this.topLayerScenePlaying = true;
             this.add.tween({
-                targets: [this.play, this.krt, this.titulo, this.controles, this.botones],
+                targets: [this.play, this.krt, this.titulo, this.controles, this.botones, this.version],
                 props: {
                     alpha: {
                         from: 1,
@@ -317,7 +333,7 @@ class Start extends Phaser.Scene {
             this.scene.launch('Controls');
             this.topLayerScenePlaying = true;
             this.add.tween({
-                targets: [this.play, this.krt, this.titulo, this.controles, this.botones],
+                targets: [this.play, this.krt, this.titulo, this.controles, this.botones, this.version],
                 props: {
                     alpha: {
                         from: 1,
