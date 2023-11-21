@@ -5858,6 +5858,12 @@
                  "id":532,
                  "name":"bossfight",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"after",
+                         "type":"string",
+                         "value":"hill"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -5870,6 +5876,12 @@
                  "id":533,
                  "name":"bossfight",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"after",
+                         "type":"string",
+                         "value":"jungle"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -5882,6 +5894,12 @@
                  "id":534,
                  "name":"bossfight",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"after",
+                         "type":"string",
+                         "value":"forest"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,

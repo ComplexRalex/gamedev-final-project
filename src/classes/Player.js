@@ -407,7 +407,7 @@ class Player extends Phaser.GameObjects.Sprite {
         return this.isDead;
     }
 
-    fall({ respawnPoint, onDead }) {
+    fall({ respawnPoint, onDeath }) {
         if (!this.isFalling) {
             this.fallSound.play();
             this.isFalling = true;
@@ -430,7 +430,7 @@ class Player extends Phaser.GameObjects.Sprite {
                     this.isFalling = false;
                     const isDead = this.getHurt({ damagePoints: 2 });
                     if (isDead) {
-                        onDead();
+                        onDeath();
                         return;
                     }
                     this.setAngle(0);

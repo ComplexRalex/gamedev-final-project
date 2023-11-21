@@ -46,7 +46,7 @@ class Game extends Phaser.Scene {
 
         // ! Este servirá para poder hacer manejo del spawneo "dinámico"
         // ! de ciertas entidades en las escenas chiquitas.
-        this.gameScene = new GameScene({
+        this.gameSceneEnemies = new GameScene({
             tileWidth: this.tileWidth,
             tileHeight: this.tileHeight,
             sceneWidth: this.sceneWidthTiles,
@@ -123,7 +123,7 @@ class Game extends Phaser.Scene {
             gameObject.destroy();
             gameObject.destroyComplements();
         });
-        this.mapEnemies = this.gameScene.get({ x, y })
+        this.mapEnemies = this.gameSceneEnemies.get({ x, y })
             .filter(entity => entity.alive)
             .map(entity => {
                 const props = {
@@ -138,6 +138,7 @@ class Game extends Phaser.Scene {
                     drops: entity.drops,
                     dropEverything: entity.dropEverything,
                     dropDirection: entity.dropDirection,
+                    onDeath: entity.onDeath,
                 };
                 switch (entity.type) {
                     case "snake": return new Snake(props);
@@ -151,8 +152,20 @@ class Game extends Phaser.Scene {
     updateMusic() {
         const { x, y } = this.sceneCoords;
         const object = this.gameSceneMusic.get({ x, y })[0];
+
+        // ? En caso de que no haya enemigos vivos cuando
+        // ? la música es de boss (es decir, cuando no hay
+        // ? jefe vivo), entonces se coloca el reemplazo.
+        const areEnemiesAlive = this.gameSceneEnemies.get({ x, y })
+            .filter(enemy => enemy.alive).length > 0;
+        const music = object.music != "bossfight"
+            ? object.music
+            : areEnemiesAlive
+                ? object.music
+                : object.after ?? object.music;
+
         let sceneMusic;
-        switch (object.music) {
+        switch (music) {
             case "jungle": sceneMusic = this.jungleMusic; break;
             case "forest": sceneMusic = this.forestMusic; break;
             case "hill": sceneMusic = this.hillMusic; break;
@@ -164,7 +177,7 @@ class Game extends Phaser.Scene {
             this.activeMusic = sceneMusic;
             this.activeMusic.play({ loop: true });
         }
-        console.warn(`Rola de la escena`, { music: object.music });
+        console.warn(`Rola de la escena`, { music: music });
     }
 
     updateCameraCoords(now = false) {
@@ -423,7 +436,12 @@ class Game extends Phaser.Scene {
             const dropDirection = enemy.properties?.
                 find(prop => prop.name === "dropDirection")?.value;
 
-            this.gameScene.insert(Enemy.onlyData({
+            // ? Asumiendo que los jefes siempre tienen variante 1,
+            // ? entonces se puede hacer que luego de su muerte se
+            // ? actualice la música.
+            const onEnemyDeath = !variant || variant != 1 ? null : () => this.updateMusic();
+
+            this.gameSceneEnemies.insert(Enemy.onlyData({
                 ...enemy,
                 type: enemy.name,
                 x: enemy.x,
@@ -436,6 +454,7 @@ class Game extends Phaser.Scene {
                 dropEverything: dropEverything,
                 dropDirection: dropDirection,
                 alive: true,
+                onDeath: onEnemyDeath,
             }));
         });
         // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
@@ -443,12 +462,23 @@ class Game extends Phaser.Scene {
 
         // ! Se hace uso de una capa para poder obtener las rolas!
         this.mapMusic = this.map.objects.find(layer => layer.name === "Music").objects;
-        this.mapMusic.forEach(scene => {
+        this.mapMusic.forEach(music => {
             // ? Se supone que esta capa contiene un objeto "musical"
             // ? por cada una de las escenas, esto con el fin de que
             // ? se pueda establecer qué canción de fondo tiene cada
             // ? escenario.
-            this.gameSceneMusic.insert({ ...scene, name: scene.name, music: scene.name });
+
+            // ? Esta es la rola que se colocará como reemplazo de la
+            // ? del jefe de escena después de que haya sido vencido.
+            const after = music.properties?.
+                find(prop => prop.name === "after")?.value;
+
+            this.gameSceneMusic.insert({
+                ...music,
+                name: music.name,
+                music: music.name,
+                after: after,
+            });
         });
 
         // ! Se hace uso de una capa exclusiva para las posiciones de las
@@ -574,7 +604,7 @@ class Game extends Phaser.Scene {
         }
     }
 
-    onDead() {
+    onDeath() {
         this.onQuit();
     }
 
@@ -740,7 +770,8 @@ class Game extends Phaser.Scene {
             }
         );
 
-        // ! Se agrega el manejo de overlap con los carteles para mostrar cosas.
+        // ! Se agrega el manejo de overlap con los "vacíos" para que se caigan
+        // ! Nor o los enemigos.
         this.physics.overlap(
             [
                 this.nor,
@@ -760,16 +791,13 @@ class Game extends Phaser.Scene {
                         if (anyone instanceof Player) {
                             anyone.fall({
                                 respawnPoint: respawn,
-                                onDead: () => {
-                                    this.onDead();
+                                onDeath: () => {
+                                    this.onDeath();
                                 }
                             });
                         } else {
-                            anyone.fall({
-                                onDead: () => {
-                                    this.mapEnemies = this.mapEnemies.filter(e => e !== anyone);
-                                }
-                            })
+                            anyone.fall();
+                            this.mapEnemies = this.mapEnemies.filter(e => e !== anyone);
                         }
                     }
                 }
@@ -810,14 +838,14 @@ class Game extends Phaser.Scene {
         this.physics.overlap(this.nor, this.mapEnemies, (_, enemy) => {
             if (!enemy.isFalling) {
                 const isDead = this.nor.getHurt({ damagePoints: enemy.damagePoints });
-                if (isDead) this.onDead();
+                if (isDead) this.onDeath();
             }
         });
 
         // ! Si Nor toca la explosión, entonces también recibe daño.
         this.physics.overlap(this.nor, this.nor.attackObjects.bombs, (_, bomb) => {
             const isDead = this.nor.getHurt({ damagePoints: bomb.damagePoints });
-            if (isDead) this.onDead();
+            if (isDead) this.onDeath();
         });
 
         // ! Si Nor toca una pared, no podrá pasarla.
@@ -948,7 +976,7 @@ class Game extends Phaser.Scene {
                 if (object instanceof Arrow) object.stomp();
 
                 const isDead = this.nor.getHurt({ damagePoints: object.damagePoints });
-                if (isDead) this.onDead();
+                if (isDead) this.onDeath();
             }
         );
 

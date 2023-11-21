@@ -18,6 +18,7 @@ class Wolf extends Enemy {
         drops,
         dropEverything,
         dropDirection,
+        onDeath,
     }) {
         super({
             scene,
@@ -33,6 +34,7 @@ class Wolf extends Enemy {
             drops,
             dropEverything,
             dropDirection,
+            onDeath,
         });
 
         // !

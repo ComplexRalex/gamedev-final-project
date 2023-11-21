@@ -16,6 +16,7 @@ class Snake extends Enemy {
         drops,
         dropEverything,
         dropDirection,
+        onDeath,
     }) {
         super({
             scene,
@@ -31,6 +32,7 @@ class Snake extends Enemy {
             drops,
             dropEverything,
             dropDirection,
+            onDeath,
         });
 
         // !

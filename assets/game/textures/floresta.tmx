@@ -1863,12 +1863,21 @@
    <point/>
   </object>
   <object id="532" name="bossfight" x="1984" y="2944">
+   <properties>
+    <property name="after" value="hill"/>
+   </properties>
    <point/>
   </object>
   <object id="533" name="bossfight" x="704" y="2944">
+   <properties>
+    <property name="after" value="jungle"/>
+   </properties>
    <point/>
   </object>
   <object id="534" name="bossfight" x="1344" y="2944">
+   <properties>
+    <property name="after" value="forest"/>
+   </properties>
    <point/>
   </object>
   <object id="535" name="cave" x="1344" y="1504">

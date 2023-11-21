@@ -30,6 +30,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
         drops = [],
         dropEverything = false,
         dropDirection = 'horizontal',
+        onDeath,
     }) {
         super(
             scene,
@@ -106,6 +107,10 @@ class Enemy extends Phaser.GameObjects.Sprite {
         // ! Sound FX things
         this.takeDamageSound = this.scene.sound.add('taking_damage_enemy');
         this.fallSound = this.scene.sound.add('falling');
+
+        // !
+        // ! Event stuff
+        this.onDeath = onDeath;
     }
 
     // ! Está pensado que los enemigos también tengan una forma
@@ -168,6 +173,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                         this.dropItem();
                         this.destroy();
                         if (this.destroyComplements) this.destroyComplements();
+                        if (this.onDeath) this.onDeath();
                     },
                 });
             }
@@ -175,7 +181,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
         return this.isDamaged;
     }
 
-    fall({ onDead }) {
+    fall() {
         if (!this.isFalling) {
             this.fallSound.play();
             this.isFalling = true;
@@ -198,7 +204,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                     if (this.body) this.body.enable = false;
                     this.destroy();
                     if (this.destroyComplements) this.destroyComplements();
-                    onDead();
+                    if (this.onDeath) this.onDeath();
                 },
             });
         }
@@ -244,6 +250,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
         dropEverything,
         dropDirection,
         alive,
+        onDeath,
         ...rest
     }) {
         return {
@@ -259,6 +266,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
             dropEverything,
             dropDirection,
             alive,
+            onDeath,
         };
     }
 }
