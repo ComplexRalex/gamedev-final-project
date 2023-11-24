@@ -232,18 +232,33 @@ class Bootloader extends Phaser.Scene {
             { key: 'dying', url: 'sfx/dying.mp3' },
         ]);
 
-        this.load.on('complete', () => {
+        this.load.on(Phaser.Loader.Events.FILE_COMPLETE, (file, type) => {
+            this.changeLoadingState({
+                what: `[${String(type).toUpperCase()}]: ${file}`,
+                finished: false,
+            });
+        })
+        this.load.on(Phaser.Loader.Events.COMPLETE, () => {
             console.warn("Loading complete!");
-
-            this.scene.stop('Loading');
-            this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            this.scene.start('Start');
-            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            // this.scene.start('GUI');
-            // this.scene.launch('Game');
-            // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-            // this.scene.start('Cinematic0');
+            this.changeLoadingState({
+                finished: true,
+            });
+            
+            this.registry.events.emit('finishedLoading', () => {
+                this.scene.stop('Loading');
+                this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                this.scene.start('Start');
+                // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                // this.scene.start('GUI');
+                // this.scene.launch('Game');
+                // this.scene.launch('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                // this.scene.start('Cinematic0');
+            });
         });
+    }
+
+    changeLoadingState(state) {
+        this.registry.events.emit('nowLoading', state);
     }
 }
 export default Bootloader;
