@@ -41,21 +41,6 @@ class Cinematic0 extends Phaser.Scene {
         localStorage.setItem('B4RRY_ACK_INTRO_VALUE', '=)');
     }
 
-    updateSceneCoords({ x, y }) {
-        console.log("Coordenadas de la cámara", { x, y });
-        this.sceneCoords = { x, y };
-        this.updateCameraCoords();
-    }
-
-    updateCameraCoords() {
-        const { x, y } = this.sceneCoords;
-        const [centerX, centerY] = [
-            x * this.sceneWidth + this.sceneWidth / 2,
-            y * this.sceneHeight + this.sceneHeight / 2,
-        ];
-        this.cameras.main.centerOn(centerX, centerY);
-    }
-
     create() {
 
         // ! Música!
@@ -140,42 +125,46 @@ class Cinematic0 extends Phaser.Scene {
             this.sceneWidth * this.tileWidth,
             this.sceneHeight * this.tileHeight,
         );
-        this.updateSceneCoords({ x: 1, y: 0 }, true);
 
-        this.guiGroup = this.add.group([
-            this.add.image(0, 480, 'gui-bg')
-                .setOrigin(0, 0)
-                .setScale(4),
-            this.add.image(this.sceneWidth, 480, 'gui-bg')
-                .setOrigin(0, 0)
-                .setScale(4),
-        ]);
+        // ! Configuración de la GUI inferior
+        this.gui = this.add.image(0, 480, 'gui-bg')
+            .setOrigin(0, 0)
+            .setScale(4);
 
+        // ! Definición del texto que sugiere saltar la escena
         const font = {
             fontFamily: 'monospace',
-            fontSize: 24,
+            fontSize: 20,
             fontStyle: 'italic'
         };
-        this.textGroup = this.add.group([
-            this.add.text(320, 540, '<cinemática>', font).setOrigin(0.5),
-            this.add.text(960, 540, '<cinemática>', font).setOrigin(0.5),
-        ]);
+        this.skipContainer = this.add.container(0, 480);
+        const guiHalfHeight = (this.scale.height - this.sceneHeight) / 2;
+        this.skipText = this.add.text(0, guiHalfHeight, 'Saltar cinemática con', font)
+            .setOrigin(0, 0.5);
+        this.skipContainer.add(this.skipText);
+        this.skipButton = this.add.image(this.skipText.width + 10, guiHalfHeight, 'buttons/enter')
+            .setOrigin(0, 0.5)
+            .setScale(3);
+        this.skipContainer.add(this.skipButton);
+        this.skipContainer.setSize(this.skipText.width + this.skipButton.width + 10, 0)
 
         this.add.tween({
-            targets: this.textGroup.getChildren(),
+            targets: [this.skipContainer],
             yoyo: true,
             repeat: -1,
             props: {
-                alpha: 0,
+                alpha: 0.25,
             }
         });
 
+        // ! Definición del recuadro oscuro
         this.blackScreen = this.add.rectangle(0, 0,
             this.tileWidth * this.mapWidth,
             600,
             0x000000, 1,
         ).setOrigin(0).setDepth(10).setAlpha(0);
 
+        // ! Definición del texto del comienzo
         this.soWhatsNextText = this.add.text(
             this.scale.width / 2,
             this.scale.height / 2,
@@ -186,11 +175,54 @@ class Cinematic0 extends Phaser.Scene {
             }
         ).setOrigin(0.5).setDepth(11).setAlpha(0);
 
+        // ! Actualización de coordenadas de objetos
+        this.updateSceneCoords({ x: 1, y: 0 });
+
+        // ! Inicialización de las cinemáticas
         this.createCinematic();
+
+        // ! Configuración de tecla para saltar cutscene
+        this.skippedCutscene = false;
+        this.input.keyboard.addKey('enter').on('down', () => {
+            if (this.introCutscene?.isPlaying() && !this.textCutscene.isPlaying() && !this.skippedCutscene) {
+                this.introCutscene.pause();
+                this.textCutscene.play();
+                this.skippedCutscene = true;
+            }
+        });
+    }
+
+    updateSceneCoords({ x, y }) {
+        console.log("Coordenadas de la cámara", { x, y });
+        this.sceneCoords = { x, y };
+        this.updateCameraCoords();
+        this.updateElementsCoords();
+    }
+
+    updateCameraCoords() {
+        const { x, y } = this.sceneCoords;
+        const [centerX, centerY] = [
+            x * this.sceneWidth + this.sceneWidth / 2,
+            y * this.sceneHeight + this.sceneHeight / 2,
+        ];
+        this.cameras.main.centerOn(centerX, centerY);
+    }
+
+    updateElementsCoords() {
+        const { x } = this.sceneCoords;
+        const xZero = x * this.sceneWidth;
+        const xCenter = xZero + this.sceneWidth / 2;
+
+        this.gui.setPosition(xZero, this.gui.y);
+        this.skipContainer.setPosition(
+            xZero + (this.sceneWidth - this.skipContainer.width) / 2,
+            this.skipContainer.y,
+        );
+        this.soWhatsNextText.setPosition(xCenter, this.soWhatsNextText.y);
     }
 
     createCinematic() {
-        this.timeline = this.tweens.timeline({
+        this.introCutscene = this.tweens.timeline({
             tweens: [
                 {
                     targets: [this.barry],
@@ -349,8 +381,17 @@ class Cinematic0 extends Phaser.Scene {
                     },
                     onComplete: () => {
                         this.barryMusic.stop();
+
+                        // * Se corre la siguiente cutscene cuando acaba la intro
+                        this.textCutscene.play();
                     }
                 },
+            ],
+        });
+
+        this.textCutscene = this.tweens.timeline({
+            paused: true,
+            tweens: [
                 {
                     targets: [this.blackScreen],
                     hold: 500,
@@ -358,6 +399,15 @@ class Cinematic0 extends Phaser.Scene {
                     props: {
                         alpha: { from: 0, to: 1 },
                     },
+                    onUpdate: () => {
+                        if (this.barryMusic.isPlaying && this.barryMusic.volume > 0) {
+                            this.barryMusic.setVolume(this.barryMusic.volume - 0.01);
+                        }
+                    },
+                    onComplete: () => {
+                        if (this.introCutscene.isPlaying) this.introCutscene.stop();
+                        if (this.barryMusic.isPlaying) this.barryMusic.stop();
+                    }
                 },
                 {
                     targets: [this.soWhatsNextText],
@@ -386,16 +436,18 @@ class Cinematic0 extends Phaser.Scene {
     }
 
     chat(dialogs) {
-        this.scene.pause();
-        this.timeline.pause();
-        this.scene.launch('Dialog', {
-            type: 'chat',
-            chat: dialogs,
-            onFinish: () => {
-                this.scene.resume();
-                this.timeline.resume();
-            }
-        });
+        if (!this.skippedCutscene) {
+            this.scene.pause();
+            this.introCutscene.pause();
+            this.scene.launch('Dialog', {
+                type: 'chat',
+                chat: dialogs,
+                onFinish: () => {
+                    this.scene.resume();
+                    this.introCutscene.resume();
+                }
+            });
+        }
     }
 
     update(time, delta) { }

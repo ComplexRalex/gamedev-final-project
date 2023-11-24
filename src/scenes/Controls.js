@@ -155,6 +155,13 @@ class Controls extends Phaser.Scene {
                 'Correr'
             )
         );
+
+        this.globalContainer.add(
+            this.createButtonLabel(260, alturaActual,
+                'buttons/enter',
+                'Saltar cinemática'
+            )
+        );
         alturaActual += delta;
 
         this.globalContainer.add(
