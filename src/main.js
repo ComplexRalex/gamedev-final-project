@@ -12,7 +12,7 @@ import Dialog from './scenes/Dialog.js';
 
 const config = {
     title: "proyecto_final",
-    version: "1.0.5",
+    version: "1.0.6",
     type: Phaser.AUTO,
     scale: {
         parent: "phaser_container",
