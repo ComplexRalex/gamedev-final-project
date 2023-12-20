@@ -1,6 +1,6 @@
 {
   "name": "floresta-game",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Final project of a videogame course.",
   "main": "index.js",
   "scripts": {

@@ -58,8 +58,9 @@ class Game extends Phaser.Scene {
         this.sceneHeightTiles = Math.floor(this.sceneHeight / this.tileHeight);
 
         // ! Este servirá para poder hacer manejo del spawneo "dinámico"
-        // ! de ciertas entidades en las escenas chiquitas.
-        this.gameSceneEnemies = new GameScene({
+        // ! o de obtención de información sobre objetos relacionados con
+        // ! la escena en cuestión (escena "chiquita").
+        this.gameScenes = new GameScene({
             tileWidth: this.tileWidth,
             tileHeight: this.tileHeight,
             sceneWidth: this.sceneWidthTiles,
@@ -68,18 +69,13 @@ class Game extends Phaser.Scene {
             mapHeight: this.mapHeight,
         });
 
-        // ! Este servirá para poder hacer manejo de las rolas
-        // ! que van de fondo.
-        this.gameSceneMusic = new GameScene({
-            tileWidth: this.tileWidth,
-            tileHeight: this.tileHeight,
-            sceneWidth: this.sceneWidthTiles,
-            sceneHeight: this.sceneHeightTiles,
-            mapWidth: this.mapWidth,
-            mapHeight: this.mapHeight,
-        });
+        // * Categoría para almacenar información de los enemigos
+        this.gameScenes.addCategory("enemies");
 
-        // * Coordenadas de la escena
+        // * Categoría para la información de la música de fondo por escena
+        this.gameScenes.addCategory("music");
+
+        // * Coordenadas de la escena (iniciales)
         this.sceneCoords = {
             x: 0,
             y: 0,
@@ -136,7 +132,7 @@ class Game extends Phaser.Scene {
             gameObject.destroy();
             gameObject.destroyComplements();
         });
-        this.mapEnemies = this.gameSceneEnemies.get({ x, y })
+        this.mapEnemies = this.gameScenes.get("enemies", { xPos: x, yPos: y })
             .filter(entity => entity.alive)
             .map(entity => {
                 const props = {
@@ -164,12 +160,12 @@ class Game extends Phaser.Scene {
 
     updateMusic() {
         const { x, y } = this.sceneCoords;
-        const object = this.gameSceneMusic.get({ x, y })[0];
+        const object = this.gameScenes.get("music", { xPos: x, yPos: y })[0];
 
         // ? En caso de que no haya enemigos vivos cuando
         // ? la música es de boss (es decir, cuando no hay
         // ? jefe vivo), entonces se coloca el reemplazo.
-        const areEnemiesAlive = this.gameSceneEnemies.get({ x, y })
+        const areEnemiesAlive = this.gameScenes.get("enemies", { xPos: x, yPos: y })
             .filter(enemy => enemy.alive).length > 0;
         const music = object.music != "bossfight"
             ? object.music
@@ -450,21 +446,23 @@ class Game extends Phaser.Scene {
             // ? actualice la música.
             const onEnemyDeath = !variant || variant != 1 ? null : () => this.updateMusic();
 
-            this.gameSceneEnemies.insert(Enemy.onlyData({
-                ...enemy,
-                type: enemy.name,
-                x: enemy.x,
-                y: enemy.y,
-                variant: variant,
-                hp: hp,
-                scale: scale,
-                tint: tint,
-                drops: drops,
-                dropEverything: dropEverything,
-                dropDirection: dropDirection,
-                alive: true,
-                onDeath: onEnemyDeath,
-            }));
+            this.gameScenes.insert("enemies", { x: enemy.x, y: enemy.y },
+                Enemy.onlyData({
+                    ...enemy,
+                    type: enemy.name,
+                    x: enemy.x,
+                    y: enemy.y,
+                    variant: variant,
+                    hp: hp,
+                    scale: scale,
+                    tint: tint,
+                    drops: drops,
+                    dropEverything: dropEverything,
+                    dropDirection: dropDirection,
+                    alive: true,
+                    onDeath: onEnemyDeath,
+                }),
+            );
         });
         // ? Este arreglo variará según los enemigos que haya en la escena actual!!!!
         this.mapEnemies = [];
@@ -482,12 +480,13 @@ class Game extends Phaser.Scene {
             const after = music.properties?.
                 find(prop => prop.name === "after")?.value;
 
-            this.gameSceneMusic.insert({
-                ...music,
-                name: music.name,
-                music: music.name,
-                after: after,
-            });
+            this.gameScenes.insert("music", { x: music.x, y: music.y },
+                {
+                    ...music,
+                    name: music.name,
+                    music: music.name,
+                    after: after,
+                });
         });
 
         // ! Se hace uso de una capa exclusiva para las posiciones de las
