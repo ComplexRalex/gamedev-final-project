@@ -11,19 +11,28 @@ class Cinematic0 extends Phaser.Scene {
         // * Lista de propiedades utilizadas para el juego (temporalmente)
         // *
 
+        // ! Lectura del mapa en Tiled (necesario ahora para las dimensiones)
+        this.map = this.make.tilemap({
+            key: 'cinematic0-tile-map',
+        });
+
         // ! Definición de constantes
 
         // ? Medidas en pixeles
-        this.tileWidth = 32;
-        this.tileHeight = 32;
+
+        // * Mapa
+        this.tileWidth = this.map.tileWidth;
+        this.tileHeight = this.map.tileHeight;
+
+        // * Escena
         this.sceneWidth = 640;
         this.sceneHeight = 480;
 
         // ? Medidas en tiles
-        this.mapWidth = 40;
-        this.mapHeight = 15;
-        this.sceneWidthTiles = 20;
-        this.sceneHeightTiles = 15;
+
+        // * Mapa
+        this.mapWidth = this.map.width;
+        this.mapHeight = this.map.height;
 
         // * Coordenadas de la escena
         this.sceneCoords = {
@@ -56,13 +65,9 @@ class Cinematic0 extends Phaser.Scene {
         this.explosionSound = this.sound.add('exploding_massively');
 
         // ! Configuración de tiles y el mapa
-        this.map = this.make.tilemap({
-            key: 'cinematic0-tile-map',
-            tileWidth: this.tileWidth,
-            tileHeight: this.tileHeight,
-            width: this.mapWidth,
-            height: this.mapHeight,
-        });
+        // this.map = this.make.tilemap({
+        //     key: 'cinematic0-tile-map',
+        // });
         this.tsHillEfron = this.map.addTilesetImage("level3");
         this.tsCave = this.map.addTilesetImage("level4");
         this.tsHouses = this.map.addTilesetImage("houses");

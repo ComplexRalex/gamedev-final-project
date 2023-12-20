@@ -27,22 +27,35 @@ class Game extends Phaser.Scene {
         console.log("Escena 'Game' iniciada");
 
         // *
-        // * Lista de propiedades utilizadas para el juego (temporalmente)
+        // * Lista de propiedades utilizadas para el juego
         // *
+
+        // ! Lectura del mapa en Tiled (necesario ahora para las dimensiones)
+        this.map = this.make.tilemap({
+            key: 'floresta-tile-map',
+        });
 
         // ! Definición de constantes
 
         // ? Medidas en pixeles
-        this.tileWidth = 32;
-        this.tileHeight = 32;
+
+        // * Mapa
+        this.tileWidth = this.map.tileWidth;
+        this.tileHeight = this.map.tileHeight;
+
+        // * Escena
         this.sceneWidth = 640;
         this.sceneHeight = 480;
 
         // ? Medidas en tiles
-        this.mapWidth = 100;
-        this.mapHeight = 105;
-        this.sceneWidthTiles = 20;
-        this.sceneHeightTiles = 15;
+
+        // * Mapa
+        this.mapWidth = this.map.width;
+        this.mapHeight = this.map.height;
+
+        // * Escena
+        this.sceneWidthTiles = Math.floor(this.sceneWidth / this.tileWidth);
+        this.sceneHeightTiles = Math.floor(this.sceneHeight / this.tileHeight);
 
         // ! Este servirá para poder hacer manejo del spawneo "dinámico"
         // ! de ciertas entidades en las escenas chiquitas.
@@ -240,13 +253,9 @@ class Game extends Phaser.Scene {
         this.interactSound = this.sound.add('interacting');
 
         // ! Configuración de tiles y el mapa
-        this.map = this.make.tilemap({
-            key: 'floresta-tile-map',
-            tileWidth: this.tileWidth,
-            tileHeight: this.tileHeight,
-            width: this.mapWidth,
-            height: this.mapHeight,
-        });
+        // this.map = this.make.tilemap({
+        //     key: 'floresta-tile-map',
+        // });
         this.tsJungleZipela = this.map.addTilesetImage("level1");
         this.tsForestHaru = this.map.addTilesetImage("level2");
         this.tsHillEfron = this.map.addTilesetImage("level3");
