@@ -49,7 +49,7 @@ Algunos caminos se encontrarán bloqueados, por lo que tendrás que hacer uso de
 * ``<  C  >`` - Ver los controles
 * ``< ESC >`` - Regresar a la pantalla de inicio (cuando estás en la pantalla de los controles o los créditos)
 
-### Menú de inicio
+### Juego
 
 * ``<ARROW>`` - Movimiento (arriba, abajo, izquierda, derecha)
 * ``<  Z  >`` - Atacar (con el arma primaria)
@@ -58,6 +58,7 @@ Algunos caminos se encontrarán bloqueados, por lo que tendrás que hacer uso de
 * ``<  S  >`` - Alternar arma secundaria (derecha)
 * ``<SPACE>`` - Interactuar (carteles, cerraduras, etc.)
 * ``<SHIFT>`` - Correr
+* ``<ENTER>`` - Saltar cinemática
 * ``< ESC >`` - Regresar a la pantalla de inicio (**advertencia**: no hay menú de pausa)
 
 ## Cómo jugar
@@ -66,23 +67,29 @@ Algunos caminos se encontrarán bloqueados, por lo que tendrás que hacer uso de
 
 ### Jugar desde código fuente
 
-En caso de que quieras usar el código fuente, existen dos formas de hacerlo:
+Para esto primero se requiere clonar el repositorio en cualquier directorio que se desee.
 
-1. Crear un proyecto con NPM ``npm init``, instalar Phaser ``npm install phaser@3.55.2``, y dentro de él descargar (o clonar) el repositorio.
-1. Clonar el repositorio en cualquier directorio, copiar el *script* de la página https://cdnjs.com/libraries/phaser/3.55.2 y *comentar*/*descomentar* las siguientes líneas en el archivo ``index.html``:
+Luego, para cargar el framework de Phaser 2D existen dos formas de hacerlo:
+
+1. Sobre la raíz del proyecto ejecutar ``npm init`` y *descomentar* la línea debajo del ``[1]`` en ``index.html``.
+2. Copiar la línea del *script* de la página https://cdnjs.com/libraries/phaser/3.55.2 y reemplazar la línea copiada por la que se encuentra debajo de ``[2]`` en ``index.html``.
+
+El archivo tiene una estructura similar a la siguiente:
 
 ```html
 <body>
     <div id="phaser_container"></div>
-    <!-- Si tienes node_modules, usa este (comenta esta línea) -->
-    <!-- <script src="../node_modules/phaser/dist/phaser.min.js"></script> -->
-    <!-- Si no usas node_modules, usa este (descomenta esta línea) -->
+    <!-- [1] Si tienes node_modules, usa este (comenta esta línea) -->
+    <!-- <script src="./node_modules/phaser/dist/phaser.min.js"></script> -->
+    <!-- [2] Si no usas node_modules, usa este (descomenta esta línea) -->
     <!-- ¡Reemplaza esta línea de código por la que copiaste de la página! -->
     <script src="./src/main.js" type="module"></script>
 </body>
 ```
 
-Nota: Para poder ejecutarlo desde código fuente (con cualquiera de las dos formas), se necesitará de un servidor web. Se puede hacer uso de ``http-server`` instalandolo con NPM ``npm install http-server`` y ejecutando con ``http-server`` dentro del directorio del proyecto.
+Nota 1: Es posible que ya se encuentre el *script* en el archivo antes mencionado, por lo que no será necesario este paso.
+
+Nota 2: Para poder ejecutarlo desde código fuente (con cualquiera de las dos formas), se necesitará de un servidor web. Se puede hacer uso de ``http-server`` instalandolo con NPM ``npm install http-server`` y ejecutando con ``http-server`` dentro del directorio del proyecto.
 
 ## Screenshots
 
