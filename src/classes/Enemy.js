@@ -218,7 +218,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                 this.drops.filter(d => d).forEach((drop, index) => {
                     const times = Math.floor((index + 1) / 2);
                     const sign = index % 2 !== 0 ? 1 : -1;
-                    this.scene.addItem({
+                    this.scene.addItemToScene({
                         type: drop,
                         x: this.x + h * Enemy.gap * times * sign,
                         y: this.y + v * Enemy.gap * times * sign,
@@ -227,7 +227,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
             } else {
                 const randomPick = Math.floor(Math.random() * this.drops.length);
                 if (this.drops[randomPick]) {
-                    this.scene.addItem({
+                    this.scene.addItemToScene({
                         type: this.drops[randomPick],
                         x: this.x,
                         y: this.y,

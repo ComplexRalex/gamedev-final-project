@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="549">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="105" tilewidth="32" tileheight="32" infinite="0" nextlayerid="16" nextobjectid="565">
  <editorsettings>
   <export target="floresta.json" format="json"/>
  </editorsettings>
@@ -181,8 +181,8 @@
 92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,132,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,132,182,0,0,0,0,0,0,182,0,0,0,0,192,182,0,0,0,0,192,182,182,0,0,0,0,0,0,182,0,0,0,0,192,182,0,0,0,0,192,182,
 92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,134,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,154,182,0,0,0,0,0,0,182,0,0,0,0,193,182,0,0,0,0,193,182,182,0,0,0,0,0,0,182,0,0,0,0,193,182,0,0,0,0,193,182,
 92,0,0,0,0,0,0,0,0,0,0,0,94,95,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,132,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,132,182,0,0,0,0,0,0,182,0,0,0,0,0,182,0,0,0,0,0,182,182,0,0,0,0,0,0,182,0,0,0,0,0,182,0,0,0,0,0,182,
-92,0,0,0,0,0,0,92,0,0,0,0,92,92,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,132,0,0,0,133,133,0,0,0,0,0,0,0,0,133,133,0,0,0,134,182,0,0,0,0,0,0,182,182,182,0,182,182,182,182,182,0,182,182,182,182,0,0,0,0,0,0,182,182,182,0,182,182,182,182,182,0,182,182,182,
-92,93,0,0,0,0,93,96,0,0,0,0,92,92,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,134,0,0,0,133,0,0,0,0,0,0,0,0,0,0,133,0,0,0,132,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,
+92,0,0,0,0,0,0,92,0,0,0,0,92,92,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,132,0,0,0,133,0,0,0,0,0,0,0,0,0,0,133,0,0,0,134,182,0,0,0,0,0,0,182,182,182,0,182,182,182,182,182,0,182,182,182,182,0,0,0,0,0,0,182,182,182,0,182,182,182,182,182,0,182,182,182,
+92,93,0,0,0,0,93,96,0,0,0,0,92,92,0,0,0,0,0,92,92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,134,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,132,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,
 92,0,0,0,0,0,0,0,0,0,0,0,97,96,0,93,119,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,134,0,0,0,0,0,0,0,143,141,141,144,0,0,0,0,0,0,0,132,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,
 92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,132,0,0,0,0,0,0,0,156,152,138,140,0,0,0,0,0,0,0,132,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,
 92,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,92,134,0,0,0,0,0,0,0,145,142,142,146,0,0,0,0,0,0,0,154,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,182,
@@ -1201,7 +1201,7 @@
    </properties>
    <point/>
   </object>
-  <object id="245" name="button" x="448" y="2928">
+  <object id="245" name="button" x="448" y="2920">
    <properties>
     <property name="angle" type="int" value="180"/>
     <property name="targets" value="230"/>
@@ -1381,7 +1381,7 @@
   <object id="401" x="2944" y="1352">
    <point/>
   </object>
-  <object id="402" x="1728" y="1360">
+  <object id="402" x="1728" y="1352">
    <point/>
   </object>
   <object id="403" x="224" y="2664">
@@ -1497,7 +1497,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Items" locked="1">
+ <objectgroup id="12" name="Items">
   <object id="288" name="arrows" x="880" y="584">
    <point/>
   </object>
@@ -1517,6 +1517,9 @@
    <point/>
   </object>
   <object id="295" name="banana" x="1376" y="392">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="300" name="banana" x="2128" y="96">
@@ -1529,18 +1532,27 @@
    <point/>
   </object>
   <object id="305" name="banana" x="2968" y="856">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="306" name="arrows" x="2112" y="560">
    <point/>
   </object>
   <object id="308" name="bombs" x="2416" y="1864">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="309" name="banana" x="2232" y="1528">
    <point/>
   </object>
   <object id="310" name="banana" x="2280" y="1528">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="311" name="key" x="3088" y="2320">
@@ -1553,15 +1565,24 @@
    <point/>
   </object>
   <object id="314" name="arrows" x="3096" y="1528">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="315" name="arrows" x="1360" y="720">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="316" name="banana" x="880" y="1016">
    <point/>
   </object>
   <object id="317" name="banana" x="704" y="1120">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="320" name="arrows" x="864" y="1856">
@@ -1570,46 +1591,134 @@
   <object id="321" name="arrows" x="928" y="1856">
    <point/>
   </object>
-  <object id="326" name="bombs" x="1472" y="1632">
+  <object id="327" name="arrows" x="1712" y="1616">
    <point/>
   </object>
-  <object id="327" name="arrows" x="1728" y="1632">
+  <object id="328" name="arrows" x="1488" y="1616">
    <point/>
   </object>
-  <object id="328" name="arrows" x="1696" y="1632">
+  <object id="331" name="banana" x="1456" y="1680">
    <point/>
   </object>
-  <object id="330" name="key" x="1600" y="1608">
-   <point/>
-  </object>
-  <object id="331" name="banana" x="1472" y="1696">
-   <point/>
-  </object>
-  <object id="332" name="banana" x="1728" y="1696">
+  <object id="332" name="banana" x="1744" y="1680">
    <point/>
   </object>
   <object id="334" name="heart" x="128" y="3304">
    <point/>
   </object>
   <object id="335" name="bombs" x="176" y="3304">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="336" name="arrows" x="224" y="3304">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="337" name="banana" x="192" y="2960">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="374" name="heart" x="1840" y="96">
    <point/>
   </object>
-  <object id="378" name="banana" x="2128" y="3280">
+  <object id="378" name="banana" x="2080" y="2960">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
   <object id="412" name="bombs" x="2640" y="64">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
-  <object id="415" name="heart" x="2160" y="3280">
+  <object id="415" name="heart" x="2032" y="3280">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="551" name="bombs" x="960" y="2800">
+   <properties>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="552" name="arrows" x="976" y="3120">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="553" name="bombs" x="1616" y="3120">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="554" name="arrows" x="2032" y="2960">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="555" name="bombs" x="2128" y="2960">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+    <property name="respawnable" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="557" name="bow" x="960" y="3136">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="558" name="arrows" x="944" y="3120">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="559" name="fragmented_emerald" x="960" y="3104">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="560" name="bombs" x="1568" y="3120">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="561" name="fragmented_emerald" x="1592" y="3120">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="562" name="fragmented_emerald" x="2080" y="3280">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="563" name="key" x="2128" y="3280">
+   <properties>
+    <property name="requiresDefeatBoss" type="bool" value="true"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>
@@ -1727,8 +1836,6 @@
   </object>
   <object id="369" name="snake" x="1168" y="3120">
    <properties>
-    <property name="dropEverything" type="bool" value="true"/>
-    <property name="drops" value="bow,fragmented_emerald,arrows,arrows"/>
     <property name="hp" type="int" value="5"/>
     <property name="scale" type="int" value="2"/>
     <property name="tint" value="0xFFBBFF"/>
@@ -1738,8 +1845,6 @@
   </object>
   <object id="370" name="wolf" x="1800" y="3120">
    <properties>
-    <property name="dropEverything" type="bool" value="true"/>
-    <property name="drops" value="bombs,bombs,fragmented_emerald"/>
     <property name="hp" type="int" value="6"/>
     <property name="scale" type="int" value="2"/>
     <property name="tint" value="0xFF8888"/>
@@ -1749,8 +1854,6 @@
   </object>
   <object id="375" name="guard" x="2040" y="3120">
    <properties>
-    <property name="dropEverything" type="bool" value="true"/>
-    <property name="drops" value="key,fragmented_emerald"/>
     <property name="hp" type="int" value="5"/>
     <property name="scale" type="int" value="2"/>
     <property name="tint" value="0xFF8888"/>
@@ -1759,6 +1862,13 @@
    <point/>
   </object>
   <object id="376" name="wolf" x="2128" y="3176">
+   <point/>
+  </object>
+  <object id="564" name="guard" x="1600" y="1608">
+   <properties>
+    <property name="dropEverything" type="bool" value="true"/>
+    <property name="drops" value="key"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

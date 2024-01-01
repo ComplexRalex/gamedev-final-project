@@ -69,6 +69,9 @@ class Game extends Phaser.Scene {
             mapHeight: this.mapHeight,
         });
 
+        // * Categoría para la información de los items
+        this.gameScenes.addCategory("items");
+
         // * Categoría para almacenar información de los enemigos
         this.gameScenes.addCategory("enemies");
 
@@ -119,6 +122,7 @@ class Game extends Phaser.Scene {
         console.log("Coordenadas de la cámara", { x, y });
         this.sceneCoords = { x, y };
         this.updateMapEnemies();
+        this.updateMapItems();
         this.updateMusic();
         this.updateCameraCoords(now);
     }
@@ -156,6 +160,40 @@ class Game extends Phaser.Scene {
                 }
             });
         console.warn("Enemigos en la escena", this.mapEnemies);
+    }
+
+    updateMapItems() {
+        const { x, y } = this.sceneCoords;
+        const areEnemiesAlive = this.gameScenes.get("enemies", { xPos: x, yPos: y })
+            .filter(enemy => enemy.alive).length > 0;
+
+        this.mapItems.forEach(gameObject => {
+            gameObject.destroy();
+        });
+        this.mapItems = this.gameScenes.get("items", { xPos: x, yPos: y })
+            .filter(object => (
+                (!object.requiresDefeatBoss || !areEnemiesAlive) &&
+                (
+                    !object.consumed ||
+                    object.respawnable && (
+                        Item.timeToRespawn <= new Date().getTime() - object.consumedOn
+                    )
+                )
+            ))
+            .map(object => {
+                if (object.respawnable) object.consumed = false;
+
+                const props = {
+                    scene: this,
+                    x: object.x,
+                    y: object.y,
+                    parent: object,
+                    type: object.type,
+                };
+
+                return Item.ofType(props);
+            });
+        console.warn("Items (activos) en la escena", this.mapItems);
     }
 
     updateMusic() {
@@ -215,12 +253,28 @@ class Game extends Phaser.Scene {
         return false;
     }
 
-    addItem({ type, x, y }) {
-        this.mappedItems.push(Item.ofType({
-            scene: this,
+    // ? Se utiliza por el enemigo para dropear objetos.
+    addItemToScene({ type, x, y }) {
+
+        // * Crea el objeto padre para almacenarlo en la escena
+        const parent = Item.onlyData({
             type: type,
             x: x,
             y: y,
+            consumed: false,
+            consumedOn: new Date(0).getTime(),
+            respawnable: false,
+            requiresDefeatBoss: false,
+        });
+        this.gameScenes.insert("items", { x, y }, parent);
+
+        // * Se agrega literalmente a la escena
+        this.mapItems.push(Item.ofType({
+            scene: this,
+            x: x,
+            y: y,
+            parent: parent,
+            type: type,
         }));
     }
 
@@ -398,15 +452,30 @@ class Game extends Phaser.Scene {
 
         // ! Se hace uso de una capa exclusiva para poder obtener los items
         // ! y mapearlos!
-        this.mapItems = this.map.objects.find(layer => layer.name === "Items").objects;
-        this.mappedItems = this.mapItems.map(item => {
-            return Item.ofType({
-                scene: this,
-                x: item.x,
-                y: item.y,
-                type: item.name,
-            });
+        this.mapItemsData = this.map.objects.find(layer => layer.name === "Items").objects;
+        this.mapItemsData.forEach(item => {
+
+            // ? Véase la cagra de enemigos para entender esto, lol
+            const respawnable = item.properties?.
+                find(prop => prop.name === "respawnable")?.value;
+            const requiresDefeatBoss = item.properties?.
+                find(prop => prop.name === "requiresDefeatBoss")?.value;
+
+            this.gameScenes.insert("items", { x: item.x, y: item.y },
+                Item.onlyData({
+                    ...item,
+                    type: item.name,
+                    x: item.x,
+                    y: item.y,
+                    consumed: false,
+                    consumedOn: new Date(0).getTime(),
+                    respawnable: respawnable,
+                    requiresDefeatBoss: requiresDefeatBoss,
+                }),
+            );
         });
+        // ? Este arreglo variará según los items que haya en la escena actual
+        this.mapItems = [];
 
         // ! Se hace uso de una capa para poder obtener únicamente los
         // ! enemigos!
@@ -444,7 +513,10 @@ class Game extends Phaser.Scene {
             // ? Asumiendo que los jefes siempre tienen variante 1,
             // ? entonces se puede hacer que luego de su muerte se
             // ? actualice la música.
-            const onEnemyDeath = !variant || variant != 1 ? null : () => this.updateMusic();
+            const onEnemyDeath = !variant || variant != 1 ? null : () => {
+                this.updateMapItems();
+                this.updateMusic();
+            }
 
             this.gameScenes.insert("enemies", { x: enemy.x, y: enemy.y },
                 Enemy.onlyData({
@@ -820,7 +892,7 @@ class Game extends Phaser.Scene {
 
         // ! Si Nor toca un item, se quita del escenario, dado que supuestamente 
         // ! lo agarró
-        this.physics.overlap(this.nor, this.mappedItems, (_, item) => {
+        this.physics.overlap(this.nor, this.mapItems, (_, item) => {
             switch (item.type) {
                 case "banana":
                     this.nor.getHealed({ healPoints: 1 });
@@ -838,7 +910,13 @@ class Game extends Phaser.Scene {
                     this.nor.obtainFragment();
                     break;
             }
-            this.mappedItems = this.mappedItems.filter(i => i !== item);
+
+            // ! Se tiene que consumir el objeto para que no vuelva a aparecer
+            item.parent.consumed = true;
+            item.parent.consumedOn = new Date().getTime();
+
+            // * Se quita el elemento de la lista de items actuales
+            this.mapItems = this.mapItems.filter(i => i !== item);
             item.destroy();
         })
 

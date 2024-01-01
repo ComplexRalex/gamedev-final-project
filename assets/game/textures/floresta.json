@@ -168,8 +168,8 @@
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 132, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 192, 182, 0, 0, 0, 0, 192, 182, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 192, 182, 0, 0, 0, 0, 192, 182,
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 116, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 116, 134, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 154, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 193, 182, 0, 0, 0, 0, 193, 182, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 193, 182, 0, 0, 0, 0, 193, 182,
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 94, 95, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 132, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 182, 182, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 182,
-            92, 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 132, 0, 0, 0, 133, 133, 0, 0, 0, 0, 0, 0, 0, 0, 133, 133, 0, 0, 0, 134, 182, 0, 0, 0, 0, 0, 0, 182, 182, 182, 0, 182, 182, 182, 182, 182, 0, 182, 182, 182, 182, 0, 0, 0, 0, 0, 0, 182, 182, 182, 0, 182, 182, 182, 182, 182, 0, 182, 182, 182,
-            92, 93, 0, 0, 0, 0, 93, 96, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 134, 0, 0, 0, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 133, 0, 0, 0, 132, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182,
+            92, 0, 0, 0, 0, 0, 0, 92, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 132, 0, 0, 0, 133, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 133, 0, 0, 0, 134, 182, 0, 0, 0, 0, 0, 0, 182, 182, 182, 0, 182, 182, 182, 182, 182, 0, 182, 182, 182, 182, 0, 0, 0, 0, 0, 0, 182, 182, 182, 0, 182, 182, 182, 182, 182, 0, 182, 182, 182,
+            92, 93, 0, 0, 0, 0, 93, 96, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 92, 92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 134, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 132, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182,
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 97, 96, 0, 93, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 134, 0, 0, 0, 0, 0, 0, 0, 143, 141, 141, 144, 0, 0, 0, 0, 0, 0, 0, 132, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182,
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 132, 0, 0, 0, 0, 0, 0, 0, 156, 152, 138, 140, 0, 0, 0, 0, 0, 0, 0, 132, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182,
             92, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 92, 134, 0, 0, 0, 0, 0, 0, 0, 145, 142, 142, 146, 0, 0, 0, 0, 0, 0, 0, 154, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 182,
@@ -3489,7 +3489,7 @@
                  "visible":true,
                  "width":0,
                  "x":448,
-                 "y":2928
+                 "y":2920
                 }, 
                 {
                  "class":"",
@@ -4125,7 +4125,7 @@
                  "visible":true,
                  "width":0,
                  "x":1728,
-                 "y":1360
+                 "y":1352
                 }, 
                 {
                  "class":"",
@@ -4551,6 +4551,12 @@
                  "id":295,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4599,6 +4605,12 @@
                  "id":305,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4623,6 +4635,12 @@
                  "id":308,
                  "name":"bombs",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4647,6 +4665,12 @@
                  "id":310,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4695,6 +4719,12 @@
                  "id":314,
                  "name":"arrows",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4707,6 +4737,12 @@
                  "id":315,
                  "name":"arrows",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4731,6 +4767,12 @@
                  "id":317,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4764,26 +4806,14 @@
                 {
                  "class":"",
                  "height":0,
-                 "id":326,
-                 "name":"bombs",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":1472,
-                 "y":1632
-                }, 
-                {
-                 "class":"",
-                 "height":0,
                  "id":327,
                  "name":"arrows",
                  "point":true,
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":1728,
-                 "y":1632
+                 "x":1712,
+                 "y":1616
                 }, 
                 {
                  "class":"",
@@ -4794,20 +4824,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":1696,
-                 "y":1632
-                }, 
-                {
-                 "class":"",
-                 "height":0,
-                 "id":330,
-                 "name":"key",
-                 "point":true,
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":1600,
-                 "y":1608
+                 "x":1488,
+                 "y":1616
                 }, 
                 {
                  "class":"",
@@ -4818,8 +4836,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":1472,
-                 "y":1696
+                 "x":1456,
+                 "y":1680
                 }, 
                 {
                  "class":"",
@@ -4830,8 +4848,8 @@
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":1728,
-                 "y":1696
+                 "x":1744,
+                 "y":1680
                 }, 
                 {
                  "class":"",
@@ -4851,6 +4869,12 @@
                  "id":335,
                  "name":"bombs",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4863,6 +4887,12 @@
                  "id":336,
                  "name":"arrows",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4875,6 +4905,12 @@
                  "id":337,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4899,11 +4935,17 @@
                  "id":378,
                  "name":"banana",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":2128,
-                 "y":3280
+                 "x":2080,
+                 "y":2960
                 }, 
                 {
                  "class":"",
@@ -4911,6 +4953,12 @@
                  "id":412,
                  "name":"bombs",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
@@ -4923,10 +4971,252 @@
                  "id":415,
                  "name":"heart",
                  "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":0,
-                 "x":2160,
+                 "x":2032,
+                 "y":3280
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":551,
+                 "name":"bombs",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":2800
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":552,
+                 "name":"arrows",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":976,
+                 "y":3120
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":553,
+                 "name":"bombs",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1616,
+                 "y":3120
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":554,
+                 "name":"arrows",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2032,
+                 "y":2960
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":555,
+                 "name":"bombs",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"respawnable",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2128,
+                 "y":2960
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":557,
+                 "name":"bow",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":3136
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":558,
+                 "name":"arrows",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":944,
+                 "y":3120
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":559,
+                 "name":"fragmented_emerald",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":960,
+                 "y":3104
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":560,
+                 "name":"bombs",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1568,
+                 "y":3120
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":561,
+                 "name":"fragmented_emerald",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1592,
+                 "y":3120
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":562,
+                 "name":"fragmented_emerald",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2080,
+                 "y":3280
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":563,
+                 "name":"key",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"requiresDefeatBoss",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":2128,
                  "y":3280
                 }],
          "opacity":1,
@@ -5302,16 +5592,6 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"dropEverything",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"drops",
-                         "type":"string",
-                         "value":"bow,fragmented_emerald,arrows,arrows"
-                        }, 
-                        {
                          "name":"hp",
                          "type":"int",
                          "value":5
@@ -5345,16 +5625,6 @@
                  "point":true,
                  "properties":[
                         {
-                         "name":"dropEverything",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"drops",
-                         "type":"string",
-                         "value":"bombs,bombs,fragmented_emerald"
-                        }, 
-                        {
                          "name":"hp",
                          "type":"int",
                          "value":6
@@ -5387,16 +5657,6 @@
                  "name":"guard",
                  "point":true,
                  "properties":[
-                        {
-                         "name":"dropEverything",
-                         "type":"bool",
-                         "value":true
-                        }, 
-                        {
-                         "name":"drops",
-                         "type":"string",
-                         "value":"key,fragmented_emerald"
-                        }, 
                         {
                          "name":"hp",
                          "type":"int",
@@ -5434,6 +5694,29 @@
                  "width":0,
                  "x":2128,
                  "y":3176
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":564,
+                 "name":"guard",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"dropEverything",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"drops",
+                         "type":"string",
+                         "value":"key"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":1600,
+                 "y":1608
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -6009,7 +6292,7 @@
          "y":0
         }],
  "nextlayerid":16,
- "nextobjectid":549,
+ "nextobjectid":565,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",

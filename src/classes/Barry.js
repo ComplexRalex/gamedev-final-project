@@ -90,7 +90,7 @@ class Barry extends NPC {
                                 this.windSound.stop();
                                 this.scene.activeMusic.play({ loop: true, volume: 1 });
                                 this.items.forEach(item => {
-                                    this.scene?.addItem({
+                                    this.scene?.addItemToScene({
                                         type: item.name,
                                         x: item.x,
                                         y: item.y,
