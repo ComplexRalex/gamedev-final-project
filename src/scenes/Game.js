@@ -963,10 +963,10 @@ class Game extends Phaser.Scene {
                 ...this.nor.attackObjects.arrows,
             ],
             this.mappedTriggers,
-            (who, trigger) => {
+            (what, trigger) => {
                 const valid =
                     trigger.type === "lock" && this.nor.items.keys > 0 && this.nor.isInteracting ||
-                    trigger.type === "button" && this.nor.items.arrows > 0 && (who instanceof Arrow);
+                    trigger.type === "button" && (what instanceof Arrow) && this.nor.attackObjects.arrows.includes(what);
 
                 if (valid) {
                     this.interactSound.play();
@@ -975,7 +975,7 @@ class Game extends Phaser.Scene {
                             this.nor.changeStats({ stat: 'key', addedPoints: -1 });
                             break;
                         case "button":
-                            who.stomp();
+                            what.stomp();
                             break;
                     }
                     const targets = trigger.targets;

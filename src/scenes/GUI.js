@@ -108,7 +108,7 @@ class GUI extends Phaser.Scene {
             .setAngle(45);
         this.guiArrowContainer.add(this.guiArrow);
 
-        this.guiArrowNumber = this.add.text(40, 0, '0', this.guiFontType)
+        this.guiArrowNumber = this.add.text(35, 0, '0', this.guiFontType)
             .setOrigin(0, 0.5);
         this.guiArrowContainer.add(this.guiArrowNumber);
 

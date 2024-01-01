@@ -538,12 +538,12 @@
     <property name="respawn" type="int" value="121"/>
    </properties>
   </object>
-  <object id="19" x="672" y="1792" width="64" height="64">
+  <object id="19" x="672" y="1792" width="64" height="96">
    <properties>
     <property name="respawn" type="int" value="121"/>
    </properties>
   </object>
-  <object id="20" x="672" y="1856" width="128" height="32">
+  <object id="20" x="736" y="1856" width="64" height="32">
    <properties>
     <property name="respawn" type="int" value="121"/>
    </properties>
@@ -923,12 +923,12 @@
     <property name="respawn" type="int" value="136"/>
    </properties>
   </object>
-  <object id="106" x="1952" y="3040" width="96" height="32">
+  <object id="106" x="2016" y="3040" width="32" height="32">
    <properties>
     <property name="respawn" type="int" value="137"/>
    </properties>
   </object>
-  <object id="107" x="1952" y="3072" width="64" height="32">
+  <object id="107" x="1952" y="3040" width="64" height="64">
    <properties>
     <property name="respawn" type="int" value="137"/>
    </properties>
@@ -1497,7 +1497,7 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Items">
+ <objectgroup id="12" name="Items" locked="1">
   <object id="288" name="arrows" x="880" y="584">
    <point/>
   </object>
