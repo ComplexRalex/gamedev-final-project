@@ -113,9 +113,12 @@ class Guard extends Enemy {
                         }
                     });
 
-                    setTimeout(() => {
-                        this.isLoading = false;
-                    }, this.loadingTime);
+                    this.scene.time.delayedCall(
+                        this.loadingTime,
+                        () => this.isLoading = false,
+                        null,
+                        this.scene,
+                    );
                 }
             });
         }

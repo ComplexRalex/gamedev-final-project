@@ -144,16 +144,26 @@ class Enemy extends Phaser.GameObjects.Sprite {
                             }
                         },
                     });
-                    setTimeout(() => {
-                        this.isStunned = false;
-                        stunnedTween.stop();
-                    }, this.stunnedTime);
+                    this.scene.time.delayedCall(
+                        this.stunnedTime,
+                        () => {
+                            this.isStunned = false;
+                            stunnedTween.stop();
+                        },
+                        null,
+                        this.scene,
+                    );
                 }
-                setTimeout(() => {
-                    this.isDamaged = false;
-                    this.setAlpha(1);
-                    this.setTint(this.originalTint);
-                }, this.damagedImmuneEffectTime);
+                this.scene.time.delayedCall(
+                    this.damagedImmuneEffectTime,
+                    () => {
+                        this.isDamaged = false;
+                        this.setAlpha(1);
+                        this.setTint(this.originalTint);
+                    },
+                    null,
+                    this.scene,
+                );
             } else {
                 this.isDead = true;
                 this.parent.alive = false;

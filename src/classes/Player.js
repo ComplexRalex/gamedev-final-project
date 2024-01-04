@@ -245,9 +245,12 @@ class Player extends Phaser.GameObjects.Sprite {
             }
 
             // ! Luego de que pase cierto tiempo, ya podrá hacer más cosas
-            setTimeout(() => {
-                this.isDoingSomething = false;
-            }, this.doingSomethingTime);
+            this.scene.time.delayedCall(
+                this.doingSomethingTime,
+                () => this.isDoingSomething = false,
+                null,
+                this.scene,
+            );
         }
     }
 
@@ -255,9 +258,21 @@ class Player extends Phaser.GameObjects.Sprite {
     interact() {
         if (!this.isInteracting) {
             this.isInteracting = true;
-            setTimeout(() => {
-                this.isInteracting = false;
-            }, this.interactingTime);
+
+            // ? Este funcionaría perfecto para las cerraduras y el pedestal
+            this.scene.time.delayedCall(
+                this.interactingTime,
+                () => this.isInteracting = false,
+                null,
+                this.scene,
+            );
+        }
+    }
+
+    // ! Útil cuando se requiere dejar de interactuar inmediatamente
+    stopInteracting() {
+        if (this.isInteracting) {
+            this.isInteracting = false;
         }
     }
 
@@ -371,14 +386,22 @@ class Player extends Phaser.GameObjects.Sprite {
                         },
                     },
                 });
-                setTimeout(() => {
-                    this.isDamaged = false;
-                    immuneEffectTween.stop();
-                    this.setAlpha(1);
-                }, this.damagedImmuneEffectTime);
-                setTimeout(() => {
-                    this.ouchFace = false;
-                }, this.ouchFaceDuration);
+                this.scene.time.delayedCall(
+                    this.damagedImmuneEffectTime,
+                    () => {
+                        this.isDamaged = false;
+                        immuneEffectTween.stop();
+                        this.setAlpha(1);
+                    },
+                    null,
+                    this.scene,
+                );
+                this.scene.time.delayedCall(
+                    this.ouchFaceDuration,
+                    () => this.ouchFace = false,
+                    null,
+                    this.scene,
+                );
 
             } else {
                 this.dieSound.play();
@@ -408,7 +431,7 @@ class Player extends Phaser.GameObjects.Sprite {
     }
 
     fall({ respawnPoint, onDeath }) {
-        if (!this.isFalling) {
+        if (!this.isFalling && !this.isDead) {
             this.fallSound.play();
             this.isFalling = true;
 
@@ -469,11 +492,16 @@ class Player extends Phaser.GameObjects.Sprite {
             }
         });
 
-        setTimeout(() => {
-            if (fragment.destroy) fragment.destroy();
-            this.isStanding = false;
-            this.isDoingSomething = false;
-        }, this.gettingEmeraldFragmentTime);
+        this.scene.time.delayedCall(
+            this.gettingEmeraldFragmentTime,
+            () => {
+                if (fragment.destroy) fragment.destroy();
+                this.isStanding = false;
+                this.isDoingSomething = false;
+            },
+            null,
+            this.scene,
+        );
     }
 
     stand(now) {

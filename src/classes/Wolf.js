@@ -129,9 +129,12 @@ class Wolf extends Enemy {
                     } else {
                         this.noHowlingCurrentTime = 0;
                         this.isHowling = true;
-                        setTimeout(() => {
-                            this.isHowling = false;
-                        }, this.howlingTime);
+                        this.scene.time.delayedCall(
+                            this.howlingTime,
+                            () => this.isHowling = false,
+                            null,
+                            this.scene,
+                        );
                     }
                 }
             });

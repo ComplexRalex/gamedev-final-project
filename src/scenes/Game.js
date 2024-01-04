@@ -96,7 +96,6 @@ class Game extends Phaser.Scene {
         this.isTeleporting = false;
         this.teleportingTime = 100;
 
-        this.isBusy = false;
         this.isQuiting = false;
         this.isGG = false;
 
@@ -660,7 +659,7 @@ class Game extends Phaser.Scene {
     }
 
     onQuit() {
-        if (!this.isBusy && !this.isQuiting && !this.isGG) {
+        if (!this.isQuiting && !this.isGG) {
             this.isQuiting = true;
             this.nor.stand(false);
             this.scene.launch('SimpleFadeEffect', { fadeIn: true, yoyo: true });
@@ -818,6 +817,7 @@ class Game extends Phaser.Scene {
             this.mappedSigns,
             (_, sign) => {
                 if (this.nor.isInteracting) {
+                    this.nor.stopInteracting();
                     this.interactSound.play();
                     sign.show();
                 }
@@ -830,6 +830,7 @@ class Game extends Phaser.Scene {
             this.mapNPCs,
             (_, npc) => {
                 if (this.nor.isInteracting) {
+                    this.nor.stopInteracting();
                     this.interactSound.play();
                     if (npc instanceof IanDed) {
                         this.ianDed.handleChat({
@@ -949,9 +950,12 @@ class Game extends Phaser.Scene {
                 // * de la cámara cuando se mueva Nor.
                 this.isTeleporting = true;
                 this.nor.setPosition(destiny.x, destiny.y);
-                setTimeout(() => {
-                    this.isTeleporting = false;
-                }, this.teleportingTime);
+                this.time.delayedCall(
+                    this.teleportingTime,
+                    () => this.isTeleporting = false,
+                    null,
+                    this,
+                );
             }
         });
 
@@ -1013,9 +1017,12 @@ class Game extends Phaser.Scene {
                     }
                 });
 
-                setTimeout(() => {
-                    this.onFinish();
-                }, 2000);
+                this.time.delayedCall(
+                    2000,
+                    () => this.onFinish(),
+                    null,
+                    this,
+                );
             }
         });
 

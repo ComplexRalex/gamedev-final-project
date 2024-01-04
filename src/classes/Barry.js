@@ -48,7 +48,6 @@ class Barry extends NPC {
         this.scene?.physics.overlap(player, this.activationHitbox, () => {
             if (!this.chatActivated) {
                 localStorage.setItem('B4RRY_ACK_END_VALUE', '=)');
-                this.scene.isBusy = true;
                 this.chatActivated = true;
                 player.stand();
                 this.scene?.add.tween({
@@ -72,37 +71,41 @@ class Barry extends NPC {
                         alpha: 1,
                     },
                 });
-                setTimeout(() => {
-                    if (this.scene) {
-                        this.windSound.play({ loop: true });
-                        this.chat();
-                        this.scene?.add.tween({
-                            targets: [this],
-                            duration: this.fadeEffectTime,
-                            props: {
-                                alpha: 0,
-                            },
-                            onUpdate: () => {
-                                if (this.windSound.volume > 0)
-                                    this.windSound.setVolume(this.windSound.volume - 0.005);
-                            },
-                            onComplete: () => {
-                                this.windSound.stop();
-                                this.scene.activeMusic.play({ loop: true, volume: 1 });
-                                this.items.forEach(item => {
-                                    this.scene?.addItemToScene({
-                                        type: item.name,
-                                        x: item.x,
-                                        y: item.y,
+                this.scene.time.delayedCall(
+                    this.chatDelay,
+                    () => {
+                        if (this.scene) {
+                            this.windSound.play({ loop: true });
+                            this.chat();
+                            this.scene?.add.tween({
+                                targets: [this],
+                                duration: this.fadeEffectTime,
+                                props: {
+                                    alpha: 0,
+                                },
+                                onUpdate: () => {
+                                    if (this.windSound.volume > 0)
+                                        this.windSound.setVolume(this.windSound.volume - 0.005);
+                                },
+                                onComplete: () => {
+                                    this.windSound.stop();
+                                    this.scene.activeMusic.play({ loop: true, volume: 1 });
+                                    this.items.forEach(item => {
+                                        this.scene?.addItemToScene({
+                                            type: item.name,
+                                            x: item.x,
+                                            y: item.y,
+                                        });
                                     });
-                                });
-                                this.scene.isBusy = false;
-                                this.destroyAll();
-                                player.moveOn();
-                            }
-                        })
-                    }
-                }, this.chatDelay);
+                                    this.destroyAll();
+                                    player.moveOn();
+                                }
+                            })
+                        }
+                    },
+                    null,
+                    this.scene,
+                );
             }
         });
     }
