@@ -173,8 +173,7 @@ class Enemy extends Phaser.GameObjects.Sprite {
                     targets: [this],
                     duration: 800,
                     props: {
-                        angle: -45,
-                        alpha: 0.45,
+                        alpha: 0.25,
                     },
                     onStart: () => {
                         this.setTint(0xFF5555);

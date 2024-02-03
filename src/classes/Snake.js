@@ -84,11 +84,12 @@ class Snake extends Enemy {
     }
 
     getHurt({ damagePoints = 1 }) {
+        const alreadyDamaged = this.isDamaged;
         super.getHurt({ damagePoints });
-        if (!this.isDead) {
+        if (!this.isDead && !alreadyDamaged) {
             this.action = 'hurt';
             this.anims.play("snake_hurt");
-        } else {
+        } else if (this.isDead) {
             this.action = 'dead';
             this.anims.play("snake_dead");
         }

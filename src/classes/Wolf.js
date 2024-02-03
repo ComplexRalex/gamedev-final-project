@@ -99,9 +99,12 @@ class Wolf extends Enemy {
     }
 
     getHurt({ damagePoints = 1 }) {
+        const alreadyDamaged = this.isDamaged;
         super.getHurt({ damagePoints });
-        this.action = 'howl';
-        this.anims.play("wolf_howl");
+        if (this.isDead || !alreadyDamaged) {
+            this.action = 'howl';
+            this.anims.play("wolf_howl");
+        }
     }
 
     update({ player, delta }) {

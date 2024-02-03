@@ -72,10 +72,11 @@ class Guard extends Enemy {
     }
 
     getHurt({ damagePoints = 1 }) {
+        const alreadyDamaged = this.isDamaged;
         super.getHurt({ damagePoints });
-        if (!this.isDead) {
+        if (!this.isDead && !alreadyDamaged) {
             this.anims.play("guard_hurt");
-        } else {
+        } else if (this.isDead) {
             this.off('animationcomplete');
             this.anims.play("guard_dead");
         }
