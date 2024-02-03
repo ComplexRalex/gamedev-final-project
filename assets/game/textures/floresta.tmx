@@ -1771,7 +1771,7 @@
    </properties>
    <point/>
   </object>
-  <object id="349" name="wolf" x="2880" y="1056">
+  <object id="349" name="wolf" x="2752" y="1016">
    <properties>
     <property name="drops" value="banana"/>
    </properties>
@@ -1873,7 +1873,7 @@
   </object>
  </objectgroup>
  <objectgroup id="14" name="Positions" locked="1">
-  <object id="426" name="pedestal" x="2896" y="3120">
+  <object id="426" name="pedestal" x="2896" y="3136">
    <point/>
   </object>
   <object id="441" name="ian_ded" x="992" y="128">
