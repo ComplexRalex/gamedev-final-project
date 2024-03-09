@@ -121,6 +121,9 @@ class Bootloader extends Phaser.Scene {
             { key: 'level4', url: 'game/textures/level4/cave.png' },
             { key: 'indoors', url: 'game/textures/indoors/indoors.png' },
             { key: 'houses', url: 'game/textures/outdoors/houses.png' },
+
+            // _
+            { key: 'unknown', url: 'game/what/is/this/_.png' }
         ]);
 
         this.load.atlas([

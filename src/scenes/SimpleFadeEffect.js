@@ -3,7 +3,9 @@ class SimpleFadeEffect extends Phaser.Scene {
         super('SimpleFadeEffect');
     }
 
-    init({ fadeIn = false, yoyo = false }) {
+    // Los nombres están mal (fadeIn en realidad hace un fadeOut xD)
+    // ... ya no importa, lol
+    init({ fadeIn = false, yoyo = false } = {}) {
         this.fadeIn = fadeIn;
         this.yoyo = yoyo;
         console.warn("SimpleFadeEffect lanzado con los siguientes parámetros: ", { fadeIn, yoyo });
