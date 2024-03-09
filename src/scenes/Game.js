@@ -677,6 +677,8 @@ class Game extends Phaser.Scene {
                     this.activeMusic.stop();
                     this.scene.stop();
                     this.scene.stop("GUI");
+                    this.scene.stop("Dialog");
+                    this.scene.stop("Menu");
                     this.scene.start("Start");
                 }
             });
@@ -684,6 +686,7 @@ class Game extends Phaser.Scene {
     }
 
     onDeath() {
+        this.registry.set('isPausable', false);
         this.onQuit();
     }
 
@@ -693,6 +696,8 @@ class Game extends Phaser.Scene {
                 onFinish: () => {
                     this.scene.stop();
                     this.scene.stop("GUI");
+                    this.scene.stop("Dialog");
+                    this.scene.stop("Menu");
                     this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
                     this.scene.launch("Start");
                 },
@@ -710,12 +715,6 @@ class Game extends Phaser.Scene {
         // ! Se agregan teclas para manejar el evento de que se teclea
         this.keys.d = this.input.keyboard.addKey('d');
         this.keys.m = this.input.keyboard.addKey('m');
-        this.keys.esc = this.input.keyboard.addKey(this.keyCodes.ESC);
-
-        // ! Salir a la pantalla inicial
-        this.keys.esc.on('down', () => {
-            this.onQuit();
-        });
 
         // ! Para activar o desactivar el modo debug
         this.physics.world.drawDebug = this.debugMode;
@@ -996,6 +995,7 @@ class Game extends Phaser.Scene {
         // ! Si Nor toca el pedestal, entonces GG.
         this.physics.overlap(this.nor, this.pedestal, () => {
             if (this.nor.isInteracting && this.nor.items.fragments >= 4 && !this.isGG) {
+                this.registry.set('isPausable', false);
                 this.interactSound.play();
                 this.isGG = true;
 

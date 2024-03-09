@@ -78,8 +78,10 @@ class Bootloader extends Phaser.Scene {
             { key: 'buttons/enter', url: 'game/gui/buttons/enter.png' },
             { key: 'buttons/esc', url: 'game/gui/buttons/esc.png' },
             { key: 'buttons/arrows', url: 'game/gui/buttons/arrows.png' },
+            { key: 'menu-option', url: 'game/gui/option.png' },
             { key: 'gui-dialog', url: 'game/gui/dialog.png' },
             { key: 'gui-sign', url: 'game/gui/sign.png' },
+            { key: 'gui-little-sign', url: 'game/gui/little-sign.png' },
 
             // GUI faces
             { key: 'faces/nor', url: 'game/gui/faces/nor.png' },

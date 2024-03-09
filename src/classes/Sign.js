@@ -22,7 +22,7 @@ class Sign extends Phaser.GameObjects.Sprite {
             content: this.content,
             onFinish: () => {
                 this.isShowing = false;
-                this.scene.scene.resume();
+                this.scene?.scene?.resume();
             }
         });
     }

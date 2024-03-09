@@ -287,6 +287,7 @@ class Start extends Phaser.Scene {
                             this.menu_s.stop();
                             this.scene.stop();
                             this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
+                            this.scene.launch('Menu');
                             this.scene.launch('Cinematic0');
                             // this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
                             // this.scene.launch('GUI');

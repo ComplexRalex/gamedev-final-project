@@ -9,10 +9,11 @@ import Credits from './scenes/Credits.js';
 import FinalCredits from './scenes/FinalCredits.js';
 import Controls from './scenes/Controls.js';
 import Dialog from './scenes/Dialog.js';
+import Menu from './scenes/Menu.js';
 
 const config = {
     title: "proyecto_final",
-    version: "1.0.13",
+    version: "1.0.14",
     type: Phaser.AUTO,
     scale: {
         parent: "phaser_container",
@@ -37,6 +38,7 @@ const config = {
         Game,
         GUI,
         Dialog,
+        Menu,
         SimpleFadeEffect,
         Controls,
         Credits,

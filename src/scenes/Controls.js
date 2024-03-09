@@ -157,7 +157,7 @@ class Controls extends Phaser.Scene {
         );
 
         this.globalContainer.add(
-            this.createButtonLabel(260, alturaActual,
+            this.createButtonLabel(240, alturaActual,
                 'buttons/enter',
                 'Saltar cinemática'
             )
@@ -166,8 +166,8 @@ class Controls extends Phaser.Scene {
 
         this.globalContainer.add(
             this.createButtonLabel(20, alturaActual,
-                'buttons/esc',
-                'Salir del juego'
+                'buttons/p',
+                'Menú de pausa'
             )
         );
         alturaActual += delta;
