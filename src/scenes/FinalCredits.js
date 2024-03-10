@@ -1,9 +1,13 @@
+import { timeObjectFromSeconds } from "../helpers/timeObjectFromSeconds.js";
+
 class FinalCredits extends Phaser.Scene {
+
     constructor() {
         super({
             key: 'FinalCredits'
         });
     }
+
     init({ onFinish }) {
         console.log('please clap, we worked hard on this xdddddddddd');
         this.onFinish = onFinish;
@@ -18,20 +22,6 @@ class FinalCredits extends Phaser.Scene {
         });
     }
 
-    mostrar(diapositiva, duracion, duracion_off) {
-        this.add.tween({
-            duration: duracion,
-            targets: [diapositiva],
-            alpha: 1,
-            onComplete: () => {
-                setTimeout(() => {
-                    this.oc(diapositiva);
-                }, duracion_off);
-
-            }
-
-        });
-    }
     mostrar(diapositiva, duracion) {
         this.add.tween({
             duration: duracion,
@@ -47,6 +37,22 @@ class FinalCredits extends Phaser.Scene {
         });
     }
 
+    mostrarTiempo(delay) {
+        this.tweens.add({
+            targets: [this.playedGameTimeText],
+            delay: delay,
+            duration: 1000,
+            hold: 4000,
+            yoyo: true,
+            props: {
+                alpha: {
+                    from: 0,
+                    to: 1,
+                }
+            }
+        });
+    }
+
     ocultar(diapositiva, duracion) {
         this.add.tween({
             duration: duracion,
@@ -54,7 +60,24 @@ class FinalCredits extends Phaser.Scene {
             alpha: 0,
         });
     }
+
     create() {
+        const lastGameTime = this.registry.get('lastGameTime');
+        const timeObject = timeObjectFromSeconds(lastGameTime);
+        const time = `${timeObject.stringified.minutes}:${timeObject.stringified.seconds}`;
+        const timeUnit = timeObject.minutes > 0 ? 'minutos' : 'segundos';
+
+        this.playedGameTimeText = this.add.text(
+            320,
+            520,
+            `Tiempo de partida final: ${time} ${timeUnit}.`,
+            {
+                fontFamily: 'monospace',
+                fontSize: 18,
+                align: 'center',
+            }
+        ).setOrigin(0.5).setDepth(1).setAlpha(0);
+
         this.fondo = this.add.image(0, 0, 'fondo').setAlpha(0).setScale(2, 3);
         this.ed1 = this.add.image(320, 300, 'ed1').setAlpha(0);
         this.ed2 = this.add.image(320, 300, 'ed2').setAlpha(0);
@@ -106,6 +129,7 @@ class FinalCredits extends Phaser.Scene {
         this.t_flsh.play();
         setTimeout(() => {
             this.mostrar(this.ed1, 4000);
+            this.mostrarTiempo(4000);
         }, 10000);
         setTimeout(() => {
             this.mostrar(this.ed2, 4000);
@@ -186,9 +210,6 @@ class FinalCredits extends Phaser.Scene {
             this.scene.stop();
             this.onFinish(this);
         }, 193000);
-    }
-    update(time, delta) {
-
     }
 }
 

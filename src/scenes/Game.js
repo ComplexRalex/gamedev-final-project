@@ -996,6 +996,7 @@ class Game extends Phaser.Scene {
         this.physics.overlap(this.nor, this.pedestal, () => {
             if (this.nor.isInteracting && this.nor.items.fragments >= 4 && !this.isGG) {
                 this.registry.set('isPausable', false);
+                this.registry.events.emit('stopGameTimer');
                 this.interactSound.play();
                 this.isGG = true;
 

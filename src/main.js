@@ -13,7 +13,7 @@ import Menu from './scenes/Menu.js';
 
 const config = {
     title: "proyecto_final",
-    version: "1.0.14",
+    version: "1.0.15",
     type: Phaser.AUTO,
     scale: {
         parent: "phaser_container",

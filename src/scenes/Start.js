@@ -221,6 +221,7 @@ class Start extends Phaser.Scene {
         if (!this.playClicked && !this.topLayerScenePlaying) {
             this.clickSound.play();
             this.playClicked = true;
+            const timeWhenClicked = new Date().getTime();
             this.add.tween({
                 targets: [this.titulo],
                 duration: 2500,
@@ -287,7 +288,7 @@ class Start extends Phaser.Scene {
                             this.menu_s.stop();
                             this.scene.stop();
                             this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
-                            this.scene.launch('Menu');
+                            this.scene.launch('Menu', { initialTime: new Date().getTime() - timeWhenClicked });
                             this.scene.launch('Cinematic0');
                             // this.scene.start('SimpleFadeEffect', { fadeIn: false, yoyo: false });
                             // this.scene.launch('GUI');

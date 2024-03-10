@@ -1,12 +1,16 @@
+import { timeObjectFromSeconds } from "../helpers/timeObjectFromSeconds.js";
+
 class Menu extends Phaser.Scene {
     constructor() {
         super('Menu');
     }
 
-    init() {
+    init({ initialTime } = {}) {
         console.log("Escena 'Menu' iniciada");
 
         // * Nota: La escena iniciará no pausada por obvias razones
+
+        this.startingTime = initialTime ?? 0;
 
         this.centerX = this.scale.width / 2;
         this.centerY = this.scale.height / 2;
@@ -39,7 +43,7 @@ class Menu extends Phaser.Scene {
         this.keySound = this.sound.add('clicking');
 
         // ! Datos generales
-        this.currentTimePlayed = 0;
+        this.currentTimePlayed = this.startingTime;
 
         // Mensajes chistosones
         this.cancelExitIndex = 0;
@@ -196,7 +200,9 @@ class Menu extends Phaser.Scene {
         this.registry.set('isPaused', false);
         this.registry.set('isPausable', true);
         this.registry.set('isPreQuitting', false);
-        
+        this.registry.set('isTimerStopped', false);
+        this.registry.set('lastGameTime', 0);
+
         // ! Listeners para teclas
 
         this.keys.p.on('down', () => {
@@ -219,6 +225,15 @@ class Menu extends Phaser.Scene {
 
                 this.events.emit('stopPreQuitting');
             });
+
+        // Evento para detener conteo del timer (global)
+        this.registry.events.on('stopGameTimer', () => {
+            if (this.registry.get('isTimerStopped')) return;
+            
+            this.registry.set('isTimerStopped', true);
+            this.registry.set('lastGameTime', this.currentTimePlayed);
+            console.log("Tiempo de partida (milisegundos): " + this.currentTimePlayed);
+        });
 
         // Animacion de tiempo para salir
         this.events.on('startPreQuitting', () => {
@@ -260,6 +275,7 @@ class Menu extends Phaser.Scene {
     removeListeners() {
         this.input.keyboard.removeAllListeners();
         this.input.keyboard.removeAllKeys();
+        this.registry.events.off('stopGameTimer');
         this.events.off('startPreQuitting');
         this.events.off('stopPreQuitting');
     }
@@ -381,15 +397,14 @@ class Menu extends Phaser.Scene {
     }
 
     rerenderTimePlayed() {
-        const totalSeconds = Math.floor(this.currentTimePlayed / 1000);
-        const minutesPlayed = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-        const secondsPlayed = (totalSeconds % 60).toString().padStart(2, '0');
-        const timeUnit = Math.floor(totalSeconds / 60) > 0 ? 'minutos' : 'segundos';
-        this.currentTimePlayedText.setText(`Tiempo de partida actual: ${minutesPlayed}:${secondsPlayed} ${timeUnit}.`);
+        const timeObject = timeObjectFromSeconds(this.currentTimePlayed);
+        const time = `${timeObject.stringified.minutes}:${timeObject.stringified.seconds}`;
+        const timeUnit = timeObject.minutes > 0 ? 'minutos' : 'segundos';
+        this.currentTimePlayedText.setText(`Tiempo de partida actual: ${time} ${timeUnit}.`);
     }
 
     updateTimePlayed(delta) {
-        if (!this.registry.get('isPaused')) {
+        if (!this.registry.get('isPaused') && !this.registry.get('isTimerStopped')) {
             this.currentTimePlayed += delta;
         }
     }
