@@ -15,7 +15,7 @@ Un juego que trata sobre un mono que busca salvar a sus tierras de la corrupció
 
 ## Descripción
 
-Este es un juego desarrollado por mí y mi equipo (*Kaiser Rocket Team*) para el curso de Desarrollo de Videojuegos en la universidad. Se desarrolló con el framework de JavaScript Phaser 2D.
+Este es un juego desarrollado por nuestro equipo *Kaiser Rocket Team* para el curso de Desarrollo de Videojuegos en la universidad. Se desarrolló con el framework de JavaScript Phaser 2D.
 
 ## Sinopsis
 
@@ -116,6 +116,10 @@ Nota 2: Para poder ejecutarlo desde código fuente (con cualquiera de las dos fo
 
 ## Créditos
 
-* Este juego fue diseñado y programado por el **Kaiser Rocket Team**.
+* Este juego fue diseñado y programado por el **Kaiser Rocket Team**, conformado por:
+  - José Víctor Cuaya (EkSha)
+  - Alejandro Batres (ComplexRalex) (yo)
+  - Jose Eduardo Guevara (Loleiste172)
+  - Maria Azucena Flores (Zuzu) (z^2)
 * La música de la cinemática y los escenarios le pertenece a **ShinkoNet & Hypixel Inc**, del álbum *Hypixel Skyblock OST*.
 * La música de los créditos finales es del juego *Phoenix Wright: Ace Attorney – Trials and Tribulations*, publicado por **Capcom**.
