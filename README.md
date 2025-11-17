@@ -59,37 +59,53 @@ Algunos caminos se encontrarán bloqueados, por lo que tendrás que hacer uso de
 * ``<SPACE>`` - Interactuar (carteles, cerraduras, etc.)
 * ``<SHIFT>`` - Correr
 * ``<ENTER>`` - Saltar cinemática
-* ``< ESC >`` - Regresar a la pantalla de inicio (**advertencia**: no hay menú de pausa)
+* ``<  P  >`` - Abrir menú de pausa
+
+### Menú de pausa
+
+* ``<  P  >`` - Reanudar el juego
+* ``< ESC >`` ``[dejar presionado]`` - Regresar al menú principal (reinicia el juego)
 
 ## Cómo jugar
 
-¿Instalar? *pffff*. Basta con que abras el juego en el enlace de **GitHub Pages** que se encuentra en la información del repositorio, o dando [click aquí](https://complexralex.github.io/gamedev-final-project/).
+¿Instalar? *pffff*. Basta con que des [click aquí](https://complexralex.github.io/gamedev-final-project/). Este URL también se encuentra en la información del repositorio.
 
 ### Jugar desde código fuente
 
-Para esto primero se requiere clonar el repositorio en cualquier directorio que se desee.
+Toma en cuenta que para jugarlo de manera local, es necesario que tengas instalado `Node.js` en tu computadora.
 
-Luego, para cargar el framework de Phaser 2D existen dos formas de hacerlo:
+1. Primero se necesita clonar el repositorio:
 
-1. Sobre la raíz del proyecto ejecutar ``npm init`` y *descomentar* la línea debajo del ``[1]`` en ``index.html``.
-2. Copiar la línea del *script* de la página https://cdnjs.com/libraries/phaser/3.55.2 y reemplazar la línea copiada por la que se encuentra debajo de ``[2]`` en ``index.html``.
+```sh
+git clone https://github.com/ComplexRalex/gamedev-final-project.git
+```
 
-El archivo tiene una estructura similar a la siguiente:
+2. Luego, se tienen que instalar las dependencias del proyecto:
+
+```sh
+npm install
+```
+
+3. Después, se debe cargar el framework de Phaser 2D. Para esto, se puede usar directamente el CDN que **ya se encuentra configurado** en la línea `[2]`, u *opcionalmente* se puede cambiar por el que fue instalado en el paso anterior en la línea `[1]`, de la siguiente forma en el archivo `index.html`:
 
 ```html
 <body>
     <div id="phaser_container"></div>
-    <!-- [1] Si tienes node_modules, usa este (comenta esta línea) -->
-    <!-- <script src="./node_modules/phaser/dist/phaser.min.js"></script> -->
-    <!-- [2] Si no usas node_modules, usa este (descomenta esta línea) -->
-    <!-- ¡Reemplaza esta línea de código por la que copiaste de la página! -->
+    <!-- [1] Con esta línea estarías usando la dependencia del paso 2 -->
+    <script src="./node_modules/phaser/dist/phaser.min.js"></script>
+    <!-- [2] En la siguiente línea, estarías usando el CDN, que ya se encuentra configurado -->
+    <!-- (se extrajo el script de https://cdnjs.com/libraries/phaser/3.55.2) -->
     <script src="./src/main.js" type="module"></script>
 </body>
 ```
 
-Nota 1: Es posible que ya se encuentre el *script* en el archivo antes mencionado, por lo que no será necesario este paso.
+4. Por último, se tiene que iniciar el servidor local para ejecutar el juego:
 
-Nota 2: Para poder ejecutarlo desde código fuente (con cualquiera de las dos formas), se necesitará de un servidor web. Se puede hacer uso de ``http-server`` instalandolo con NPM ``npm install http-server`` y ejecutando con ``http-server`` dentro del directorio del proyecto.
+```sh
+npm run start
+```
+
+5. ¡En la dirección http://localhost:3000 se podrá jugar en cualquier navegador!
 
 ## Screenshots
 
@@ -110,8 +126,7 @@ Nota 2: Para poder ejecutarlo desde código fuente (con cualquiera de las dos fo
 
 ## Planes futuros
 
-* Agregar posibilidad de jugar en dispositivos móviles.
-* Agregar menú de pausa.
+* ~~Agregar posibilidad de jugar en dispositivos móviles.~~
 * Agregar un jefe final.
 
 ## Créditos
